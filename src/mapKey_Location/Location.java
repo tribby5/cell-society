@@ -25,8 +25,8 @@ public class Location extends Point2D{
 		Polygon polygon = new Polygon();
 		
 		for(int i = 0 ; i < shape.getSides() ; i++){
-			vertices[i * 2] = vertices[i*2] + this.xPos;
-			vertices[i * 2 + 1] = vertices[i*2 + 1] + this.yPos;
+			vertices[i * 2] += this.xPos;
+			vertices[i * 2 + 1] += this.yPos;
 		}
 		
 		polygon.getPoints().addAll(vertices);

@@ -1,7 +1,5 @@
 package mapKey_Location;
 
-import javafx.scene.shape.Polygon;
-
 public abstract class Poly {
 	private double apothem;
 	private double radius;
