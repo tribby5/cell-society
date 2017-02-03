@@ -1,4 +1,4 @@
-package mapKey_Location;
+package cellsociety_team13;
 
 
 import javafx.geometry.Point2D;
@@ -16,7 +16,7 @@ public class Location extends Point2D{
 		this.xPos = xIn;
 		this.yPos = yIn;
 		this.shape = polyIn;
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 

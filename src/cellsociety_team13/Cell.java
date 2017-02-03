@@ -1,11 +1,11 @@
-package mapValue_cells;
+package cellsociety_team13;
 
 import javafx.scene.paint.Color;
 
 public abstract class Cell {
 	private Color state;
 	
-	Cell(Color colorInput){
+	protected Cell(Color colorInput){
 		this.state = colorInput;
 	}
 	

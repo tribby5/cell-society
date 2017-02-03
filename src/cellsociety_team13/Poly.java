@@ -1,4 +1,4 @@
-package mapKey_Location;
+package cellsociety_team13;
 
 public abstract class Poly {
 	private double apothem;
@@ -7,7 +7,7 @@ public abstract class Poly {
 	private Double[] vertices;
 
 	
-	Poly(int sideLength, int numSides, double startingAngle){
+	protected Poly(int sideLength, int numSides, double startingAngle){
 		calculateApothem(sideLength);
 		calculateRadius(sideLength);
 		calculateVertices(sideLength, startingAngle);
@@ -35,7 +35,7 @@ public abstract class Poly {
 			double angleOfVertex = startingAngle + i * angleBetweenVertices;
 			
 			vertices[i * 2] = center[0] + this.getApothem() * Math.cos(Math.toRadians(angleOfVertex));
-			vertices[i * 2 + 1] = center[1] + this.getApothem() * Math.sin(Math.toRadians(angleOfVertex));
+			vertices[i * 2 + 1] = center[1] - this.getApothem() * Math.sin(Math.toRadians(angleOfVertex));
 		}
 	}
 	
@@ -47,11 +47,11 @@ public abstract class Poly {
 		return this.radius;
 	}
 	
-	Double[] getVertices(){
+	public Double[] getVertices(){
 		return this.vertices;
 	}
 	
-	int getSides(){
+	public int getSides(){
 		return this.numSides;
 	}
 }
