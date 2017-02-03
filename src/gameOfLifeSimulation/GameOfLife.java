@@ -1,9 +1,7 @@
-package referees;
+package gameOfLifeSimulation;
 
 import java.util.List;
 
-import cells.OnCell;
-import cells.OffCell;
 import cellsociety_team13.Cell;
 
 public class GameOfLife {
@@ -12,13 +10,13 @@ public class GameOfLife {
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
 		
-		if (currentCell instanceof OnCell){
+		if (currentCell instanceof GOL_OnCell){
 			if (liveCount < 2 || liveCount > 3){
-				currentCell = new OffCell((OnCell) currentCell); 
+				currentCell = new GOL_OffCell((GOL_OnCell) currentCell); 
 			}
-		} else if (currentCell instanceof OffCell) {
+		} else if (currentCell instanceof GOL_OffCell) {
 			if (liveCount == 3){
-				currentCell = new OnCell((OffCell) currentCell); 
+				currentCell = new GOL_OnCell((GOL_OffCell) currentCell); 
 			}
 		}
 		
@@ -28,7 +26,7 @@ public class GameOfLife {
 	int getLiveNeighborCount(List<Cell> neighborList){
 		int liveCount = 0;
 		for(Cell c : neighborList){
-			if (c instanceof OnCell){
+			if (c instanceof GOL_OnCell){
 				liveCount += 1;
 			}
 		}
