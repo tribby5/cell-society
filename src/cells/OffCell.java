@@ -1,4 +1,4 @@
-package mapValue_cells;
+package cells;
 
 import javafx.scene.paint.Color;
 
