@@ -13,14 +13,14 @@ public class Society {
 	private Map<Location, Cell> Grid;
 	
 	Society(Map<Location, Cell> rawGrid){
-		this.Grid = rawGrid;
+		Grid = rawGrid;
 		generateNeighbors();		
 		initializeColorStates();
 	}
 
 	
 	private void initializeColorStates() {
-		for(Location loc : this.Grid.keySet()){
+		for(Location loc : Grid.keySet()){
 			loc.applyColorStateToPolygon(Grid.get(loc).getState());
 		}	
 	}
@@ -29,10 +29,10 @@ public class Society {
 	private void generateNeighbors() {
 		sideNeighborMap = new HashMap<Location, ArrayList<Location>>();
 		vertexNeighborMap = new HashMap<Location, ArrayList<Location>>(); 
-		for(Location pointBase : this.Grid.keySet()){
+		for(Location pointBase : Grid.keySet()){
 			ArrayList<Location> tempSideNeighborList = new ArrayList<Location>();
 			ArrayList<Location> tempVertexNeighborList = new ArrayList<Location>();
-			for(Location pointTest : this.Grid.keySet()){
+			for(Location pointTest : Grid.keySet()){
 				if (pointBase != pointTest){
 					double maxDistanceBetweenSideNeighboringLocations = (pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius());
 					double maxDistanceBetweenVertexNeighboringLocations = (pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem());
@@ -56,7 +56,7 @@ public class Society {
 	
 	
 	Map<Location, Cell> getGrid(){
-		return this.Grid;
+		return Grid;
 	}
 	
 	List<Cell> getNeighbors(Location loc){

@@ -39,11 +39,11 @@ public abstract class Poly {
 		}
 	}
 	
-	double getApothem(){
+	public double getApothem(){
 		return this.apothem;
 	}
 	
-	double getRadius(){
+	public double getRadius(){
 		return this.radius;
 	}
 	

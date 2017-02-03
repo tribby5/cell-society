@@ -4,10 +4,6 @@ import java.util.List;
 
 public abstract class Referee {
 
-	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public abstract Cell judge(Cell currentCell, List<Cell> neighborList);
 	
 }

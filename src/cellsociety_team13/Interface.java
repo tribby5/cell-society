@@ -113,11 +113,9 @@ public class Interface{
 	
 	public void setGame(){
 		baseRoot = new Group();
-		
-		XMLReader xmlOutput = new XMLReader(xmlFile);
-		
 		root = baseRoot;
-		myManager = new Manager(xmlOutput);
+
+		myManager = new XMLReader(xmlFile).getManager();
 		
 		myDrawer = new Drawer(root);
 		
