@@ -4,7 +4,6 @@ package cellsociety_team13;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -24,8 +23,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import mapKey_Location.Location;
-import mapValue_cells.Cell;
 
 public class Interface{
 	private Stage stage;
