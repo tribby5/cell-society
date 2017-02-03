@@ -20,7 +20,7 @@ public class Location extends Point2D{
 	}
 	
 
-	void draw(Group root, Color colorInput){
+	public void draw(Group root, Color colorInput){
 		Double[] vertices = shape.getVertices();
 		Polygon polygon = new Polygon();
 		

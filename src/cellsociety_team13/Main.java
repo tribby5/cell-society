@@ -11,8 +11,8 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Interface inter = new Interface(primaryStage);
-		inter.setWelcome();
+		Interface view = new Interface(primaryStage);
+		view.setWelcome();
 	}
 
 }

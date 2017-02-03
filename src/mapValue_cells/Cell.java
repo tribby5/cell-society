@@ -9,7 +9,7 @@ public abstract class Cell {
 		this.state = colorInput;
 	}
 	
-	Color getState(){
+	public Color getState(){
 		return this.state;
 	}
 	

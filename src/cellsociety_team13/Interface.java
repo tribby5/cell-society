@@ -4,18 +4,28 @@ package cellsociety_team13;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import mapKey_Location.Location;
+import mapValue_cells.Cell;
 
 public class Interface{
 	private Stage stage;
@@ -23,30 +33,32 @@ public class Interface{
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
 	private File xmlFile = null;
+	public static final int FRAMES_PER_SEC = 60;
+	public static final double MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
+	public static final double SEC_DELAY = 1.0/FRAMES_PER_SEC;
+	public static final String RESOURCE_PACKAGE = "resources/";
+	public static final String LANGUAGE = "English";
+	private ResourceBundle resources;
+	private Group baseRoot;
+	private Group root;
+	private Map<Location, Cell> grid;
 	
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
-	}
-	
-	public void step(double elapsedTime){
-		
+		resources = ResourceBundle.getBundle(RESOURCE_PACKAGE + LANGUAGE);
 	}
 	
 	public void setWelcome(){
-		Text title = new Text("Welcome");
+		Text title = new Text(resources.getString("welcome"));
+		title.setTextAlignment(TextAlignment.CENTER);
 		title.setFont(font);
-   	 
-   	 	Button cont = new Button("Continue");
-   	 	cont.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            	public void handle(ActionEvent event) {
-                	setInfo();
-            	}
-   	 		});
+   	 	
+   	 	Button cont = new Button(resources.getString("continue"));
+   	 	cont.setOnAction(event -> setInfo());
    	 	
    	 	VBox root = new VBox();
    	 	root.getChildren().addAll(title, cont);
-   	 	root.setSpacing(10);
+   	 	root.setSpacing(50);
    	 	root.setAlignment(Pos.CENTER);
    	 	Scene welcome = new Scene(root, WIDTH, HEIGHT);
 		
@@ -56,18 +68,13 @@ public class Interface{
 	
 	public void setInfo(){
 		GridPane root = new GridPane();
-		Text generalInfo = new Text("General Info");
+		Text generalInfo = new Text(resources.getString("generalInfo"));
 		
-		Button cont = new Button("Continue");
+		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
-		cont.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent event) {
-				setGame();
-			}
-		});
+		cont.setOnAction(event -> setGame());
 		
-		Button fileChoose = new Button("Choose XML File");
+		Button fileChoose = new Button(resources.getString("chooseXML"));
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -91,7 +98,7 @@ public class Interface{
 	
 	private File chooseFile(){
 		FileChooser xmlChooser = new FileChooser();
-		xmlChooser.setTitle("Choose XML file");
+		xmlChooser.setTitle(resources.getString("chooseXML"));
 		File file = xmlChooser.showOpenDialog(stage);
 		if(file != null){
 			try {
@@ -100,17 +107,44 @@ public class Interface{
 				return file;
 				
 			} catch (IOException e) {
-				System.out.println("Cannot find file type" + "\n Exception:" + e);
+				System.out.println(resources.getString("noFileError") + e);
 			}
 		}
 		return null;
 	}
 	
 	public void setGame(){
-		//XMLReader xmlRead = new XMLReader();
-		//HashMap<Location> grid = xmlRead.read(xmlFile);
+		baseRoot = new Group();
+		XMLReader xmlRead = new XMLReader();
+		//grid = xmlRead.read(xmlFile);
 		//Society society = new Society(grid);
-	
+		
+		
+		root = baseRoot;
+		drawGrid(grid);
+		stage.setScene(new Scene(root, WIDTH, HEIGHT));
+		startSimulation();
 	}
+	
+	private void drawGrid(Map<Location, Cell> map){
+		for(Location loc: map.keySet()){
+			loc.draw(root, map.get(loc).getState());
+		}
+	}
+	
+	private void startSimulation(){
+		Timeline simulation = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLI_DELAY), e -> step());
+		simulation.setCycleCount(Timeline.INDEFINITE);
+		simulation.getKeyFrames().add(frame);
+		simulation.play();
+	}
+	
+	private void step(){
+		//give Society to Manager
+		root = baseRoot;
+		drawGrid(grid);
+	}
+	
 	
 }
