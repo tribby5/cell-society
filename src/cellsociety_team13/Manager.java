@@ -9,9 +9,9 @@ public class Manager {
 	private Society mySociety;
 	
 
-	Manager(XMLReader xmlOutput){
-		myReferee = xmlOutput.getReferee();
-		mySociety = new Society(xmlOutput.getSociety());
+	Manager(Society society, Referee referee){
+		myReferee = referee;
+		mySociety = society;
 		
 	}
 
@@ -24,6 +24,7 @@ public class Manager {
 	public void update() {
 		Map<Location, Cell> oldGrid = mySociety.getGrid(); 
 		Map<Location, Cell> newGrid = new HashMap<Location, Cell>();
+		
 		for (Location loc : oldGrid.keySet()){
 			Cell currentCell = oldGrid.get(loc);
 			List<Cell> neighborList = mySociety.getNeighbors(loc);

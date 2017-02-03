@@ -10,7 +10,7 @@ public class OnCell extends TwoStateCell{
 		super(onColor, true);
 	}
 	
-	OnCell(OffCell oldCell){
+	public OnCell(OffCell oldCell){
 		this();
 		// copy data from oldCell
 	}

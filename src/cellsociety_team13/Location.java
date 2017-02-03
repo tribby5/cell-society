@@ -18,7 +18,7 @@ package cellsociety_team13;
 			
 		}
 		
-		void generatePolygon(){
+		public void generatePolygon(){
 			Double[] vertices = shape.getVertices();
 			polygon = new Polygon();
 			
@@ -30,15 +30,15 @@ package cellsociety_team13;
 			polygon.getPoints().addAll(vertices);
 		}
 		
-		void applyColorStateToPolygon(Color colorState){
+		public void applyColorStateToPolygon(Color colorState){
 			polygon.setFill(colorState);
 		}
 		
-		Polygon getPolygon(){
+		public Polygon getPolygon(){
 			return this.polygon;
 		}
 		
-		Poly getPoly(){
+		public Poly getPoly(){
 			return this.shape;
 		}
 	}
