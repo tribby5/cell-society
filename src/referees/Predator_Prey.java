@@ -1,4 +1,4 @@
-package managers;
+package referees;
 
 public class Predator_Prey {
 

@@ -1,6 +1,5 @@
 package cellsociety_team13;
 	import javafx.geometry.Point2D;
-	import javafx.scene.Group;
 	import javafx.scene.paint.Color;
 	import javafx.scene.shape.Polygon;
 	
@@ -8,19 +7,20 @@ package cellsociety_team13;
 		private double xPos;
 		private double yPos;
 		private Poly shape;
+		private Polygon polygon;
 	
 		public Location(double xIn, double yIn, Poly polyIn) {
 			super(xIn, yIn);
 			this.xPos = xIn;
 			this.yPos = yIn;
 			this.shape = polyIn;
+			generatePolygon();
 			
 		}
 		
-	
-		void draw(Group root, Color colorInput){
+		void generatePolygon(){
 			Double[] vertices = shape.getVertices();
-			Polygon polygon = new Polygon();
+			polygon = new Polygon();
 			
 			for(int i = 0 ; i < shape.getSides() ; i++){
 				vertices[i * 2] += this.xPos;
@@ -28,7 +28,14 @@ package cellsociety_team13;
 			}
 			
 			polygon.getPoints().addAll(vertices);
-			root.getChildren().add(polygon);
+		}
+		
+		void applyColorStateToPolygon(Color colorState){
+			polygon.setFill(colorState);
+		}
+		
+		Polygon getPolygon(){
+			return this.polygon;
 		}
 		
 		Poly getPoly(){
