@@ -2,6 +2,7 @@ package cellsociety_team13;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.geometry.Point2D;
@@ -13,11 +14,19 @@ public class Society {
 	
 	Society(Map<Location, Cell> rawGrid){
 		this.Grid = rawGrid;
-		getNeighbors();		
+		generateNeighbors();		
+		initializeColorStates();
 	}
 
 	
-	private void getNeighbors() {
+	private void initializeColorStates() {
+		for(Location loc : this.Grid.keySet()){
+			loc.applyColorStateToPolygon(Grid.get(loc).getState());
+		}	
+	}
+
+
+	private void generateNeighbors() {
 		sideNeighborMap = new HashMap<Location, ArrayList<Location>>();
 		vertexNeighborMap = new HashMap<Location, ArrayList<Location>>(); 
 		for(Location pointBase : this.Grid.keySet()){
@@ -45,4 +54,22 @@ public class Society {
 		return Math.sqrt(Math.pow((l1.getX() - l2.getX()),2)+Math.pow((l1.getY() - l2.getY()),2));
 	}
 	
+	
+	Map<Location, Cell> getGrid(){
+		return this.Grid;
+	}
+	
+	List<Cell> getNeighbors(Location loc){
+		List<Location> neighborLocList = sideNeighborMap.get(loc);
+		List<Cell> neighborCellList = new ArrayList<Cell>();
+		for(Location locNeighbor : neighborLocList){
+			neighborCellList.add(Grid.get(locNeighbor));
+		}
+		return neighborCellList;
+	}
+
+
+	public void updateGrid(Map<Location, Cell> newGrid) {
+		Grid = newGrid;
+	}
 }

@@ -38,7 +38,8 @@ public class Interface{
 	private ResourceBundle resources;
 	private Group baseRoot;
 	private Group root;
-	private Map<Location, Cell> grid;
+	private Drawer myDrawer;
+	private Manager myManager;
 	
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
@@ -112,21 +113,16 @@ public class Interface{
 	
 	public void setGame(){
 		baseRoot = new Group();
-		XMLReader xmlRead = new XMLReader();
-		//grid = xmlRead.read(xmlFile);
-		//Society society = new Society(grid);
 		
+		XMLReader xmlOutput = new XMLReader(xmlFile);
 		
 		root = baseRoot;
-		drawGrid(grid);
+		myManager = new Manager(xmlOutput);
+		
+		myDrawer = new Drawer(root);
+		
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		startSimulation();
-	}
-	
-	private void drawGrid(Map<Location, Cell> map){
-		for(Location loc: map.keySet()){
-			loc.draw(root, map.get(loc).getState());
-		}
 	}
 	
 	private void startSimulation(){
@@ -140,7 +136,8 @@ public class Interface{
 	private void step(){
 		//give Society to Manager
 		root = baseRoot;
-		drawGrid(grid);
+		myManager.update();
+		myDrawer.draw(myManager.getSociety());
 	}
 	
 	

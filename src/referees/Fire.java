@@ -1,4 +1,4 @@
-package managers;
+package referees;
 
 public class Fire {
 	// use three state cells
