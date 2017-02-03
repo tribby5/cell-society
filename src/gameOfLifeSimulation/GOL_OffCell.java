@@ -1,16 +1,17 @@
-package cells;
+package gameOfLifeSimulation;
 
+import cells.TwoStateCell;
 import javafx.scene.paint.Color;
 
-public class OffCell extends TwoStateCell {
+public class GOL_OffCell extends TwoStateCell {
 	
 	public static final Color offColor = Color.BLACK;
 
-	OffCell(){
+	GOL_OffCell(){
 		super(offColor, false);
 	}
 	
-	public OffCell(OnCell oldCell){
+	public GOL_OffCell(GOL_OnCell oldCell){
 		this();
 		// copy data from oldCell
 	}
