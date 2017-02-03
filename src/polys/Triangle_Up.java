@@ -1,4 +1,4 @@
-package mapKey_Location;
+package polys;
 
 public class Triangle_Up extends Triangle {
 	public static final double startingAngle = 90;
