@@ -30,4 +30,8 @@ package cellsociety_team13;
 			polygon.getPoints().addAll(vertices);
 			root.getChildren().add(polygon);
 		}
+		
+		Poly getPoly(){
+			return this.shape;
+		}
 	}
