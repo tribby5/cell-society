@@ -25,11 +25,11 @@ import referees.Segregation;
 public class XMLReader {
 
 	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
-	
+
 	private static final String SIMULATION_TYPE = "simulationType";
 
 	private static final String CELL = "Cell";
-	
+
 	private static final String CELL_TYPE = "CellType";
 
 	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
@@ -102,14 +102,14 @@ public class XMLReader {
 	private String getAttribute (String att) {
 		return currentElement.getAttribute(att);
 	}
-	
-    private String getTextValue (String att) {
-        NodeList nodeList = currentElement.getElementsByTagName(att);
-        if (nodeList != null && nodeList.getLength() > 0)
-            return nodeList.item(0).getTextContent();
-        else
-            throw new XMLException("Couldn't get attribute for %s", att);
-    }
+
+	private String getTextValue (String att) {
+		NodeList nodeList = currentElement.getElementsByTagName(att);
+		if (nodeList != null && nodeList.getLength() > 0)
+			return nodeList.item(0).getTextContent();
+		else
+			throw new XMLException("Couldn't get attribute for %s", att);
+	}
 
 	private static DocumentBuilder getDocumentBuilder() {
 		try {

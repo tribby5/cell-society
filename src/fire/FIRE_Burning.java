@@ -7,9 +7,8 @@ public class FIRE_Burning extends ThreeStateCell{
 
 	public static final Color offColor = Color.RED;
 	
-	FIRE_Burning() {
+	public FIRE_Burning() {
 		super(offColor, 1);
-		// TODO Auto-generated constructor stub
 	}
 
 }

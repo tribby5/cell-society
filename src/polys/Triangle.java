@@ -7,7 +7,6 @@ public abstract class Triangle extends Poly{
 
 	public Triangle(double startingAngle) {
 		super(numSides, startingAngle);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

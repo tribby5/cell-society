@@ -8,7 +8,6 @@ public class Square extends Poly{
 	
 	public Square() {
 		super(numSides, startingAngle);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

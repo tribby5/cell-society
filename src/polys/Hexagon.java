@@ -9,7 +9,6 @@ public class Hexagon extends Poly{
 
 	public Hexagon() {
 		super(numSides, startingAngle);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

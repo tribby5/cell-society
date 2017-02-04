@@ -5,7 +5,6 @@ public class Triangle_Up extends Triangle {
 
 	public Triangle_Up() {
 		super(startingAngle);
-		// TODO Auto-generated constructor stub
 	}
 
 }

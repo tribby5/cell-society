@@ -10,7 +10,6 @@ public abstract class Poly {
 	
 	protected Poly(int pNumSides, double startingAngle){
 		numSides = pNumSides;
-		System.out.print(numSides);
 		calculateApothem();
 		calculateRadius();
 		calculateVertices(startingAngle);	

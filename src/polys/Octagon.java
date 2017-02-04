@@ -8,7 +8,6 @@ public class Octagon extends Poly{
 	
 	public Octagon() {
 		super(numSides, 0);
-		// TODO Auto-generated constructor stub
 	}
 
 }
