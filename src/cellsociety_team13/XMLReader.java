@@ -17,7 +17,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javafx.scene.effect.Light.Point;
 import simulation.Fire.Fire;
 import simulation.GameOfLife.GameOfLife;
 import simulation.PredatorPrey.PredatorPrey;
@@ -25,13 +24,13 @@ import simulation.Segregation.Segregation;
 
 public class XMLReader {
 
-	public static final String SIMULATION_TYPE = "simulationType";
+	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
+
+	private static final String SIMULATION_TYPE = "simulationType";
 
 	private static final String CELL = "Cell";
-	
-	private static final String CELL_TYPE = "CellType";
 
-	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
+	private static final String CELL_TYPE = "CellType";
 
 	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
 			new GameOfLife(),
@@ -54,10 +53,6 @@ public class XMLReader {
 		getSociety();
 	}
 
-	public Point getMaxPoint( ) {
-		return null;
-	}
-
 	public Manager getManager() {
 		return new Manager(society, referee);
 	}
@@ -65,7 +60,7 @@ public class XMLReader {
 	private void getReferee() {
 		currentElement = getRootElement();
 		if (isValidFile())
-			referee = REFEREES.get(getAttribute(SIMULATION_TYPE));
+			referee = REFEREES.get(Integer.parseInt(getAttribute(SIMULATION_TYPE)));
 		else
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
 	}
@@ -78,12 +73,12 @@ public class XMLReader {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				currentElement = (Element) nNode;
 				Map<String, String> locationData = new HashMap<>();
-				for (String field : Location.FIELDS)
+				for (String field: Location.FIELDS)
 					locationData.put(field, getTextValue(field));
-				Location temporalLocation = new Location(locationData);
-				Cell temporalCell = referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE)));
-				grid.put(temporalLocation, temporalCell);
-			}
+				System.out.println(locationData);
+				grid.put(new Location(locationData), referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))));
+			} else
+				throw new XMLException("XML file does not represent some necessary cell values!");
 		}
 		society = new Society(grid);
 	}
@@ -100,21 +95,21 @@ public class XMLReader {
 	}
 
 	private boolean isValidFile () {
-		int simType = getAttribute(SIMULATION_TYPE);
+		int simType = Integer.parseInt(getAttribute(SIMULATION_TYPE));
 		return simType >= 0 & simType < REFEREES.size();
 	}
 
-	private int getAttribute (String att) {
-		return Integer.parseInt(currentElement.getAttribute(att));
+	private String getAttribute (String att) {
+		return currentElement.getAttribute(att);
 	}
-	
-    private String getTextValue (String att) {
-        NodeList nodeList = currentElement.getElementsByTagName(att);
-        if (nodeList != null && nodeList.getLength() > 0)
-            return nodeList.item(0).getTextContent();
-        else
-            throw new XMLException("Couldn't get attribute for %s", att);
-    }
+
+	private String getTextValue (String att) {
+		NodeList nodeList = currentElement.getElementsByTagName(att);
+		if (nodeList != null && nodeList.getLength() > 0)
+			return nodeList.item(0).getTextContent();
+		else
+			throw new XMLException("Couldn't get attribute for %s", att);
+	}
 
 	private static DocumentBuilder getDocumentBuilder() {
 		try {

@@ -8,7 +8,7 @@ public class GOL_OffCell extends TwoStateCell {
 	
 	public static final Color offColor = Color.BLACK;
 
-	GOL_OffCell(){
+	public GOL_OffCell(){
 		super(offColor, false);
 	}
 	

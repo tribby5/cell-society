@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 public abstract class TwoStateCell extends Cell{
 	private boolean stateBool;
 	
-	protected TwoStateCell(Color colorInput, boolean stateInput){
+	public TwoStateCell(Color colorInput, boolean stateInput){
 		super(colorInput);
 		this.stateBool = stateInput;
 	}

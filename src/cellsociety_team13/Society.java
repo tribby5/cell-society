@@ -10,18 +10,18 @@ import javafx.geometry.Point2D;
 public class Society {
 	private Map<Location, ArrayList<Location>> vertexNeighborMap;
 	private Map<Location, ArrayList<Location>> sideNeighborMap;
-	private Map<Location, Cell> Grid;
+	private Map<Location, Cell> grid;
 	
-	Society(Map<Location, Cell> rawGrid){
-		Grid = rawGrid;
+	public Society(Map<Location, Cell> rawGrid){
+		grid = rawGrid;
 		generateNeighbors();		
 		initializeColorStates();
 	}
 
 	
 	private void initializeColorStates() {
-		for(Location loc : Grid.keySet()){
-			loc.applyColorStateToPolygon(Grid.get(loc).getState());
+		for(Location loc : grid.keySet()){
+			loc.applyColorStateToPolygon(grid.get(loc).getState());
 		}	
 	}
 
@@ -29,10 +29,10 @@ public class Society {
 	private void generateNeighbors() {
 		sideNeighborMap = new HashMap<Location, ArrayList<Location>>();
 		vertexNeighborMap = new HashMap<Location, ArrayList<Location>>(); 
-		for(Location pointBase : Grid.keySet()){
+		for(Location pointBase : grid.keySet()){
 			ArrayList<Location> tempSideNeighborList = new ArrayList<Location>();
 			ArrayList<Location> tempVertexNeighborList = new ArrayList<Location>();
-			for(Location pointTest : Grid.keySet()){
+			for(Location pointTest : grid.keySet()){
 				if (pointBase != pointTest){
 					double maxDistanceBetweenSideNeighboringLocations = (pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius());
 					double maxDistanceBetweenVertexNeighboringLocations = (pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem());
@@ -50,27 +50,38 @@ public class Society {
 		}
 	}
 
-	static double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
+	public double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
 		//return l1.distance(l2);
 		return Math.sqrt(Math.pow((l1.getX() - l2.getX()),2)+Math.pow((l1.getY() - l2.getY()),2));
 	}
 	
 	
-	Map<Location, Cell> getGrid(){
-		return Grid;
+	public Map<Location, Cell> getGrid(){
+		return grid;
 	}
 	
-	List<Cell> getNeighbors(Location loc){
+	public List<Cell> getNeighbors(Location loc){
 		List<Location> neighborLocList = sideNeighborMap.get(loc);
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){
-			neighborCellList.add(Grid.get(locNeighbor));
+			neighborCellList.add(grid.get(locNeighbor));
 		}
 		return neighborCellList;
 	}
 
 
 	public void updateGrid(Map<Location, Cell> newGrid) {
-		Grid = newGrid;
+		grid = newGrid;
+	}
+	
+	public Point2D getFurthestPoint( ) {;
+		Point2D max = new Point2D(0, 0);
+		for(Location loc: grid.keySet()){
+			if(loc.getX() > max.getX())
+				max = new Point2D(loc.getX(), max.getY());
+			if(loc.getY() > max.getY())
+				max = new Point2D(max.getX(), loc.getY());
+		}
+		return max;
 	}
 }

@@ -12,14 +12,14 @@ public class GameOfLife extends Referee{
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new GOL_OffCell(),
 			new GOL_OnCell()
-		});
-	
+	});
+
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
 		return currentCell.change(liveCount);
 	}
-	
-	int getLiveNeighborCount(List<Cell> neighborList){
+
+	public int getLiveNeighborCount(List<Cell> neighborList){
 		int liveCount = 0;
 		for(Cell c : neighborList){
 			if (c instanceof GOL_OnCell){

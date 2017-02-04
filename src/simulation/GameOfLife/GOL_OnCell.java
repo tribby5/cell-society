@@ -8,7 +8,7 @@ public class GOL_OnCell extends TwoStateCell{
 	
 	public static final Color onColor = Color.BLACK;
 
-	GOL_OnCell(){
+	public GOL_OnCell(){
 		super(onColor, true);
 	}
 	
