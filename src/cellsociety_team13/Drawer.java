@@ -28,9 +28,7 @@ public class Drawer {
 	private double getScale(Point2D point) {
 		double xScale = Interface.WIDTH/point.getX();
 		double yScale = Interface.HEIGHT/point.getY();
-		if(Double.compare(xScale, yScale) > 0)
-			return xScale;
-		return yScale;
+		return Math.max(xScale, yScale);
 	}
 	
 	

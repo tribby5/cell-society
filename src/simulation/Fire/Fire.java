@@ -7,6 +7,25 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
 
 public class Fire extends Referee{
+	/*Rules:
+	 * 
+	 * side Neighbors
+	 * 
+	 * Tree:
+	 *  - if any neighbors are burning
+	 *     - check if random number [0,1] is less than probCatch
+	 *       - if less -> burning
+	 *       - else -> leave as tree
+	 *  - else -> leave as tree
+	 * 
+	 * Burning:
+	 *  - after one turn of existence -> empty
+	 *       
+	 * Empty:
+	 * - stays empty
+	 * 
+	 * 
+	 */
 
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new FIRE_Dead(),
@@ -16,22 +35,22 @@ public class Fire extends Referee{
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		// TODO Auto-generated method stub
-		return null;
+		return currentCell.change(countBurningNeighbors(neighborList));
 	}
-	// use three state cells
+	
 
 	@Override
 	public List<Cell> getCellTypes() {
-		return null;
+		return CELLS;
 	}
 		
-	private boolean isAnyNeighborBurning(List<Cell> neighborList){
+	private int countBurningNeighbors(List<Cell> neighborList){
+		int count = 0;
 		for (Cell c : neighborList){
 			if (c instanceof FIRE_Burning){
-				return true;
+				count += 1;
 			}
 		}
-		return false;
+		return count;
 	}
 }
