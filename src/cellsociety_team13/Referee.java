@@ -3,10 +3,10 @@ package cellsociety_team13;
 import java.util.Arrays;
 import java.util.List;
 
-import fire.Fire;
-import gameOfLifeSimulation.GameOfLife;
-import referees.Predator_Prey;
-import referees.Segregation;
+import simulation.Fire.Fire;
+import simulation.GameOfLife.GameOfLife;
+import simulation.PredatorPrey.PredatorPrey;
+import simulation.Segregation.Segregation;
 
 public abstract class Referee {
 	public abstract List<Cell> getCellTypes();

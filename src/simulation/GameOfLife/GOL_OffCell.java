@@ -1,4 +1,4 @@
-package gameOfLifeSimulation;
+package simulation.GameOfLife;
 
 import cells.TwoStateCell;
 import cellsociety_team13.Cell;

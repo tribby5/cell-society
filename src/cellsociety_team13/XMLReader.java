@@ -17,11 +17,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import fire.Fire;
-import gameOfLifeSimulation.GameOfLife;
 import javafx.scene.effect.Light.Point;
-import referees.Predator_Prey;
-import referees.Segregation;
+import simulation.Fire.Fire;
+import simulation.GameOfLife.GameOfLife;
+import simulation.PredatorPrey.PredatorPrey;
+import simulation.Segregation.Segregation;
 
 public class XMLReader {
 
@@ -36,7 +36,7 @@ public class XMLReader {
 	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
 			new GameOfLife(),
 			new Fire(),
-			new Predator_Prey(),
+			new PredatorPrey(),
 			new Segregation()
 	});
 

@@ -1,4 +1,4 @@
-package referees;
+package simulation.Segregation;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package fire;
+package simulation.Fire;
 
 import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
@@ -16,6 +16,12 @@ public class FIRE_Burning extends ThreeStateCell{
 	public FIRE_Burning(Cell oldCell) {
 		this();
 		//adopt values from oldCell
+	}
+
+	@Override
+	public Cell change(int n) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

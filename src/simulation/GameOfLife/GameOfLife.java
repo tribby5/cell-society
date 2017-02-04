@@ -1,4 +1,4 @@
-package gameOfLifeSimulation;
+package simulation.GameOfLife;
 
 import java.util.Arrays;
 import java.util.List;
