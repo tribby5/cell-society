@@ -1,14 +1,14 @@
 package simulation.Segregation;
 
-import cells.TwoStateCell;
+import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
 
-public class Segregation_XCell extends TwoStateCell{
+public class Segregation_XCell extends ThreeStateCell{
 	public static final Color xColor = Color.BLUE;
 
 	public Segregation_XCell() {
-		super(xColor, true);
+		super(xColor, 2);
 		// TODO Auto-generated constructor stub
 	}
 

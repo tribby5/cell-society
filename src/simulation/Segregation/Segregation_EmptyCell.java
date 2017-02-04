@@ -4,11 +4,11 @@ import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
 
-public class Segregation_OCell extends ThreeStateCell{
-	public static final Color oColor = Color.RED;
+public class Segregation_EmptyCell extends ThreeStateCell{
+	public static final Color emptyColor = Color.WHITE;
 
-	public Segregation_OCell() {
-		super(oColor, 1);
+	public Segregation_EmptyCell() {
+		super(emptyColor, 0);
 		// TODO Auto-generated constructor stub
 	}
 

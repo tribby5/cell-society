@@ -15,8 +15,7 @@ public class FIRE_Dead extends ThreeStateCell{
 
 	@Override
 	public Cell change(int n) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }
