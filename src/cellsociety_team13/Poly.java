@@ -9,7 +9,8 @@ public abstract class Poly {
 	private Double[] vertices;
 	
 	protected Poly(int pNumSides, double startingAngle){
-		pNumSides = numSides;
+		numSides = pNumSides;
+		System.out.print(numSides);
 		calculateApothem();
 		calculateRadius();
 		calculateVertices(startingAngle);	
@@ -30,6 +31,7 @@ public abstract class Poly {
 	private void calculateVertices(double startingAngle) {
 		double[] center = {DEFAULT_SIDE_LENGTH / 2.0, DEFAULT_SIDE_LENGTH / 2.0};
 		vertices = new Double[numSides * 2];
+		System.out.print(numSides);
 		double angleBetweenVertices = 360 / numSides;
 		
 		for(int i = 0 ; i < numSides; i++){
