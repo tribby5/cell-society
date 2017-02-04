@@ -5,8 +5,10 @@ import javafx.scene.paint.Color;
 
 public class FIRE_Burning extends ThreeStateCell{
 
-	FIRE_Burning(Color colorInput) {
-		super(colorInput, 1);
+	public static final Color offColor = Color.RED;
+	
+	FIRE_Burning() {
+		super(offColor, 1);
 		// TODO Auto-generated constructor stub
 	}
 

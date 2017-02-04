@@ -51,6 +51,7 @@ public class Society {
 	}
 
 	static double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
+		//return l1.distance(l2);
 		return Math.sqrt(Math.pow((l1.getX() - l2.getX()),2)+Math.pow((l1.getY() - l2.getY()),2));
 	}
 	
