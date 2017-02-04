@@ -14,7 +14,7 @@ public class Drawer {
 	}
 	
 	private void draw(Node n){
-		myRoot.getChildren().add(n);
+		myRoot.getChildren().add(n);// TODO JAVA THROWS EXCEPTION: Repeated elements on root?
 	}
 	
 	public void draw(Society mySociety){
