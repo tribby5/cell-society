@@ -10,5 +10,7 @@ public abstract class Cell {
 
 		public Color getState(){
 			return this.state;
-		}		
+		}
+		
+		public abstract Cell change(int n);
 }

@@ -24,5 +24,13 @@ public class Fire extends Referee{
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
+		
+	private boolean isAnyNeighborBurning(List<Cell> neighborList){
+		for (Cell c : neighborList){
+			if (c instanceof FIRE_Burning){
+				return true;
+			}
+		}
+		return false;
 	}
 }

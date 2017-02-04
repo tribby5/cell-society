@@ -3,11 +3,9 @@ package gameOfLifeSimulation;
 import java.util.Arrays;
 import java.util.List;
 
+import cells.TwoStateCell;
 import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
-import fire.Fire;
-import referees.Predator_Prey;
-import referees.Segregation;
 
 public class GameOfLife extends Referee{
 	// use two state cells
@@ -18,18 +16,7 @@ public class GameOfLife extends Referee{
 	
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
-		
-		if (currentCell instanceof GOL_OnCell){
-			if (liveCount < 2 || liveCount > 3){
-				currentCell = new GOL_OffCell((GOL_OnCell) currentCell); 
-			}
-		} else if (currentCell instanceof GOL_OffCell) {
-			if (liveCount == 3){
-				currentCell = new GOL_OnCell((GOL_OffCell) currentCell); 
-			}
-		}
-		
-		return currentCell;
+		return currentCell.change(liveCount);
 	}
 	
 	int getLiveNeighborCount(List<Cell> neighborList){
