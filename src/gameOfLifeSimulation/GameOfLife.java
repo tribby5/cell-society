@@ -11,11 +11,11 @@ public class GameOfLife extends Referee{
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new GOL_OffCell(),
 			new GOL_OnCell()
-		});
-	
+	});
+
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
-		
+
 		if (currentCell instanceof GOL_OnCell){
 			if (liveCount < 2 || liveCount > 3){
 				currentCell = new GOL_OffCell((GOL_OnCell) currentCell); 
@@ -25,11 +25,11 @@ public class GameOfLife extends Referee{
 				currentCell = new GOL_OnCell((GOL_OffCell) currentCell); 
 			}
 		}
-		
+
 		return currentCell;
 	}
-	
-	int getLiveNeighborCount(List<Cell> neighborList){
+
+	public int getLiveNeighborCount(List<Cell> neighborList){
 		int liveCount = 0;
 		for(Cell c : neighborList){
 			if (c instanceof GOL_OnCell){
