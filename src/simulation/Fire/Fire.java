@@ -23,7 +23,7 @@ public class Fire extends Referee{
 
 	@Override
 	public List<Cell> getCellTypes() {
-		return null;
+		return CELLS;
 	}
 		
 	private boolean isAnyNeighborBurning(List<Cell> neighborList){

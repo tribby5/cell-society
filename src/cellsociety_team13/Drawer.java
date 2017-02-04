@@ -17,7 +17,7 @@ public class Drawer {
 		myRoot.getChildren().add(n);// TODO JAVA THROWS EXCEPTION: Repeated elements on root?
 	}
 	
-	public void draw(Society mySociety){
+	public void drawSociety(Society mySociety){
 		Map<Location, Cell> Grid = mySociety.getGrid();
 		double scale = getScale(mySociety.getFurthestPoint());
 		for(Location loc: Grid.keySet()){
@@ -28,9 +28,7 @@ public class Drawer {
 	private double getScale(Point2D point) {
 		double xScale = Interface.WIDTH/point.getX();
 		double yScale = Interface.HEIGHT/point.getY();
-		if(Double.compare(xScale, yScale) > 0)
-			return xScale;
-		return yScale;
+		return Math.max(xScale, yScale);
 	}
 	
 	

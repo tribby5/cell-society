@@ -4,7 +4,6 @@ package cellsociety_team13;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -135,7 +134,7 @@ public class Interface{
 		//give Society to Manager
 		root = baseRoot;
 		myManager.update();
-		myDrawer.draw(myManager.getSociety());
+		myDrawer.drawSociety(myManager.getSociety());
 	}
 	
 	
