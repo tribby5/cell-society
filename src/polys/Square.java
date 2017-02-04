@@ -6,8 +6,8 @@ public class Square extends Poly{
 	public static final int numSides = 4;
 	public static final double startingAngle = 135;
 	
-	public Square(int sideLength) {
-		super(sideLength, numSides, startingAngle);
+	public Square() {
+		super(numSides, startingAngle);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -5,8 +5,6 @@ import java.util.List;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
-import gameOfLifeSimulation.GOL_OffCell;
-import gameOfLifeSimulation.GOL_OnCell;
 
 public class Predator_Prey extends Referee{
 

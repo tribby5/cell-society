@@ -7,8 +7,8 @@ public class Hexagon extends Poly{
 	public static final double startingAngle = 120;
 	
 
-	public Hexagon(int sideLength) {
-		super(sideLength, numSides, startingAngle);
+	public Hexagon() {
+		super(numSides, startingAngle);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -19,19 +19,18 @@ import org.xml.sax.SAXException;
 
 import fire.Fire;
 import gameOfLifeSimulation.GameOfLife;
-import javafx.scene.effect.Light.Point;
 import referees.Predator_Prey;
 import referees.Segregation;
 
 public class XMLReader {
 
-	public static final String SIMULATION_TYPE = "simulationType";
+	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
+	
+	private static final String SIMULATION_TYPE = "simulationType";
 
 	private static final String CELL = "Cell";
 	
 	private static final String CELL_TYPE = "CellType";
-
-	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
 
 	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
 			new GameOfLife(),
@@ -54,10 +53,6 @@ public class XMLReader {
 		getSociety();
 	}
 
-	public Point getMaxPoint( ) {
-		return null;
-	}
-
 	public Manager getManager() {
 		return new Manager(society, referee);
 	}
@@ -78,12 +73,11 @@ public class XMLReader {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				currentElement = (Element) nNode;
 				Map<String, String> locationData = new HashMap<>();
-				for (String field : Location.FIELDS)
-					locationData.put(field, getTextValue(field));
-				Location temporalLocation = new Location(locationData);
-				Cell temporalCell = referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE)));
-				grid.put(temporalLocation, temporalCell);
-			}
+				for (String field: Location.FIELDS)
+					locationData.put(field, ""+getAttribute(field));
+				grid.put(new Location(locationData), referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))));
+			} else
+				throw new XMLException("XML file does not represent some necessary cell values!");
 		}
 		society = new Society(grid);
 	}

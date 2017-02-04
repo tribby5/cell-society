@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.geometry.Point2D;
+
 public class Manager {
 	private Referee myReferee;
 	private Society mySociety;
@@ -12,7 +14,6 @@ public class Manager {
 	Manager(Society society, Referee referee){
 		myReferee = referee;
 		mySociety = society;
-		
 	}
 
 
@@ -33,7 +34,9 @@ public class Manager {
 		}
 		
 		mySociety.updateGrid(newGrid);
-		
 	}
 	
+	public Point2D getFurthestPoint(){
+		return mySociety.getFurthestPoint();
+	}
 }

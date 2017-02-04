@@ -5,9 +5,6 @@ import java.util.List;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
-import fire.Fire;
-import referees.Predator_Prey;
-import referees.Segregation;
 
 public class GameOfLife extends Referee{
 	// use two state cells

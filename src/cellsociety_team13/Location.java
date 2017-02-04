@@ -14,40 +14,25 @@ import polys.Triangle_Up;
 	
 	public class Location extends Point2D{
 		public static final List<String> FIELDS = Arrays.asList(new String[] {
-				"xPos",
-				"yPos",
-				"polyType"
+				"x",
+				"y",
+				"poly"
 		});
-
-		private static final int DEFAULT_SIDE_LENGTH = 1;
 		
 		public static final List<Poly> POLYS = Arrays.asList(new Poly[] {
-				new Square(DEFAULT_SIDE_LENGTH),
-				new Hexagon(DEFAULT_SIDE_LENGTH),
-				new Octagon(DEFAULT_SIDE_LENGTH),
-				new Triangle_Up(DEFAULT_SIDE_LENGTH),
-				new Triangle_Down(DEFAULT_SIDE_LENGTH)
+				new Square(),
+				new Hexagon(),
+				new Octagon(),
+				new Triangle_Up(),
+				new Triangle_Down()
 		});
 		
-		private double xPos;
-		private double yPos;
 		private Poly shape;
 		private Polygon polygon;
-	
-		public Location(double xIn, double yIn, Poly polyIn) {
-			super(xIn, yIn);
-			this.xPos = xIn;
-			this.yPos = yIn;
-			this.shape = polyIn;
-			generatePolygon();
-			
-		}
 		
 		public Location(Map<String, String> data) {
 			super(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
-			this.xPos = Double.parseDouble(data.get(FIELDS.get(0)));
-			this.yPos = Double.parseDouble(data.get(FIELDS.get(1)));
-			this.shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
+			shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
 			generatePolygon();
 		}
 
@@ -56,8 +41,8 @@ import polys.Triangle_Up;
 			polygon = new Polygon();
 			
 			for(int i = 0 ; i < shape.getSides() ; i++){
-				vertices[i * 2] += this.xPos;
-				vertices[i * 2 + 1] += this.yPos;
+				vertices[i * 2] += getX();
+				vertices[i * 2 + 1] += getY();
 			}
 			
 			polygon.getPoints().addAll(vertices);
@@ -68,10 +53,10 @@ import polys.Triangle_Up;
 		}
 		
 		public Polygon getPolygon(){
-			return this.polygon;
+			return polygon;
 		}
 		
 		public Poly getPoly(){
-			return this.shape;
+			return shape;
 		}
 	}

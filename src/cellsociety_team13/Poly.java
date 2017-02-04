@@ -1,33 +1,34 @@
 package cellsociety_team13;
 
 public abstract class Poly {
+	private static final int DEFAULT_SIDE_LENGTH = 1;
+	
 	private double apothem;
 	private double radius;
 	private int numSides;
 	private Double[] vertices;
-
 	
-	protected Poly(int sideLength, int numSides, double startingAngle){
-		calculateApothem(sideLength);
-		calculateRadius(sideLength);
-		calculateVertices(sideLength, startingAngle);
-		
+	protected Poly(int pNumSides, double startingAngle){
+		pNumSides = numSides;
+		calculateApothem();
+		calculateRadius();
+		calculateVertices(startingAngle);	
 	}
 	
 
-	private void calculateRadius(int sideLength) {
-		this.radius = sideLength / (2 * Math.sin(Math.toRadians(180.0 / numSides)));		
+	private void calculateRadius() {
+		this.radius = DEFAULT_SIDE_LENGTH / (2 * Math.sin(Math.toRadians(180.0 / numSides)));		
 	}
 
 
-	private void calculateApothem(int sideLength) {
-		this.apothem = sideLength / (2 * Math.tan(Math.toRadians(180.0 / numSides)));		
+	private void calculateApothem() {
+		this.apothem = DEFAULT_SIDE_LENGTH / (2 * Math.tan(Math.toRadians(180.0 / numSides)));		
 	}
 	
 	
 
-	private void calculateVertices(int sideLength, double startingAngle) {
-		double[] center = {sideLength / 2.0, sideLength / 2.0};
+	private void calculateVertices(double startingAngle) {
+		double[] center = {DEFAULT_SIDE_LENGTH / 2.0, DEFAULT_SIDE_LENGTH / 2.0};
 		vertices = new Double[numSides * 2];
 		double angleBetweenVertices = 360 / numSides;
 		
