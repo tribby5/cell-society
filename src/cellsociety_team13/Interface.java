@@ -134,7 +134,7 @@ public class Interface{
 		//give Society to Manager
 		root = baseRoot;
 		myManager.update();
-		myDrawer.drawSociety(myManager.getSociety());
+		myDrawer.draw(myManager.getSociety());
 	}
 	
 	
