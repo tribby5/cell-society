@@ -18,4 +18,9 @@ public class Segregation_OCell extends ThreeStateCell{
 		return null;
 	}
 
+	@Override
+	public boolean isNotEmpty() {
+		return true;
+	}
+
 }

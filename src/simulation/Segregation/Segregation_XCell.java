@@ -17,6 +17,11 @@ public class Segregation_XCell extends ThreeStateCell{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean isNotEmpty() {
+		return true;
+	}
 	
 
 }

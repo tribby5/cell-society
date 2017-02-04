@@ -15,7 +15,13 @@ public class FIRE_Dead extends ThreeStateCell{
 
 	@Override
 	public Cell change(int n) {
+		// stays dead
 		return this;
+	}
+
+	@Override
+	public boolean isNotEmpty() {
+		return false;
 	}
 
 }

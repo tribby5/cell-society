@@ -14,9 +14,14 @@ public class PredatorPrey extends Referee{
 	 * 
 	 * Fish:
 	 *  - will move to a random adjacent water cell
+	 *     - if enough energy, places new fish where it was (reset energy) 
 	 * 
 	 * Shark:
 	 * - will eat one random neighbor fish
+	 * 		- gains energy of fish
+	 * - else: will move to a random adjacent water cell
+	 * - at zero energy, it dies
+	 * - 
 	 * 
 	 * Reproduction:
 	 * - fish or shark will reproduce if they have survived enough turns
@@ -33,8 +38,26 @@ public class PredatorPrey extends Referee{
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		// TODO Auto-generated method stub
-		return null;
+		if(currentCell.isNotEmpty()){
+			int waterNeighborCount = countNeighborType(neighborList, CELLS.get(0));
+			int fishNeighborCount = countNeighborType(neighborList, CELLS.get(1));
+			
+			
+			
+			// TODO Auto-generated method stub
+		}
+		return currentCell;
+	}
+
+	private int countNeighborType(List<Cell> neighborList, Cell testCell) {
+		int count = 0;
+		for (Cell neighbor : neighborList){
+			if (neighbor.getClass().equals( testCell.getClass())){
+				count++;
+			}
+		}
+		testCell = null; // delete testCell (saves memory)
+		return count;
 	}
 
 	@Override

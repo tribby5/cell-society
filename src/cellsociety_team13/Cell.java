@@ -14,5 +14,7 @@ public abstract class Cell {
 	}
 	
 	public abstract Cell change(int n);
+	
+	public abstract boolean isNotEmpty();
 
 }

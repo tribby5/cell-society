@@ -3,7 +3,6 @@ package simulation.GameOfLife;
 import java.util.Arrays;
 import java.util.List;
 
-import cells.TwoStateCell;
 import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
 
@@ -19,8 +18,6 @@ public class GameOfLife extends Referee{
 	 * Dead:
 	 *  - if 3 live neighbors -> lives
 	 */
-	
-	
 	
 	// use two state cells
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {

@@ -13,18 +13,23 @@ public class FIRE_Alive extends ThreeStateCell{
 
 	FIRE_Alive() {
 		super(aliveColor, 2);
-		// TODO Auto-generated constructor stub
+		// TODO initialize probCatch
 	}
 
 	@Override
-	public Cell change(int n) {
+	public Cell change(int numberOfBurningNeighbors) {
 		Random rand = new Random();
-		for (int i = 0; i < n; i++){
+		for (int i = 0; i < numberOfBurningNeighbors; i++){
 			if (rand.nextDouble() < probCatch){
 				return new FIRE_Burning();
 			}
 		}
 		return this;
+	}
+
+	@Override
+	public boolean isNotEmpty() {
+		return true;
 	}
 
 }

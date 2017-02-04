@@ -37,7 +37,7 @@ public class Fire extends Referee{
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
 		return currentCell.change(countBurningNeighbors(neighborList));
 	}
-	// use three state cells
+	
 
 	@Override
 	public List<Cell> getCellTypes() {

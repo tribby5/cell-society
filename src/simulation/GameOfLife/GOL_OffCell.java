@@ -24,4 +24,9 @@ public class GOL_OffCell extends TwoStateCell {
 		}
 		return this;
 	}
+
+	@Override
+	public boolean isNotEmpty() {
+		return false;
+	}
 }
