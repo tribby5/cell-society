@@ -1,7 +1,5 @@
 package cellsociety_team13;
 
-<<<<<<< HEAD
-=======
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,7 +22,6 @@ import gameOfLifeSimulation.GameOfLife;
 import javafx.scene.effect.Light.Point;
 import referees.Predator_Prey;
 import referees.Segregation;
->>>>>>> origin/master
 
 public class XMLReader {
 

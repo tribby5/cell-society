@@ -1,12 +1,5 @@
 package cellsociety_team13;
 
-<<<<<<< HEAD
-public class XMLException extends Exception {
-	public XMLException(String message){
-		super(message);
-	}
-}
-=======
 /**
  * This class represents what might go wrong when using XML files.
  * 
@@ -38,4 +31,3 @@ public class XMLException extends RuntimeException {
         super(cause);
     }
 }
->>>>>>> origin/master
