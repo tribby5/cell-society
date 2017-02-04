@@ -12,7 +12,7 @@ public class Society {
 	private Map<Location, ArrayList<Location>> sideNeighborMap;
 	private Map<Location, Cell> grid;
 	
-	Society(Map<Location, Cell> rawGrid){
+	public Society(Map<Location, Cell> rawGrid){
 		grid = rawGrid;
 		generateNeighbors();		
 		initializeColorStates();
@@ -50,17 +50,17 @@ public class Society {
 		}
 	}
 
-	static double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
+	public double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
 		//return l1.distance(l2);
 		return Math.sqrt(Math.pow((l1.getX() - l2.getX()),2)+Math.pow((l1.getY() - l2.getY()),2));
 	}
 	
 	
-	Map<Location, Cell> getGrid(){
+	public Map<Location, Cell> getGrid(){
 		return grid;
 	}
 	
-	List<Cell> getNeighbors(Location loc){
+	public List<Cell> getNeighbors(Location loc){
 		List<Location> neighborLocList = sideNeighborMap.get(loc);
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){

@@ -2,13 +2,13 @@ package cellsociety_team13;
 import javafx.scene.paint.Color;
 
 public abstract class Cell {
-		private Color state;
+	private Color state;
 
-		protected Cell(Color colorInput){
-			this.state = colorInput;
-		}
+	public Cell(Color colorInput){
+		this.state = colorInput;
+	}
 
-		public Color getState(){
-			return this.state;
-		}		
+	public Color getState(){
+		return this.state;
+	}		
 }

@@ -33,10 +33,10 @@ public class XMLReader {
 	private static final String CELL_TYPE = "CellType";
 
 	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
-			new GameOfLife(),
-			new Fire(),
-			new Predator_Prey(),
-			new Segregation()
+		new GameOfLife(),
+		new Fire(),
+		new Predator_Prey(),
+		new Segregation()
 	});
 
 	private File file;

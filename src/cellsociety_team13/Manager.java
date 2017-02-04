@@ -11,7 +11,7 @@ public class Manager {
 	private Society mySociety;
 	
 
-	Manager(Society society, Referee referee){
+	public Manager(Society society, Referee referee){
 		myReferee = referee;
 		mySociety = society;
 	}

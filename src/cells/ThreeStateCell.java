@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 public abstract class ThreeStateCell extends Cell{
 	private int trit;
 
-	protected ThreeStateCell(Color colorInput, int stateInput){
+	public ThreeStateCell(Color colorInput, int stateInput){
 		super(colorInput);
 		trit = stateInput;
 	}

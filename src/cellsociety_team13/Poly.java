@@ -8,7 +8,7 @@ public abstract class Poly {
 	private int numSides;
 	private Double[] vertices;
 	
-	protected Poly(int pNumSides, double startingAngle){
+	public Poly(int pNumSides, double startingAngle){
 		numSides = pNumSides;
 		calculateApothem();
 		calculateRadius();
