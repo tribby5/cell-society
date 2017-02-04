@@ -60,7 +60,7 @@ public class XMLReader {
 	private void getReferee() {
 		currentElement = getRootElement();
 		if (isValidFile())
-			referee = REFEREES.get(getAttribute(SIMULATION_TYPE));
+			referee = REFEREES.get(Integer.parseInt(getAttribute(SIMULATION_TYPE)));
 		else
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
 	}
@@ -74,7 +74,8 @@ public class XMLReader {
 				currentElement = (Element) nNode;
 				Map<String, String> locationData = new HashMap<>();
 				for (String field: Location.FIELDS)
-					locationData.put(field, ""+getAttribute(field));
+					locationData.put(field, getTextValue(field));
+				System.out.println(locationData);
 				grid.put(new Location(locationData), referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))));
 			} else
 				throw new XMLException("XML file does not represent some necessary cell values!");
@@ -94,12 +95,12 @@ public class XMLReader {
 	}
 
 	private boolean isValidFile () {
-		int simType = getAttribute(SIMULATION_TYPE);
+		int simType = Integer.parseInt(getAttribute(SIMULATION_TYPE));
 		return simType >= 0 & simType < REFEREES.size();
 	}
 
-	private int getAttribute (String att) {
-		return Integer.parseInt(currentElement.getAttribute(att));
+	private String getAttribute (String att) {
+		return currentElement.getAttribute(att);
 	}
 	
     private String getTextValue (String att) {
