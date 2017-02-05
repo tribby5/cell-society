@@ -70,7 +70,8 @@ public class Location{
 	}
 
 	public void scale(Point2D point) {
-		place = new Point2D(getX() * point.getX(), getY() * point.getY());
+		place = new Point2D(getX() * Interface.WIDTH * point.getX(), getY() * Interface.HEIGHT * point.getY());
+		generatePolygon();
 	}
 
 	public Point2D getPoint() {

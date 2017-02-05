@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class GOL_OnCell extends TwoStateCell{
 	
-	public static final Color onColor = Color.BLACK;
+	public static final Color onColor = Color.BLUE;
 
 	public GOL_OnCell(){
 		super(onColor, true);

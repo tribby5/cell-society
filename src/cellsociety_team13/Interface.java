@@ -175,7 +175,7 @@ public class Interface{
 		root.getChildren().clear();
 		root.getChildren().add(buttonPanel);
 		myManager.update();
-		root = myDrawer.draw(root, myManager.getSociety());	
+		root = myDrawer.draw(root, myManager.getSociety());
 	}
 	
 	
