@@ -1,5 +1,7 @@
 package simulation.Fire;
 
+import java.util.List;
+
 import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
@@ -10,7 +12,6 @@ public class FIRE_Dead extends ThreeStateCell{
 
 	protected FIRE_Dead() {
 		super(deadColor, 0);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,4 +25,8 @@ public class FIRE_Dead extends ThreeStateCell{
 		return false;
 	}
 
+	@Override
+	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
+		return null;
+	}
 }

@@ -11,7 +11,8 @@ public class Drawer {
 		Map<Location, Cell> Grid = mySociety.getGrid();
 		double scale = getScale(mySociety.getFurthestPoint());
 		for(Location loc: Grid.keySet()){
-			root.getChildren().add(loc./*multiply(scale).*/getPolygon());// TODO THIS LINE IS WRONG CAREFUL
+			loc.multiply(scale);
+			draw(loc.getPolygon());
 		}
 		return root;
 	}
@@ -21,6 +22,4 @@ public class Drawer {
 		double yScale = Interface.GRID_HEIGHT/point.getY();
 		return Math.max(xScale, yScale);
 	}
-	
-	
 }

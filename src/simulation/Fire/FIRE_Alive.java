@@ -1,5 +1,6 @@
 package simulation.Fire;
 
+import java.util.List;
 import java.util.Random;
 
 import cells.ThreeStateCell;
@@ -32,4 +33,8 @@ public class FIRE_Alive extends ThreeStateCell{
 		return true;
 	}
 
+	@Override
+	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
+		return null;
+	}
 }
