@@ -1,5 +1,7 @@
 package simulation.GameOfLife;
 
+import java.util.List;
+
 import cells.TwoStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
@@ -12,11 +14,6 @@ public class GOL_OffCell extends TwoStateCell {
 		super(offColor, false);
 	}
 	
-	public GOL_OffCell(GOL_OnCell oldCell){
-		this();
-		// copy data from oldCell
-	}
-
 	@Override
 	public Cell change(int n) {
 		if (n == 3){
@@ -28,5 +25,10 @@ public class GOL_OffCell extends TwoStateCell {
 	@Override
 	public boolean isNotEmpty() {
 		return false;
+	}
+
+	@Override
+	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
+		return null;
 	}
 }

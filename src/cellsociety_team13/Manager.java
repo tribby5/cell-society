@@ -28,7 +28,7 @@ public class Manager {
 		
 		for (Location loc : oldGrid.keySet()){
 			Cell currentCell = oldGrid.get(loc);
-			List<Cell> neighborList = mySociety.getNeighbors(loc);
+			List<Cell> neighborList = mySociety.getSideNeighbors(loc);
 			Cell updatedCell = myReferee.judge(currentCell, neighborList);
 			newGrid.put(loc, updatedCell);
 		}

@@ -60,8 +60,17 @@ public class Society {
 		return grid;
 	}
 	
-	public List<Cell> getNeighbors(Location loc){
+	public List<Cell> getSideNeighbors(Location loc){
 		List<Location> neighborLocList = sideNeighborMap.get(loc);
+		List<Cell> neighborCellList = new ArrayList<Cell>();
+		for(Location locNeighbor : neighborLocList){
+			neighborCellList.add(grid.get(locNeighbor));
+		}
+		return neighborCellList;
+	}
+	
+	public List<Cell> getVertexNeighbors(Location loc){
+		List<Location> neighborLocList = vertexNeighborMap.get(loc);
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){
 			neighborCellList.add(grid.get(locNeighbor));

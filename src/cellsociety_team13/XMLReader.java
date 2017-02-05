@@ -2,9 +2,7 @@ package cellsociety_team13;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -17,11 +15,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import simulation.Fire.Fire;
-import simulation.GameOfLife.GameOfLife;
-import simulation.PredatorPrey.PredatorPrey;
-import simulation.Segregation.Segregation;
-
 public class XMLReader {
 
 	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
@@ -31,13 +24,6 @@ public class XMLReader {
 	private static final String CELL = "Cell";
 
 	private static final String CELL_TYPE = "CellType";
-
-	private static final List<Referee> REFEREES = Arrays.asList(new Referee[] {
-			new GameOfLife(),
-			new Fire(),
-			new PredatorPrey(),
-			new Segregation()
-	});
 
 	private File file;
 
@@ -60,7 +46,7 @@ public class XMLReader {
 	private void getReferee() {
 		currentElement = getRootElement();
 		if (isValidFile())
-			referee = REFEREES.get(Integer.parseInt(getAttribute(SIMULATION_TYPE)));
+			referee = Referee.REFEREES.get(Integer.parseInt(getAttribute(SIMULATION_TYPE)));
 		else
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
 	}
@@ -96,7 +82,7 @@ public class XMLReader {
 
 	private boolean isValidFile () {
 		int simType = Integer.parseInt(getAttribute(SIMULATION_TYPE));
-		return simType >= 0 & simType < REFEREES.size();
+		return simType >= 0 & simType < Referee.REFEREES.size();
 	}
 
 	private String getAttribute (String att) {

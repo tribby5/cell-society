@@ -1,5 +1,7 @@
 package simulation.Segregation;
 
+import java.util.List;
+
 import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
@@ -9,7 +11,6 @@ public class Segregation_XCell extends ThreeStateCell{
 
 	public Segregation_XCell() {
 		super(xColor, 2);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -21,6 +22,11 @@ public class Segregation_XCell extends ThreeStateCell{
 	@Override
 	public boolean isNotEmpty() {
 		return true;
+	}
+
+	@Override
+	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
+		return null;
 	}
 	
 
