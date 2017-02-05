@@ -21,7 +21,9 @@ public class Drawer {
 		Map<Location, Cell> Grid = mySociety.getGrid();
 		double scale = getScale(mySociety.getFurthestPoint());
 		for(Location loc: Grid.keySet()){
-			draw(loc./*multiply(scale).*/getPolygon());// TODO THIS LINE IS WRONG CAREFUL
+			loc.multiply(scale);
+			System.out.println(loc);
+			draw(loc.getPolygon());// TODO THIS LINE IS WRONG CAREFUL
 		}
 	}
 
@@ -30,6 +32,4 @@ public class Drawer {
 		double yScale = Interface.HEIGHT/point.getY();
 		return Math.max(xScale, yScale);
 	}
-	
-	
 }

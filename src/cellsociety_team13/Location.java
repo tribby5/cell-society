@@ -12,8 +12,7 @@ import polys.Square;
 import polys.Triangle_Down;
 import polys.Triangle_Up;
 
-// TODO BIG PROBLEM WITH THIS CLASS AS IT HAS A SUPER THAT IS SUPER PRIVATE
-public class Location extends Point2D{
+public class Location{
 	public static final List<String> FIELDS = Arrays.asList(new String[] {
 			"x",
 			"y",
@@ -28,11 +27,12 @@ public class Location extends Point2D{
 			new Triangle_Down()
 	});
 
+	private Point2D place;
 	private Poly shape;
 	private Polygon polygon;
 
 	public Location(Map<String, String> data) {
-		super(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
+		place = new Point2D(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
 		shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
 		generatePolygon();
 	}
@@ -45,8 +45,17 @@ public class Location extends Point2D{
 			vertices[i * 2] += getX();
 			vertices[i * 2 + 1] += getY();
 		}
-
+		
 		polygon.getPoints().addAll(vertices);
+		System.out.println(polygon);
+	}
+	
+	public double getX(){
+		return place.getX();
+	}
+	
+	public double getY(){
+		return place.getY();
 	}
 
 	public void applyColorStateToPolygon(Color colorState){
@@ -61,7 +70,11 @@ public class Location extends Point2D{
 		return shape;
 	}
 
-	public Point2D multiply(double scale) {
-		return super.multiply(scale);
+	public void multiply(double scale) {
+		place = place.multiply(scale);
+	}
+
+	public Point2D getPoint() {
+		return place;
 	}
 }
