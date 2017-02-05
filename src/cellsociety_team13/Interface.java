@@ -4,9 +4,7 @@ package cellsociety_team13;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Map;
 import java.util.ResourceBundle;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -15,7 +13,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,19 +31,19 @@ public class Interface{
 	public static final int HEIGHT = 500;
 	private File xmlFile = null;
 	public static final int FRAMES_PER_SEC = 60;
-	public static final double MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
-	public static final double SEC_DELAY = 1.0/FRAMES_PER_SEC;
-	public static final String RESOURCE_PACKAGE = "resources/";
-	public static final String LANGUAGE = "English";
-	private ResourceBundle resources;
-	private Group baseRoot;
+	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
+	private double milliDelay = INITIAL_MILLI_DELAY;
+	public static final String RESOURCE_PACKAGE = "English";
 	private Group root;
+	private Group baseRoot;
+	private ResourceBundle resources;
+	private Timeline simulation;
 	private Drawer myDrawer;
 	private Manager myManager;
 	
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
-		resources = ResourceBundle.getBundle(RESOURCE_PACKAGE + LANGUAGE);
+		resources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
 	}
 	
 	public void setWelcome(){
@@ -70,7 +70,7 @@ public class Interface{
 		
 		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
-		cont.setOnAction(event -> setGame());
+		cont.setOnAction(event -> setupSimulation());
 		
 		Button fileChoose = new Button(resources.getString("chooseXML"));
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
@@ -100,6 +100,7 @@ public class Interface{
 		File file = xmlChooser.showOpenDialog(stage);
 		if(file != null){
 			try {
+				//TODO check for XML file type
 				String fileType = Files.probeContentType(file.toPath());
 				System.out.println(fileType);
 				return file;
@@ -111,28 +112,53 @@ public class Interface{
 		return null;
 	}
 	
-	public void setGame(){
-		baseRoot = new Group();
-		root = baseRoot;
-
+	public void setupSimulation(){
+		root = new Group();
+		HBox buttonPanel = new HBox();
+		Button play = new Button("Play");//resources.getString("play"));
+		play.setOnAction(event -> simulation.play());
+		Button pause = new Button("Pause");//resources.getString("pause"));
+		pause.setOnAction(event -> simulation.pause());
+		Button stepThrough = new Button("Step Through");//resources.getString("step"));
+		stepThrough.setOnAction(event -> {simulation.pause(); step();});
+		
+		Slider speed = createSlider();
+		buttonPanel.getChildren().addAll(play, pause, speed);
+		
+		root.getChildren().add(buttonPanel);
+		
+		baseRoot = root;
+		
 		myManager = new XMLReader(xmlFile).getManager();
-		
-		myDrawer = new Drawer(root);
-		
+		myDrawer = new Drawer(root);	
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		startSimulation();
 	}
 	
+	private Slider createSlider(){
+		Slider speed = new Slider();
+		speed.setMin(0);
+		speed.setMax(5);
+		speed.setValue(1);
+		speed.setBlockIncrement(1);
+		speed.setShowTickLabels(true);
+		speed.valueProperty().addListener((observable, oldValue, newValue) -> {changeSimulationSpeed((double) newValue);});
+		return speed;
+	}
+	
 	private void startSimulation(){
-		Timeline simulation = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLI_DELAY), e -> step());
+		simulation = new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.millis(milliDelay), e -> step());
 		simulation.setCycleCount(Timeline.INDEFINITE);
 		simulation.getKeyFrames().add(frame);
 		simulation.play();
 	}
+
+	private void changeSimulationSpeed(double factor){
+		milliDelay = INITIAL_MILLI_DELAY/factor;
+	}
 	
 	private void step(){
-		//give Society to Manager
 		root = baseRoot;
 		myManager.update();
 		myDrawer.draw(myManager.getSociety());
