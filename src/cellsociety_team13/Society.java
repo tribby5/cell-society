@@ -36,7 +36,7 @@ public class Society {
 				if (pointBase != pointTest){
 					double maxDistanceBetweenSideNeighboringLocations = (pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius());
 					double maxDistanceBetweenVertexNeighboringLocations = (pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem());
-					double distanceBetweenLocations = calculateDistanceBetweenLocations(pointBase, pointTest);
+					double distanceBetweenLocations = calculateDistanceBetweenLocations(pointBase.getPoint(), pointTest.getPoint());
 					if (distanceBetweenLocations <= maxDistanceBetweenSideNeighboringLocations){
 						tempSideNeighborList.add(pointTest);
 					}
