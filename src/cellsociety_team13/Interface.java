@@ -1,9 +1,7 @@
 package cellsociety_team13;
 
-
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -28,14 +26,17 @@ public class Interface{
 	private Stage stage;
 	private Font font = new Font("Times New Roman", 40);
 	public static final int WIDTH = 500;
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 550;
+	public static final int GRID_WIDTH = 500;
+	public static final int GRID_HEIGHT = 500;
 	private File xmlFile = null;
 	public static final int FRAMES_PER_SEC = 60;
 	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
 	private double milliDelay = INITIAL_MILLI_DELAY;
 	public static final String RESOURCE_PACKAGE = "English";
+	public static final String FILE_EXTENSION = ".xml";
 	private Group root;
-	private Group baseRoot;
+	private HBox buttonPanel;
 	private ResourceBundle resources;
 	private Timeline simulation;
 	private Drawer myDrawer;
@@ -43,7 +44,7 @@ public class Interface{
 	
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
-		resources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
+		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 	}
 	
 	public void setWelcome(){
@@ -54,19 +55,20 @@ public class Interface{
    	 	Button cont = new Button(resources.getString("continue"));
    	 	cont.setOnAction(event -> setInfo());
    	 	
-   	 	VBox root = new VBox();
-   	 	root.getChildren().addAll(title, cont);
-   	 	root.setSpacing(50);
-   	 	root.setAlignment(Pos.CENTER);
-   	 	Scene welcome = new Scene(root, WIDTH, HEIGHT);
+   	 	VBox welcomeRoot = new VBox();
+   	 	welcomeRoot.getChildren().addAll(title, cont);
+   	 	welcomeRoot.setSpacing(50);
+   	 	welcomeRoot.setAlignment(Pos.CENTER);
+   	 	Scene welcome = new Scene(welcomeRoot, WIDTH, HEIGHT);
 		
 		stage.setScene(welcome);
 		stage.show();
 	}
 	
 	public void setInfo(){
-		GridPane root = new GridPane();
+		GridPane infoRoot = new GridPane();
 		Text generalInfo = new Text(resources.getString("generalInfo"));
+		generalInfo.setWrappingWidth(100);
 		
 		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
@@ -83,14 +85,14 @@ public class Interface{
 			}
 		});
 		
-		root.add(generalInfo, 0, 0);
-		root.add(fileChoose, 1, 0);
-		root.add(cont, 1,1);
-		root.setHgap(WIDTH/2);
-		root.setVgap(HEIGHT/2);
-		root.setAlignment(Pos.CENTER);
+		infoRoot.add(generalInfo, 0, 0);
+		infoRoot.add(fileChoose, 1, 0);
+		infoRoot.add(cont, 1,1);
+		infoRoot.setHgap(WIDTH/2);
+		infoRoot.setVgap(HEIGHT/2);
+		infoRoot.setAlignment(Pos.CENTER);
 
-		Scene info  = new Scene(root, WIDTH, HEIGHT);
+		Scene info  = new Scene(infoRoot, WIDTH, HEIGHT);
 		stage.setScene(info);
 	}
 	
@@ -99,40 +101,45 @@ public class Interface{
 		xmlChooser.setTitle(resources.getString("chooseXML"));
 		File file = xmlChooser.showOpenDialog(stage);
 		if(file != null){
-			try {
-				//TODO check for XML file type
-				String fileType = Files.probeContentType(file.toPath());
-				System.out.println(fileType);
+				String name = file.getName();
+				String fileType = name.substring(name.lastIndexOf("."), name.length());
+				if(!fileType.equals(FILE_EXTENSION)){
+					System.out.println(resources.getString("nonXML"));
+					return null;
+				}
 				return file;
-				
-			} catch (IOException e) {
-				System.out.println(resources.getString("noFileError") + e);
-			}
 		}
 		return null;
 	}
 	
 	public void setupSimulation(){
 		root = new Group();
-		HBox buttonPanel = new HBox();
-		Button play = new Button("Play");//resources.getString("play"));
-		play.setOnAction(event -> simulation.play());
-		Button pause = new Button("Pause");//resources.getString("pause"));
-		pause.setOnAction(event -> simulation.pause());
-		Button stepThrough = new Button("Step Through");//resources.getString("step"));
-		stepThrough.setOnAction(event -> {simulation.pause(); step();});
-		
-		Slider speed = createSlider();
-		buttonPanel.getChildren().addAll(play, pause, speed);
+		createButtonPanel();
 		
 		root.getChildren().add(buttonPanel);
 		
-		baseRoot = root;
-		
 		myManager = new XMLReader(xmlFile).getManager();
-		myDrawer = new Drawer(root);	
+		myDrawer = new Drawer();
+		root = myDrawer.draw(root, myManager.getSociety());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		startSimulation();
+	}
+	
+	private void createButtonPanel(){
+		buttonPanel = new HBox();
+		
+		Button play = new Button(resources.getString("play"));
+		play.setOnAction(event -> simulation.play());
+		Button pause = new Button(resources.getString("pause"));
+		pause.setOnAction(event -> simulation.pause());
+		Button stepThrough = new Button(resources.getString("step"));
+		stepThrough.setOnAction(event -> {simulation.pause(); step();});
+		
+		Slider speed = createSlider();
+		
+		buttonPanel.getChildren().addAll(play, pause, stepThrough, speed);
+		buttonPanel.setLayoutX(WIDTH/2 - 170);
+		buttonPanel.setLayoutY(HEIGHT - 40);
 	}
 	
 	private Slider createSlider(){
@@ -141,7 +148,9 @@ public class Interface{
 		speed.setMax(5);
 		speed.setValue(1);
 		speed.setBlockIncrement(1);
+		speed.setMajorTickUnit(1);
 		speed.setShowTickLabels(true);
+		speed.setShowTickMarks(true);
 		speed.valueProperty().addListener((observable, oldValue, newValue) -> {changeSimulationSpeed((double) newValue);});
 		return speed;
 	}
@@ -155,13 +164,18 @@ public class Interface{
 	}
 
 	private void changeSimulationSpeed(double factor){
-		milliDelay = INITIAL_MILLI_DELAY/factor;
+		if(factor == 0){
+			milliDelay = Integer.MAX_VALUE;
+		}else{
+			milliDelay = INITIAL_MILLI_DELAY/factor;
+		}
 	}
 	
 	private void step(){
-		root = baseRoot;
+		root.getChildren().clear();
+		root.getChildren().add(buttonPanel);
 		myManager.update();
-		myDrawer.draw(myManager.getSociety());
+		root = myDrawer.draw(root, myManager.getSociety());	
 	}
 	
 	
