@@ -70,8 +70,8 @@ public class Location{
 		return shape;
 	}
 
-	public void multiply(double scale) {
-		place = place.multiply(scale);
+	public void scale(Point2D point) {
+		place = new Point2D(getX() * point.getX(), getY() * point.getY());
 	}
 
 	public Point2D getPoint() {
