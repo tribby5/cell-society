@@ -22,8 +22,7 @@ public class Drawer {
 		double scale = getScale(mySociety.getFurthestPoint());
 		for(Location loc: Grid.keySet()){
 			loc.multiply(scale);
-			System.out.println(loc);
-			draw(loc.getPolygon());// TODO THIS LINE IS WRONG CAREFUL
+			draw(loc.getPolygon());
 		}
 	}
 

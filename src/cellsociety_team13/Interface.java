@@ -33,7 +33,7 @@ public class Interface{
 	public static final int FRAMES_PER_SEC = 60;
 	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
 	private double milliDelay = INITIAL_MILLI_DELAY;
-	public static final String RESOURCE_PACKAGE = "English";
+	public static final String RESOURCE_PACKAGE = "resources/English";
 	private Group root;
 	private Group baseRoot;
 	private ResourceBundle resources;
