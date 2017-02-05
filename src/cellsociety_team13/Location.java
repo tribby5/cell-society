@@ -47,7 +47,6 @@ public class Location{
 		}
 		
 		polygon.getPoints().addAll(vertices);
-		System.out.println(polygon);
 	}
 	
 	public double getX(){
