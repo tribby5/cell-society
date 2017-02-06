@@ -1,8 +1,8 @@
 package polys;
 
-import cellsociety_team13.Poly;
+import cellsociety_team13.Shape;
 
-public abstract class Triangle extends Poly{
+public abstract class Triangle extends Shape{
 	public static final int numSides = 3;
 
 	public Triangle(double startingAngle) {

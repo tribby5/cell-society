@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class GOL_OnCell extends TwoStateCell{
 	
-	public static final Color onColor = Color.BLACK;
+	public static final Color onColor = Color.LIGHTGRAY;
 
 	public GOL_OnCell(){
 		super(onColor, true);
@@ -16,8 +16,9 @@ public class GOL_OnCell extends TwoStateCell{
 	
 	@Override
 	public Cell change(int n) {
-		if (n < 2 || n > 3)
+		if (n < 2 || n > 3){
 			return new GOL_OffCell(); 
+		}
 		return this;
 	}
 

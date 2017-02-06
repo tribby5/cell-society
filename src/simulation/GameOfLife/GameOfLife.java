@@ -20,10 +20,18 @@ public class GameOfLife extends NoLocator{
 	 */
 	
 	// use two state cells
-	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new GOL_OffCell(),
-			new GOL_OnCell()
+	public List<Cell> CELLS = Arrays.asList(new Cell[] {
+			getOffCell(),
+			getOnCell()
 	});
+	
+	private Cell getOnCell(){
+		return new GOL_OnCell();
+	}
+	
+	private Cell getOffCell(){
+		return new GOL_OffCell();
+	}
 
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
@@ -32,9 +40,11 @@ public class GameOfLife extends NoLocator{
 
 	public int getLiveNeighborCount(List<Cell> neighborList){
 		int liveCount = 0;
-		for(Cell c : neighborList)
-			if (c instanceof GOL_OnCell)
+		for(Cell c : neighborList){
+			if (c instanceof GOL_OnCell){
 				liveCount += 1;
+			}
+		}		
 		return liveCount;
 	}
 

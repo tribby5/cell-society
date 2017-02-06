@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<Simulation simulationType="0">
+	<Cell>
+		<x>0</x>
+		<y>0</y>
+		<poly>0</poly>
+		<CellType>1</CellType>
+	</Cell>
+	<Cell>
+		<x>0</x>
+		<y>25</y>
+		<poly>0</poly>
+		<CellType>1</CellType>
+	</Cell>
+	<Cell>
+		<x>25</x>
+		<y>0</y>
+		<poly>0</poly>
+		<CellType>1</CellType>
+	</Cell>
+	<Cell>
+		<x>25</x>
+		<y>25</y>
+		<poly>0</poly>
+		<CellType>1</CellType>
+	</Cell>
+</Simulation>

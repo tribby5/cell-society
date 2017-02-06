@@ -64,13 +64,13 @@
 		<x>1.5</x>
 		<y>0.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
 		<y>1.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
@@ -124,7 +124,7 @@
 		<x>2.5</x>
 		<y>0.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>2.5</x>
@@ -202,7 +202,7 @@
 		<x>3.5</x>
 		<y>3.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>3.5</x>
@@ -256,13 +256,13 @@
 		<x>4.5</x>
 		<y>2.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>4.5</x>
 		<y>3.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>4.5</x>
@@ -520,19 +520,19 @@
 		<x>8.5</x>
 		<y>6.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>8.5</x>
 		<y>7.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>8.5</x>
 		<y>8.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>8.5</x>

@@ -1,24 +1,29 @@
 package cellsociety_team13;
 
 import java.util.Map;
-
 import javafx.scene.Group;
 import javafx.scene.shape.Polygon;
 
 public class Drawer {
-	public Group drawBoard(Group root, Society soc){
-		Map<Location, Cell> grid = soc.getGrid();
-		for(Location loc: grid.keySet()){
-			loc.scale(soc.getFurthestPoint());
+
+	
+	public Group draw(Group root, Society mySociety, boolean first){
+		Map<Location, Cell> Grid = mySociety.getGrid();
+		
+		for(Location loc: Grid.keySet()){
+			if(first){
+				loc.moveCenter(mySociety.getFurthestPoint());
+				loc.resetShape(mySociety.getFurthestPoint());
+			}
+			
+			
+			//loc.getPoly().setSideLength(Shape.INITIAL_SIDE_LENGTH * (Interface.GRID_WIDTH/mySociety.getFurthestPoint().getX()));
+			//loc.getPoly().recalculateVertices();
+			//loc.regeneratePolygon();
 			Polygon p = loc.getPolygon();
-			p.setFill(soc.getGrid().get(loc).getState());
+			p.setFill(mySociety.getGrid().get(loc).getState());
 			root.getChildren().add(p);
-			p.set
 		}
 		return root;
 	}
-
-	/*private void drawPolygon(Group root, Society soc, Location loc) {
-		
-	}*/
 }
