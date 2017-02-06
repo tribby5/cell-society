@@ -18,14 +18,13 @@ public class Location{
 			"y",
 			"poly"
 	});
-
-
-	public List<Shape> POLYS = Arrays.asList(new Shape[] {
+	
+	public static final List<Shape> POLYS = Arrays.asList(new Shape[] {
 			getSquare(),
-			new Hexagon(),
-			new Octagon(),
-			new Triangle_Up(),
-			new Triangle_Down()
+			getHexagon(),
+			getOctagon(),
+			getTriangle_Up(),
+			getTriangle_Down()
 	});
 
 	private Point2D place;
@@ -38,7 +37,24 @@ public class Location{
 		generatePolygon();
 	}
 
-	private Shape getSquare() {
+
+	private static Shape getTriangle_Down() {
+		return new Triangle_Down();
+	}
+
+	private static Shape getTriangle_Up() {
+		return new Triangle_Up();
+	}
+
+	private static Shape getOctagon() {
+		return new Octagon();
+	}
+
+	private static Shape getHexagon() {
+		return new Hexagon();
+	}
+
+	private static Shape getSquare() {
 		return new Square();
 	}
 
