@@ -1,23 +1,6 @@
 package cellsociety_team13;
 
-import java.util.Arrays;
-import java.util.List;
-
-import polys.Hexagon;
-import polys.Octagon;
-import polys.Square;
-import polys.Triangle_Down;
-import polys.Triangle_Up;
-
 public abstract class Poly {
-
-	public static final List<Poly> POLYS = Arrays.asList(new Poly[] {
-			new Square(),
-			new Hexagon(),
-			new Octagon(),
-			new Triangle_Up(),
-			new Triangle_Down()
-	});
 	
 	private static final int DEFAULT_SIDE_LENGTH = 1;
 	

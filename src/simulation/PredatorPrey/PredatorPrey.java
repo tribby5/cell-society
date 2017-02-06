@@ -32,17 +32,32 @@ public class PredatorPrey extends NoLocator{
 	 * 
 	 */
 
-	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new PredatorPrey_WaterCell(),
-			new PredatorPrey_FishCell(),
-			new PredatorPrey_SharkCell()
+	private List<Cell> CELLS = Arrays.asList(new Cell[] {
+			getPredatorPrey_WaterCell(),
+			getPredatorPrey_FishCell(),
+			getPredatorPrey_SharkCell()
 	});
+	
+	private Cell getPredatorPrey_SharkCell() {
+		return new PredatorPrey_SharkCell();
+	}
+
+	private Cell getPredatorPrey_FishCell() {
+		return new PredatorPrey_FishCell();
+	}
+
+	private Cell getPredatorPrey_WaterCell() {
+		return new PredatorPrey_WaterCell();
+	}
+	
 	private Map<Location, Cell> grid;
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
 		return currentCell.surroundChange(currentCell, neighborList);
 	}
+
+
 
 	@Override
 	public List<Cell> getCellTypes() {

@@ -27,17 +27,31 @@ public class Fire extends NoLocator{
 	 * 
 	 */
 
-	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new FIRE_Dead(),
-			new FIRE_Burning(),
-			new FIRE_Alive()
+	private List<Cell> CELLS = Arrays.asList(new Cell[] {
+			getFIRE_Dead(),
+			getFIRE_Burning(),
+			getFIRE_Alive()
 	});
+	
+	
+	private Cell getFIRE_Dead() {
+		return new FIRE_Dead();
+	}
+	private Cell getFIRE_Burning() {
+		return new FIRE_Burning();
+	}
+	private Cell getFIRE_Alive() {
+		return new FIRE_Alive();
+	}
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
 		return currentCell.change(countBurningNeighbors(neighborList));
 	}
 	
+
+	
+
 
 	@Override
 	public List<Cell> getCellTypes() {

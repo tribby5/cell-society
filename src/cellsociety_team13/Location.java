@@ -6,12 +6,25 @@ import java.util.Map;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import polys.Hexagon;
+import polys.Octagon;
+import polys.Square;
+import polys.Triangle_Down;
+import polys.Triangle_Up;
 
 public class Location{
 	public static final List<String> FIELDS = Arrays.asList(new String[] {
 			"x",
 			"y",
 			"poly"
+	});
+	
+	public static final List<Poly> POLYS = Arrays.asList(new Poly[] {
+			getSquare(),
+			getHexagon(),
+			getOctagon(),
+			getTriangle_Up(),
+			getTriangle_Down()
 	});
 
 	private Point2D place;
@@ -20,8 +33,28 @@ public class Location{
 
 	public Location(Map<String, String> data) {
 		place = new Point2D(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
-		shape = Poly.POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
+		shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
 		generatePolygon();
+	}
+
+	private static Poly getTriangle_Down() {
+		return new Triangle_Down();
+	}
+
+	private static Poly getTriangle_Up() {
+		return new Triangle_Up();
+	}
+
+	private static Poly getOctagon() {
+		return new Octagon();
+	}
+
+	private static Poly getHexagon() {
+		return new Hexagon();
+	}
+
+	private static Poly getSquare() {
+		return new Square();
 	}
 
 	public void generatePolygon(){

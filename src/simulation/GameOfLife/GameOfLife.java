@@ -20,11 +20,19 @@ public class GameOfLife extends NoLocator{
 	 */
 	
 	// use two state cells
-	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new GOL_OffCell(),
-			new GOL_OnCell()
+	private List<Cell> CELLS = Arrays.asList(new Cell[] {
+			getGOL_OffCell(),
+			getGOL_OnCell()
 	});
 
+	private Cell getGOL_OnCell() {
+		return new GOL_OnCell();
+	}
+
+	private Cell getGOL_OffCell() {
+		return new GOL_OffCell();
+	}
+	
 	public Cell judge(Cell currentCell, List<Cell> neighborList){
 		int liveCount = getLiveNeighborCount(neighborList);
 		return currentCell.change(liveCount);

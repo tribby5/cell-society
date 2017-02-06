@@ -19,18 +19,31 @@ public class Segregation extends Locator{
 	 *     
 	 */
 
-	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new Segregation_OCell(),
-			new Segregation_XCell(),
-			new Segregation_EmptyCell()
+	private List<Cell> CELLS = Arrays.asList(new Cell[] {
+			getSegregation_OCell(),
+			getSegregation_XCell(),
+			getSegregation_EmptyCell()
 	});
+	
+	private Cell getSegregation_OCell() {
+		return new Segregation_OCell();
+	}
+
+
+	private Cell getSegregation_XCell() {
+		return new Segregation_XCell();
+	}
+
+
+	private Cell getSegregation_EmptyCell() {
+		return new Segregation_EmptyCell();
+	}
 
 	public Segregation() {
 		super();
 		// TODO: set satisficationPercentage
 		this.satisficationPercentage = 50.0;
 	}
-
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
