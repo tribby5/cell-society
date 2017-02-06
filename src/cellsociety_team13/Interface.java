@@ -34,6 +34,7 @@ public class Interface{
 	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
 	private double milliDelay = INITIAL_MILLI_DELAY;
 	public static final String RESOURCE_PACKAGE = "English";
+	public static final String XML_FILE_DIRECTORY = "./data";
 	public static final String FILE_EXTENSION = ".xml";
 	private Group root;
 	private HBox buttonPanel;
@@ -99,6 +100,7 @@ public class Interface{
 	private File chooseFile(){
 		FileChooser xmlChooser = new FileChooser();
 		xmlChooser.setTitle(resources.getString("chooseXML"));
+		xmlChooser.setInitialDirectory(new File(XML_FILE_DIRECTORY));
 		File file = xmlChooser.showOpenDialog(stage);
 		if(file != null){
 				String name = file.getName();
