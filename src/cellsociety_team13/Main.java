@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	public static void main (String[] args){
 		launch(args);
-		
 	}
 
 	@Override
@@ -14,5 +13,4 @@ public class Main extends Application{
 		Interface view = new Interface(primaryStage);
 		view.setWelcome();
 	}
-
 }

@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Referee;
+import referees.NoLocator;
 
-public class Fire extends Referee{
+public class Fire extends NoLocator{
 	/*Rules:
 	 * 
 	 * side Neighbors
@@ -46,11 +46,9 @@ public class Fire extends Referee{
 		
 	private int countBurningNeighbors(List<Cell> neighborList){
 		int count = 0;
-		for (Cell c : neighborList){
-			if (c instanceof FIRE_Burning){
+		for (Cell c : neighborList)
+			if (c instanceof FIRE_Burning)
 				count += 1;
-			}
-		}
 		return count;
 	}
 }

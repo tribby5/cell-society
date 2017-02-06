@@ -12,7 +12,7 @@ public class FIRE_Alive extends ThreeStateCell{
 	public static final Color aliveColor = Color.GREEN;
 	private double probCatch;
 
-	FIRE_Alive() {
+	public FIRE_Alive() {
 		super(aliveColor, 2);
 		// TODO initialize probCatch
 	}

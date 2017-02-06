@@ -9,5 +9,4 @@ public class Square extends Poly{
 	public Square() {
 		super(numSides, startingAngle);
 	}
-	
 }

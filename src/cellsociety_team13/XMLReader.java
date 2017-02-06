@@ -33,6 +33,12 @@ public class XMLReader {
 
 	private Element currentElement; 
 
+	/**
+	 * Constructs a class that has the objective of reading an XML file. 
+	 * It receives the file it is going to read.
+	 * 
+	 * @param xmlFile the file the XML is going to read
+	 */
 	public XMLReader(File xmlFile) {
 		file = xmlFile;
 		getReferee();
@@ -61,8 +67,7 @@ public class XMLReader {
 				Map<String, String> locationData = new HashMap<>();
 				for (String field: Location.FIELDS)
 					locationData.put(field, getTextValue(field));
-				System.out.println(locationData);
-				grid.put(new Location(locationData), referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))));
+ 
 			} else
 				throw new XMLException("XML file does not represent some necessary cell values!");
 		}

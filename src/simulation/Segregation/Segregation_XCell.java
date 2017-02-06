@@ -15,8 +15,7 @@ public class Segregation_XCell extends ThreeStateCell{
 
 	@Override
 	public Cell change(int n) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Segregation_EmptyCell();
 	}
 
 	@Override
@@ -28,6 +27,4 @@ public class Segregation_XCell extends ThreeStateCell{
 	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
 		return null;
 	}
-	
-
 }

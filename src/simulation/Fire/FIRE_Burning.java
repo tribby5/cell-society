@@ -10,18 +10,12 @@ public class FIRE_Burning extends ThreeStateCell{
 	
 	public static final Color burningColor = Color.RED;
 
-	FIRE_Burning() {
+	public FIRE_Burning() {
 		super(burningColor, 1);
-	}
-
-	public FIRE_Burning(Cell oldCell) {
-		this();
-		//adopt values from oldCell
 	}
 
 	@Override
 	public Cell change(int n) {
-		// only lives one turn
 		return new FIRE_Dead(); 
 	}
 
