@@ -5,7 +5,6 @@ import java.util.List;
 import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
-import simulation.GameOfLife.GOL_OnCell;
 
 public class FIRE_Burning extends ThreeStateCell{
 	

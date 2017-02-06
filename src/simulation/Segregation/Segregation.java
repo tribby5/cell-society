@@ -7,7 +7,7 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Referee;
 
 public class Segregation extends Referee{
-	
+	private double satisficationPercentage;
 	
 	public Segregation() {
 		super();
@@ -23,8 +23,6 @@ public class Segregation extends Referee{
 	 *     - no -> relocate depending on chosen algorithm 
 	 *     
 	 */
-	
-	private double satisficationPercentage;
 	
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new Segregation_EmptyCell(),
