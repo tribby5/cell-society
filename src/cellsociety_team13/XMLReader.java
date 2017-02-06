@@ -33,6 +33,12 @@ public class XMLReader {
 
 	private Element currentElement; 
 
+	/**
+	 * Constructs a class that has the objective of reading an XML file. 
+	 * It receives the file it is going to read.
+	 * 
+	 * @param xmlFile the file the XML is going to read
+	 */
 	public XMLReader(File xmlFile) {
 		file = xmlFile;
 		getReferee();

@@ -4,16 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Referee;
+import referees.Locator;
 
-public class Segregation extends Referee{
-	
-	
-	public Segregation() {
-		super();
-		// TODO: set satisficationPercentage
-		this.satisficationPercentage = 50.0;
-	}
+public class Segregation extends Locator{
 
 	/* Rules:
 	 * 
@@ -23,23 +16,27 @@ public class Segregation extends Referee{
 	 *     - no -> relocate depending on chosen algorithm 
 	 *     
 	 */
-	
+
 	private double satisficationPercentage;
-	
+
 	private static final List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new Segregation_EmptyCell(),
 			new Segregation_OCell(),
-			new Segregation_XCell()
+			new Segregation_XCell(),
+			new Segregation_EmptyCell()
 	});
-	
+
+	public Segregation() {
+		super();
+		// TODO: set satisficationPercentage
+		this.satisficationPercentage = 50.0;
+	}
+
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		if(currentCell.isNotEmpty()){
-			if (!isCellSatisfied(currentCell, neighborList)){
-				// TODO: relocate cell
-			}
-		} 
+		if (!isCellSatisfied(currentCell, neighborList)){
+			currentCell = currentCell.change(1);
+		}
 		return currentCell;
 	}
 
@@ -49,12 +46,12 @@ public class Segregation extends Referee{
 		for(Cell neighbor : neighborList){
 			if(neighbor.isNotEmpty()){
 				neighborNonEmptyCount++;
-				if(neighbor.getClass().equals( currentCell.getClass())){
+				if(neighbor.getClass().equals(currentCell.getClass())){
 					neighborSameCellCount++;
 				}
 			}
 		}
-		
+
 		return (neighborSameCellCount * 1.0 / neighborNonEmptyCount) >= satisficationPercentage ;
 	}
 
@@ -62,5 +59,4 @@ public class Segregation extends Referee{
 	public List<Cell> getCellTypes() {
 		return CELLS;
 	}
-
 }

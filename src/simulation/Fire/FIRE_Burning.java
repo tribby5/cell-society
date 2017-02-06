@@ -5,7 +5,6 @@ import java.util.List;
 import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import javafx.scene.paint.Color;
-import simulation.GameOfLife.GOL_OnCell;
 
 public class FIRE_Burning extends ThreeStateCell{
 	
@@ -15,14 +14,8 @@ public class FIRE_Burning extends ThreeStateCell{
 		super(burningColor, 1);
 	}
 
-	public FIRE_Burning(Cell oldCell) {
-		this();
-		//adopt values from oldCell
-	}
-
 	@Override
 	public Cell change(int n) {
-		// only lives one turn
 		return new FIRE_Dead(); 
 	}
 

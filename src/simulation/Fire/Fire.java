@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Referee;
+import referees.NoLocator;
 
-public class Fire extends Referee{
+public class Fire extends NoLocator{
 	/*Rules:
 	 * 
 	 * side Neighbors

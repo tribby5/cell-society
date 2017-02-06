@@ -1,9 +1,5 @@
 package cellsociety_team13;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javafx.geometry.Point2D;
 
 public class Manager {
@@ -23,17 +19,9 @@ public class Manager {
 
 
 	public void update() {
-		Map<Location, Cell> oldGrid = mySociety.getGrid(); 
-		Map<Location, Cell> newGrid = new HashMap<Location, Cell>();
+		myReferee.giveSociety(mySociety);
 		
-		for (Location loc : oldGrid.keySet()){
-			Cell currentCell = oldGrid.get(loc);
-			List<Cell> neighborList = mySociety.getSideNeighbors(loc);
-			Cell updatedCell = myReferee.judge(currentCell, neighborList);
-			newGrid.put(loc, updatedCell);
-		}
-		
-		mySociety.updateGrid(newGrid);
+		mySociety.updateGrid(myReferee.getGrid());
 	}
 	
 	public Point2D getFurthestPoint(){
