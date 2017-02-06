@@ -280,7 +280,7 @@
 		<x>4.5</x>
 		<y>6.5</y>
 		<poly>0</poly>
-		<CellType></CellType>
+		<CellType>2</CellType>
 	</Cell>
 	<Cell>
 		<x>4.5</x>

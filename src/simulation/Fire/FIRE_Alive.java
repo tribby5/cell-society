@@ -11,17 +11,19 @@ public class FIRE_Alive extends ThreeStateCell{
 	
 	public static final Color aliveColor = Color.GREEN;
 	private double probCatch;
+	private Random myRandom;
 
 	public FIRE_Alive() {
 		super(aliveColor, 2);
+		myRandom = new Random();
+		probCatch = myRandom.nextDouble();
 		// TODO initialize probCatch
 	}
 
 	@Override
 	public Cell change(int numberOfBurningNeighbors) {
-		Random rand = new Random();
 		for (int i = 0; i < numberOfBurningNeighbors; i++){
-			if (rand.nextDouble() < probCatch){
+			if (myRandom.nextDouble() < probCatch){
 				return new FIRE_Burning();
 			}
 		}

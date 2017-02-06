@@ -11,8 +11,6 @@ public abstract class Referee {
 	
 	public abstract List<Cell> getCellTypes();
 
-	public abstract Cell judge(Cell currentCell, List<Cell> neighborList);
-
 	public void giveSociety(Society soc) {
 		Map<Location, Cell> newGrid = new HashMap<>();
 		grid = soc.getGrid();
@@ -38,6 +36,8 @@ public abstract class Referee {
 	}
 
 	public abstract List<Cell> pickNeighbors(Society soc, Location loc);
+	
+	public abstract Cell judge(Cell currentCell, List<Cell> neighborList);
 
 	public abstract void addChangers(Location loc, Cell currentCell, Cell updatedCell);
 
