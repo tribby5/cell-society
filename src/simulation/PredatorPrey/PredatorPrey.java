@@ -38,24 +38,8 @@ public class PredatorPrey extends Referee{
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		if(currentCell.isNotEmpty()){
-			//If needed put into specific cell
-			//int waterNeighborCount = countNeighborType(neighborList, CELLS.get(0));
-			//int fishNeighborCount = countNeighborType(neighborList, CELLS.get(1));
-			currentCell = currentCell.surroundChange(currentCell, neighborList);
-		}
-		return currentCell;
+		return currentCell.surroundChange(currentCell, neighborList);
 	}
-
-	/*private int countNeighborType(List<Cell> neighborList, Cell testCell) {
-		int count = 0;
-		for (Cell neighbor : neighborList){
-			if (neighbor.getClass().equals( testCell.getClass())){
-				count++;
-			}
-		}
-		return count;
-	}*/
 
 	@Override
 	public List<Cell> getCellTypes() {
