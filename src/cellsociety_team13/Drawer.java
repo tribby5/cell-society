@@ -13,7 +13,6 @@ public class Drawer {
 			Polygon p = loc.getPolygon();
 			p.setFill(soc.getGrid().get(loc).getState());
 			root.getChildren().add(p);
-			p.set
 		}
 		return root;
 	}
