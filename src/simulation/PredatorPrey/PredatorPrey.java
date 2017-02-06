@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
+import cellsociety_team13.Society;
 import referees.NoLocator;
 
 public class PredatorPrey extends NoLocator{
@@ -62,5 +63,10 @@ public class PredatorPrey extends NoLocator{
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
+	}
+
+	@Override
+	public List<Cell> pickNeighbors(Society soc, Location loc) {
+		return soc.getSideNeighbors(loc);
 	}
 }

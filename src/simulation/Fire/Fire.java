@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
+import cellsociety_team13.Location;
+import cellsociety_team13.Society;
 import referees.NoLocator;
 
 public class Fire extends NoLocator{
@@ -64,5 +66,9 @@ public class Fire extends NoLocator{
 			if (c instanceof FIRE_Burning)
 				count += 1;
 		return count;
+	}
+	@Override
+	public List<Cell> pickNeighbors(Society soc, Location loc) {
+		return soc.getSideNeighbors(loc);
 	}
 }

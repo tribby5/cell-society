@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
+import cellsociety_team13.Location;
+import cellsociety_team13.Society;
 import referees.Locator;
 
 public class Segregation extends Locator{
@@ -69,5 +71,11 @@ public class Segregation extends Locator{
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
+	}
+
+
+	@Override
+	public List<Cell> pickNeighbors(Society soc, Location loc) {
+		return soc.getVertexNeighbors(loc);
 	}
 }
