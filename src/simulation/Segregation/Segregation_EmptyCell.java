@@ -38,5 +38,4 @@ public class Segregation_EmptyCell extends ThreeStateCell{
 	public Cell surroundChange(Cell currentCell, List<Cell> neighborList) {
 		return null;
 	}
-
 }

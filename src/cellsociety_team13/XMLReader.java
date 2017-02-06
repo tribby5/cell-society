@@ -67,7 +67,7 @@ public class XMLReader {
 				Map<String, String> locationData = new HashMap<>();
 				for (String field: Location.FIELDS)
 					locationData.put(field, getTextValue(field));
-				grid.put(new Location(locationData), referee.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))));
+ 
 			} else
 				throw new XMLException("XML file does not represent some necessary cell values!");
 		}
