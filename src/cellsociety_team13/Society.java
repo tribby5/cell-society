@@ -16,17 +16,8 @@ public class Society {
 	public Society(Map<Location, Cell> rawGrid){
 		grid = rawGrid;
 		generateNeighbors();		
-		//initializeColorStates();
 		furthestPoint = calcFurthestPoint();
 	}
-
-	
-	private void initializeColorStates() {
-		for(Location loc : grid.keySet()){
-			loc.applyColorStateToPolygon(grid.get(loc).getState());	
-		}	
-	}
-
 
 	private void generateNeighbors() {
         sideNeighbor = new HashMap<Location, ArrayList<Location>>();
@@ -36,9 +27,13 @@ public class Society {
             ArrayList<Location> tempVertex = new ArrayList<Location>();
             for(Location pointTest : grid.keySet())
                 if (pointBase != pointTest){
-                    if (distance(pointBase.getPoint(), pointTest.getPoint()) <= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
+                	double distanceBetween = distance(pointBase.getPoint(), pointTest.getPoint());
+                	
+                    if (distanceBetween 
+                    		<= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
                         tempSide.add(pointTest);
-                    if (distance(pointBase.getPoint(), pointTest.getPoint()) <= pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius())
+                    if (distanceBetween 
+                    		<= pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius())
                         tempVertex.add(pointTest);
                 }
             vertexNeighbor.put(pointBase, tempVertex);
@@ -50,29 +45,27 @@ public class Society {
 		return l1.distance(l2);
 	}
 	
-	
 	public Map<Location, Cell> getGrid(){
 		return grid;
 	}
 	
 	public List<Cell> getSideNeighbors(Location loc){
 		List<Location> neighborLocList = sideNeighbor.get(loc);
-		List<Cell> neighborCellList = new ArrayList<Cell>();
-		for(Location locNeighbor : neighborLocList){
-			neighborCellList.add(grid.get(locNeighbor));
-		}
-		return neighborCellList;
+		return getNeighbors(neighborLocList);		
 	}
 	
 	public List<Cell> getVertexNeighbors(Location loc){
 		List<Location> neighborLocList = vertexNeighbor.get(loc);
+		return getNeighbors(neighborLocList);
+	}
+
+	private List<Cell> getNeighbors(List<Location> neighborLocList) {
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){
 			neighborCellList.add(grid.get(locNeighbor));
 		}
 		return neighborCellList;
 	}
-
 
 	public void updateGrid(Map<Location, Cell> newGrid) {
 		grid = newGrid;

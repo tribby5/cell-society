@@ -34,7 +34,6 @@ public class Location{
 	public Location(Map<String, String> data) {
 		place = new Point2D(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
 		shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
-		generatePolygon();
 	}
 
 
@@ -94,19 +93,23 @@ public class Location{
 		return shape;
 	}
 
-
-	public void moveCenter(Point2D point) {
-		place = new Point2D(getX() * Interface.GRID_WIDTH/point.getX(), getY() * Interface.GRID_HEIGHT/point.getY());
-	}
-
 	public Point2D getPoint() {
 		return place;
 	}
 
+	public void moveAndScaleShape(Point2D furthestPoint) {
+		this.moveCenter(furthestPoint);
+		this.resetShape(furthestPoint);
+	}
+	
+	public void moveCenter(Point2D point) {
+		place = new Point2D(getX() * Interface.GRID_WIDTH/point.getX(), 
+							getY() * Interface.GRID_HEIGHT/point.getY());
+	}
+	
 	public void resetShape(Point2D point) {
 		shape = new Square();
 		shape.setSideLength(Interface.GRID_WIDTH/point.getX());
 		generatePolygon();
-
 	}
 }

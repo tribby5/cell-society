@@ -12,14 +12,8 @@ public class Drawer {
 		
 		for(Location loc: Grid.keySet()){
 			if(first){
-				loc.moveCenter(mySociety.getFurthestPoint());
-				loc.resetShape(mySociety.getFurthestPoint());
+				loc.moveAndScaleShape(mySociety.getFurthestPoint());
 			}
-			
-			
-			//loc.getPoly().setSideLength(Shape.INITIAL_SIDE_LENGTH * (Interface.GRID_WIDTH/mySociety.getFurthestPoint().getX()));
-			//loc.getPoly().recalculateVertices();
-			//loc.regeneratePolygon();
 			Polygon p = loc.getPolygon();
 			p.setFill(mySociety.getGrid().get(loc).getState());
 			root.getChildren().add(p);

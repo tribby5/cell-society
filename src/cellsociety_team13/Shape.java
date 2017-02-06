@@ -12,23 +12,24 @@ public abstract class Shape {
 
 	public Shape(int pNumSides, double startingAngle){
 		numSides = pNumSides;
-		calculateVertices(startingAngle);	
 		angle = startingAngle;
+		updateShapeParameters();
 	}
 	
-	private void calculateVertices(double startingAngle) {
+	private void updateShapeParameters() {
 		calculateRadius();
 		calculateApothem();
-		
+		calculateVertices();
+	}
+
+	private void calculateVertices() {
 		double[] center = {sideLength / 2.0, sideLength / 2.0};
 		vertices = new Double[numSides * 2];
 		//System.out.print(numSides);
 		double angleBetweenVertices = 360 / numSides;
 		
 		for(int i = 0 ; i < numSides; i++){
-			double angleOfVertex = startingAngle + i * angleBetweenVertices;
-			
-															
+			double angleOfVertex = angle + i * angleBetweenVertices;															
 			vertices[i * 2] = center[0] + this.getRadius() * Math.cos(Math.toRadians(angleOfVertex));
 			vertices[i * 2 + 1] = center[1] - this.getRadius() * Math.sin(Math.toRadians(angleOfVertex));
 		}
@@ -40,10 +41,6 @@ public abstract class Shape {
 
 	private void calculateApothem() {
 		this.apothem = sideLength / (2 * Math.tan(Math.toRadians(180.0 / numSides)));		
-	}
-	
-	public void recalculateVertices(){
-		calculateVertices(angle);
 	}
 	
 	public double getApothem(){
@@ -64,7 +61,7 @@ public abstract class Shape {
 	
 	public void setSideLength(double length){
 		sideLength = length;
-		recalculateVertices();
+		updateShapeParameters();
 	}
 	
 	public double getSideLength(){
