@@ -8,49 +8,44 @@ import java.util.Map;
 import javafx.geometry.Point2D;
 
 public class Society {
-	private Map<Location, ArrayList<Location>> vertexNeighborMap;
-	private Map<Location, ArrayList<Location>> sideNeighborMap;
+	private Map<Location, ArrayList<Location>> vertexNeighbor;
+	private Map<Location, ArrayList<Location>> sideNeighbor;
 	private Map<Location, Cell> grid;
+	private Point2D furthestPoint;
 	
 	public Society(Map<Location, Cell> rawGrid){
 		grid = rawGrid;
 		generateNeighbors();		
-		initializeColorStates();
+		//initializeColorStates();
+		furthestPoint = calcFurthestPoint();
 	}
 
 	
 	private void initializeColorStates() {
 		for(Location loc : grid.keySet()){
-			loc.applyColorStateToPolygon(grid.get(loc).getState());
+			loc.applyColorStateToPolygon(grid.get(loc).getState());	
 		}	
 	}
 
 
 	private void generateNeighbors() {
-		sideNeighborMap = new HashMap<Location, ArrayList<Location>>();
-		vertexNeighborMap = new HashMap<Location, ArrayList<Location>>(); 
-		for(Location pointBase : grid.keySet()){
-			ArrayList<Location> tempSideNeighborList = new ArrayList<Location>();
-			ArrayList<Location> tempVertexNeighborList = new ArrayList<Location>();
-			for(Location pointTest : grid.keySet()){
-				if (pointBase != pointTest){
-					double maxDistanceBetweenSideNeighboringLocations = (pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius());
-					double maxDistanceBetweenVertexNeighboringLocations = (pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem());
-					double distanceBetweenLocations = calculateDistanceBetweenLocations(pointBase.getPoint(), pointTest.getPoint());
-					if (distanceBetweenLocations <= maxDistanceBetweenSideNeighboringLocations){
-						tempSideNeighborList.add(pointTest);
-					}
-					if (distanceBetweenLocations <= maxDistanceBetweenVertexNeighboringLocations){
-						tempVertexNeighborList.add(pointTest);
-					}
-				}
-			}
-			vertexNeighborMap.put(pointBase, tempVertexNeighborList);
-			sideNeighborMap.put(pointBase, tempSideNeighborList);
-		}
-	}
-
-	public double calculateDistanceBetweenLocations(Point2D l1, Point2D l2){
+        sideNeighbor = new HashMap<Location, ArrayList<Location>>();
+        vertexNeighbor = new HashMap<Location, ArrayList<Location>>(); 
+        for(Location pointBase : grid.keySet()){
+            ArrayList<Location> tempSide = new ArrayList<Location>();
+            ArrayList<Location> tempVertex = new ArrayList<Location>();
+            for(Location pointTest : grid.keySet())
+                if (pointBase != pointTest){
+                    if (distance(pointBase.getPoint(), pointTest.getPoint()) <= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
+                        tempSide.add(pointTest);
+                    if (distance(pointBase.getPoint(), pointTest.getPoint()) <= pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius())
+                        tempVertex.add(pointTest);
+                }
+            vertexNeighbor.put(pointBase, tempVertex);
+            sideNeighbor.put(pointBase, tempSide);
+        }
+    }
+	public double distance(Point2D l1, Point2D l2){
 		return l1.distance(l2);
 	}
 	
@@ -60,7 +55,7 @@ public class Society {
 	}
 	
 	public List<Cell> getSideNeighbors(Location loc){
-		List<Location> neighborLocList = sideNeighborMap.get(loc);
+		List<Location> neighborLocList = sideNeighbor.get(loc);
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){
 			neighborCellList.add(grid.get(locNeighbor));
@@ -69,7 +64,7 @@ public class Society {
 	}
 	
 	public List<Cell> getVertexNeighbors(Location loc){
-		List<Location> neighborLocList = vertexNeighborMap.get(loc);
+		List<Location> neighborLocList = vertexNeighbor.get(loc);
 		List<Cell> neighborCellList = new ArrayList<Cell>();
 		for(Location locNeighbor : neighborLocList){
 			neighborCellList.add(grid.get(locNeighbor));
@@ -82,7 +77,7 @@ public class Society {
 		grid = newGrid;
 	}
 	
-	public Point2D getFurthestPoint( ) {;
+	private Point2D calcFurthestPoint() {
 		Point2D max = new Point2D(0, 0);
 		for(Location loc: grid.keySet()){
 			if(loc.getX() > max.getX())
@@ -92,4 +87,9 @@ public class Society {
 		}
 		return max;
 	}
+	
+	public Point2D getFurthestPoint(){
+		return furthestPoint;
+	}
+	
 }

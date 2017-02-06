@@ -4,13 +4,13 @@
 		<x>0.5</x>
 		<y>0.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>0.5</x>
 		<y>1.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>0.5</x>
@@ -21,19 +21,19 @@
 	<Cell>
 		<x>1.5</x>
 		<y>0.5</y>
-		<poly>1</poly>
-		<CellType>0</CellType>
+		<poly>0</poly>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
 		<y>1.5</y>
-		<poly>1</poly>
+		<poly>0</poly>
 		<CellType>0</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
 		<y>2.5</y>
-		<poly>1</poly>
+		<poly>0</poly>
 		<CellType>0</CellType>
 	</Cell>
 	<Cell>

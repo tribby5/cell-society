@@ -19,8 +19,8 @@ public class Location{
 			"poly"
 	});
 
-	public static final List<Poly> POLYS = Arrays.asList(new Poly[] {
-			new Square(),
+	public List<Shape> POLYS = Arrays.asList(new Shape[] {
+			getSquare(),
 			new Hexagon(),
 			new Octagon(),
 			new Triangle_Up(),
@@ -28,7 +28,7 @@ public class Location{
 	});
 
 	private Point2D place;
-	private Poly shape;
+	private Shape shape;
 	private Polygon polygon;
 
 	public Location(Map<String, String> data) {
@@ -37,18 +37,29 @@ public class Location{
 		generatePolygon();
 	}
 
+	private Shape getSquare() {
+		return new Square();
+	}
+
 	public void generatePolygon(){
 		Double[] vertices = shape.getVertices();
 		polygon = new Polygon();
 
+		
 		for(int i = 0 ; i < shape.getSides() ; i++){
 			vertices[i * 2] += getX();
 			vertices[i * 2 + 1] += getY();
 		}
-		
+
 		polygon.getPoints().addAll(vertices);
-		System.out.println(polygon);
+		//System.out.println(polygon);
 	}
+	
+	public void regeneratePolygon(){
+		polygon.getPoints().clear();
+		polygon.getPoints().addAll(shape.getVertices());
+		//System.out.println(polygon);
+	}	
 	
 	public double getX(){
 		return place.getX();
@@ -66,15 +77,24 @@ public class Location{
 		return polygon;
 	}
 
-	public Poly getPoly(){
+	public Shape getPoly(){
 		return shape;
 	}
 
-	public void scale(Point2D point) {
-		place = new Point2D(getX() * point.getX(), getY() * point.getY());
+	public void moveCenter(Point2D point) {
+		//place = new Point2D(getX()*100, getY()*100);
+		place = new Point2D(getX() * Interface.GRID_WIDTH/point.getX(), getY() * Interface.GRID_HEIGHT/point.getY());
+		//System.out.println(point.getX() + " " + point.getY());
 	}
 
 	public Point2D getPoint() {
 		return place;
+	}
+
+	public void resetShape(Point2D point) {
+		shape = new Square();
+		shape.setSideLength(Interface.GRID_WIDTH/point.getX());
+		generatePolygon();
+
 	}
 }

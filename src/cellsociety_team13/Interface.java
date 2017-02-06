@@ -25,12 +25,12 @@ import javafx.util.Duration;
 public class Interface{
 	private Stage stage;
 	private Font font = new Font("Times New Roman", 40);
-	public static final int WIDTH = 500;
-	public static final int HEIGHT = 550;
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 650;
 	public static final int GRID_WIDTH = 500;
 	public static final int GRID_HEIGHT = 500;
 	private File xmlFile = null;
-	public static final int FRAMES_PER_SEC = 60;
+	public static final int FRAMES_PER_SEC = 2;
 	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
 	private double milliDelay = INITIAL_MILLI_DELAY;
 	public static final String RESOURCE_PACKAGE = "English";
@@ -104,7 +104,6 @@ public class Interface{
 				String name = file.getName();
 				String fileType = name.substring(name.lastIndexOf("."), name.length());
 				if(!fileType.equals(FILE_EXTENSION)){
-					System.out.println(resources.getString("nonXML"));
 					return null;
 				}
 				return file;
@@ -112,7 +111,7 @@ public class Interface{
 		return null;
 	}
 	
-	public void setupSimulation(){
+	private void setupSimulation(){
 		root = new Group();
 		createButtonPanel();
 		
@@ -120,7 +119,7 @@ public class Interface{
 		
 		myManager = new XMLReader(xmlFile).getManager();
 		myDrawer = new Drawer();
-		root = myDrawer.draw(root, myManager.getSociety());
+		root = myDrawer.draw(root, myManager.getSociety(), true);
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		startSimulation();
 	}
@@ -160,7 +159,8 @@ public class Interface{
 		KeyFrame frame = new KeyFrame(Duration.millis(milliDelay), e -> step());
 		simulation.setCycleCount(Timeline.INDEFINITE);
 		simulation.getKeyFrames().add(frame);
-		simulation.play();
+		//simulation.play();
+		//step();
 	}
 
 	private void changeSimulationSpeed(double factor){
@@ -175,7 +175,7 @@ public class Interface{
 		root.getChildren().clear();
 		root.getChildren().add(buttonPanel);
 		myManager.update();
-		root = myDrawer.draw(root, myManager.getSociety());	
+		root = myDrawer.draw(root, myManager.getSociety(), false);	
 	}
 	
 	
