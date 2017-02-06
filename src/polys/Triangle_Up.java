@@ -6,5 +6,4 @@ public class Triangle_Up extends Triangle {
 	public Triangle_Up() {
 		super(startingAngle);
 	}
-
 }

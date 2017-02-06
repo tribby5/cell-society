@@ -41,18 +41,16 @@ public class Segregation extends Locator{
 	}
 
 	private boolean isCellSatisfied(Cell currentCell, List<Cell> neighborList) {
-		int neighborNonEmptyCount = 0;
-		int neighborSameCellCount = 0;
-		for(Cell neighbor : neighborList){
+		int busyNeig = 0;
+		int sameNeig = 0;
+		for(Cell neighbor : neighborList)
 			if(neighbor.isNotEmpty()){
-				neighborNonEmptyCount++;
-				if(neighbor.getClass().equals(currentCell.getClass())){
-					neighborSameCellCount++;
-				}
+				busyNeig++;
+				if(neighbor.getClass().equals(currentCell.getClass()))
+					sameNeig++;
 			}
-		}
 
-		return (neighborSameCellCount * 1.0 / neighborNonEmptyCount) >= satisficationPercentage ;
+		return (sameNeig * 1.0 / busyNeig) >= satisficationPercentage ;
 	}
 
 	@Override

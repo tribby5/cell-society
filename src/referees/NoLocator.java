@@ -18,12 +18,18 @@ public abstract class NoLocator extends Referee {
 		Map<Location, Cell> newGrid = new HashMap<>();
 		grid = soc.getGrid();
 		for (Location loc : grid.keySet()){
-			Cell currentCell = grid.get(loc);
-			List<Cell> neighborList = soc.getSideNeighbors(loc);
-			Cell updatedCell = judge(currentCell, neighborList);
+			Cell updatedCell = manageLocation(soc, loc);
 			newGrid.put(loc, updatedCell);
 		}
 		grid = newGrid;
+	}
+
+	@Override
+	public Cell manageLocation(Society soc, Location loc) {
+		Cell currentCell = grid.get(loc);
+		List<Cell> neighborList = soc.getSideNeighbors(loc);
+		Cell updatedCell = judge(currentCell, neighborList);
+		return updatedCell;
 	}
 	
 	@Override

@@ -46,11 +46,9 @@ public class Fire extends NoLocator{
 		
 	private int countBurningNeighbors(List<Cell> neighborList){
 		int count = 0;
-		for (Cell c : neighborList){
-			if (c instanceof FIRE_Burning){
+		for (Cell c : neighborList)
+			if (c instanceof FIRE_Burning)
 				count += 1;
-			}
-		}
 		return count;
 	}
 }

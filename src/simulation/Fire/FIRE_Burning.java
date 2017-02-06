@@ -10,7 +10,7 @@ public class FIRE_Burning extends ThreeStateCell{
 	
 	public static final Color burningColor = Color.RED;
 
-	FIRE_Burning() {
+	public FIRE_Burning() {
 		super(burningColor, 1);
 	}
 

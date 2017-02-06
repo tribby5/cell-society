@@ -16,9 +16,8 @@ public class GOL_OnCell extends TwoStateCell{
 	
 	@Override
 	public Cell change(int n) {
-		if (n < 2 || n > 3){
+		if (n < 2 || n > 3)
 			return new GOL_OffCell(); 
-		}
 		return this;
 	}
 

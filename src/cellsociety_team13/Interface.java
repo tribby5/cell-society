@@ -120,7 +120,7 @@ public class Interface{
 		
 		myManager = new XMLReader(xmlFile).getManager();
 		myDrawer = new Drawer();
-		root = myDrawer.draw(root, myManager.getSociety());
+		root = myDrawer.drawBoard(root, myManager.getSociety());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		startSimulation();
 	}
@@ -175,7 +175,7 @@ public class Interface{
 		root.getChildren().clear();
 		root.getChildren().add(buttonPanel);
 		myManager.update();
-		root = myDrawer.draw(root, myManager.getSociety());
+		root = myDrawer.drawBoard(root, myManager.getSociety());
 	}
 	
 	

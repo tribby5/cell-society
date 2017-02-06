@@ -32,11 +32,9 @@ public class GameOfLife extends NoLocator{
 
 	public int getLiveNeighborCount(List<Cell> neighborList){
 		int liveCount = 0;
-		for(Cell c : neighborList){
-			if (c instanceof GOL_OnCell){
+		for(Cell c : neighborList)
+			if (c instanceof GOL_OnCell)
 				liveCount += 1;
-			}
-		}
 		return liveCount;
 	}
 

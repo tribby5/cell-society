@@ -9,5 +9,4 @@ public class Hexagon extends Poly{
 	public Hexagon() {
 		super(numSides, startingAngle);
 	}
-	
 }

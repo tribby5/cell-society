@@ -28,18 +28,28 @@ public abstract class Locator extends Referee {
 		grid = soc.getGrid();
 		setRelocaters();
 		for (Location loc : grid.keySet()){
-			Cell currentCell = grid.get(loc);
-			List<Cell> neighborList = soc.getSideNeighbors(loc);
-			Cell updatedCell = judge(currentCell, neighborList);
-			if(updatedCell instanceof Segregation_EmptyCell){
-				emptyPlaces.add(loc);
-				if(!(currentCell instanceof Segregation_EmptyCell))
-					relocate.add(currentCell);
-			} 
+			Cell updatedCell = manageLocation(soc, loc); 
 			newGrid.put(loc, updatedCell);
 		}
 		grid = newGrid;
 		relocate();
+	}
+
+	@Override
+	public Cell manageLocation(Society soc, Location loc) {
+		Cell currentCell = grid.get(loc);
+		List<Cell> neighborList = soc.getSideNeighbors(loc);
+		Cell updatedCell = judge(currentCell, neighborList);
+		addChangers(loc, currentCell, updatedCell);
+		return updatedCell;
+	}
+
+	private void addChangers(Location loc, Cell currentCell, Cell updatedCell) {
+		if(updatedCell instanceof Segregation_EmptyCell){
+			emptyPlaces.add(loc);
+			if(!(currentCell instanceof Segregation_EmptyCell))
+				relocate.add(currentCell);
+		}
 	}
 	
 	@Override

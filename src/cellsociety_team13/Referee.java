@@ -26,4 +26,5 @@ public abstract class Referee {
 
 	public abstract Map<Location, Cell> getGrid();
 	
+	public abstract Cell manageLocation(Society soc, Location loc);
 }
