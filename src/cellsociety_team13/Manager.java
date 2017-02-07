@@ -10,6 +10,10 @@ public class Manager {
 	public Manager(Society society, Referee referee){
 		myReferee = referee;
 		mySociety = society;
+		
+		if (myReferee.isTorodialWorld()){
+			//mySociety.addTorodialNeighbors();
+		}
 	}
 
 
@@ -20,11 +24,10 @@ public class Manager {
 
 	public void update() {
 		myReferee.giveSociety(mySociety);
-		
 		mySociety.updateGrid(myReferee.getGrid());
 	}
 	
 	public Point2D getFurthestPoint(){
-		return mySociety.getFurthestPoint();
+		return mySociety.getBottomRightPoint();
 	}
 }

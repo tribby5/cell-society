@@ -26,6 +26,14 @@ public class Segregation extends Locator{
 			getSegregation_XCell(),
 			getSegregation_EmptyCell()
 	});
+	public static final boolean torodialWorld = false;
+	public static final boolean vertexNeighbors = true;
+	
+	public Segregation(){
+		super(vertexNeighbors, torodialWorld);
+		// TODO: set satisficationPercentage
+		this.satisficationPercentage = 50;
+	}
 	
 	private Cell getSegregation_OCell() {
 		return new Segregation_OCell();
@@ -39,12 +47,6 @@ public class Segregation extends Locator{
 
 	private Cell getSegregation_EmptyCell() {
 		return new Segregation_EmptyCell();
-	}
-
-	public Segregation() {
-		super();
-		// TODO: set satisficationPercentage
-		this.satisficationPercentage = 50;
 	}
 
 	@Override

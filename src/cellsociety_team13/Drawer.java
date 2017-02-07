@@ -5,14 +5,13 @@ import javafx.scene.Group;
 import javafx.scene.shape.Polygon;
 
 public class Drawer {
-
 	
-	public Group draw(Group root, Society mySociety, boolean first){
+	public Group draw(Group root, Society mySociety, boolean notScaled){
 		Map<Location, Cell> Grid = mySociety.getGrid();
 		
 		for(Location loc: Grid.keySet()){
-			if(first){
-				loc.moveAndScaleShape(mySociety.getFurthestPoint());
+			if(notScaled){
+				loc.moveAndScaleShape(mySociety.getBottomRightPoint());
 			}
 			Polygon p = loc.getPolygon();
 			p.setFill(mySociety.getGrid().get(loc).getState());

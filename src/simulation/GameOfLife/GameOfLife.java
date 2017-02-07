@@ -26,8 +26,12 @@ public class GameOfLife extends NoLocator{
 			getGOL_OffCell(),
 			getGOL_OnCell()
 	});
+	public static final boolean torodialWorld = true;
+	public static final boolean vertexNeighbors = true;
 	
-
+	public GameOfLife(){
+		super(vertexNeighbors, torodialWorld);
+	}
 	private Cell getGOL_OnCell() {
 		return new GOL_OnCell();
 	}
@@ -54,10 +58,5 @@ public class GameOfLife extends NoLocator{
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
-	}
-
-	@Override
-	public List<Cell> pickNeighbors(Society soc, Location loc) {
-		return soc.getVertexNeighbors(loc);
 	}
 }
