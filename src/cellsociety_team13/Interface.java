@@ -32,10 +32,10 @@ public class Interface{
 	});
 	
 	private Stage stage;
-	private Font font = new Font("Times New Roman", 40);
+	private Font font = new Font("Times New Roman", 35);
 	private Font smallFont = new Font("Times New Roman", 20);
-	public static final int WIDTH = 600;
-	public static final int HEIGHT = 650;
+	public static final int WIDTH = 500;
+	public static final int HEIGHT = 550;
 	public static final int GRID_WIDTH = 500;
 	public static final int GRID_HEIGHT = 500;
 	private File xmlFile = null;

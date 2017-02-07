@@ -11,7 +11,7 @@ public class Drawer {
 		
 		for(Location loc: Grid.keySet()){
 			if(notScaled){
-				loc.moveAndScaleShape(mySociety.getBottomRightPoint());
+				loc.moveAndScaleShape(mySociety.getBottomRightPoint().subtract(mySociety.getTopLeftPoint()));
 			}
 			Polygon p = loc.getPolygon();
 			p.setFill(mySociety.getGrid().get(loc).getState());
