@@ -162,7 +162,6 @@ public class Interface{
 		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
 		
 		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
-		buttonPanel.setLayoutX(WIDTH/2 - 250);
 		buttonPanel.setLayoutY(HEIGHT - 40);
 	}
 	

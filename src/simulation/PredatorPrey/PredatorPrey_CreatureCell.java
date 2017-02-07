@@ -101,16 +101,16 @@ public abstract class PredatorPrey_CreatureCell extends ThreeStateCell {
 
 	private Cell tryToMove(List<Cell> neighborList) {
 		Random rand = new Random();
-		int pick = rand.nextInt(this.waterNeighbors);
+		int pos = waterNeighbors;
 		for (Cell neighbor : neighborList) {
 			if (neighbor instanceof PredatorPrey_WaterCell) {
-				if (pick == 0) {
-					move((PredatorPrey_WaterCell) neighbor);
-					break;
+				if(((PredatorPrey_WaterCell) neighbor).checkIfBecomingCreature()){
+					pos--;
+					neighborList.remove(neighbor);
 				}
-				pick--;
 			}
 		}
+		move((PredatorPrey_WaterCell)neighborList.get(rand.nextInt(pos)));
 		return tryToReproduce();
 
 	}

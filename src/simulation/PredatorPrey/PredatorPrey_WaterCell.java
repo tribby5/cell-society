@@ -36,6 +36,7 @@ public class PredatorPrey_WaterCell extends ThreeStateCell {
 			this.newSharkEnergy = ((PredatorPrey_SharkCell)motherCell).getEnergy();
 			becomingShark = true;
 		}
+		System.out.println(becomingFish);
 		this.newCreatureTurns = motherCell.getTurns();
 	}
 
@@ -54,11 +55,11 @@ public class PredatorPrey_WaterCell extends ThreeStateCell {
 		} else if (checkIfBecomingFish()){
 			return new PredatorPrey_FishCell(newCreatureTurns);
 		}
-		return currentCell;
+		return new PredatorPrey_WaterCell();
 	}
 
 	public boolean checkIfBecomingCreature() {
-		return checkIfBecomingFish() && checkIfBecomingShark();
+		return checkIfBecomingFish() || checkIfBecomingShark();
 	}
 
 }

@@ -1,11 +1,10 @@
 package simulation.PredatorPrey;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Location;
-import cellsociety_team13.Society;
 import referees.NoLocator;
 
 public class PredatorPrey extends NoLocator{
@@ -65,6 +64,10 @@ public class PredatorPrey extends NoLocator{
 
 	@Override
 	public List<Cell> getCellTypes() {
-		return CELLS;
+		List<Cell> ans = new ArrayList<Cell>();
+		ans.add(getPredatorPrey_WaterCell());
+		ans.add(getPredatorPrey_FishCell());
+		ans.add(getPredatorPrey_SharkCell());
+		return ans;
 	}
 }
