@@ -10,7 +10,6 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Interface view = new Interface(primaryStage);
-		view.setWelcome();
+		new Interface(primaryStage);
 	}
 }

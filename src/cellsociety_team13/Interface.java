@@ -12,7 +12,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -25,14 +24,14 @@ import javafx.util.Duration;
 public class Interface{
 	private Stage stage;
 	private Font font = new Font("Times New Roman", 40);
+	private Font smallFont = new Font("Times New Roman", 20);
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 650;
 	public static final int GRID_WIDTH = 500;
 	public static final int GRID_HEIGHT = 500;
 	private File xmlFile = null;
-	public static final int FRAMES_PER_SEC = 2;
-	public static final double INITIAL_MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
-	private double milliDelay = INITIAL_MILLI_DELAY;
+	public static final int FRAMES_PER_SEC = 1;
+	public static final double MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
 	public static final String RESOURCE_PACKAGE = "English";
 	public static final String XML_FILE_DIRECTORY = "./data";
 	public static final String FILE_EXTENSION = ".xml";
@@ -46,6 +45,7 @@ public class Interface{
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
 		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
+		setWelcome();
 	}
 	
 	public void setWelcome(){
@@ -67,9 +67,14 @@ public class Interface{
 	}
 	
 	public void setInfo(){
-		GridPane infoRoot = new GridPane();
-		Text generalInfo = new Text(resources.getString("generalInfo"));
-		generalInfo.setWrappingWidth(100);
+		VBox infoRoot = new VBox(50);
+		Text generalInfoTitle = new Text(resources.getString("generalInfoTitle"));
+		generalInfoTitle.setFont(font);
+		generalInfoTitle.setY(10);
+		Text generalInfoText = new Text(resources.getString("generalInfoText"));
+		generalInfoText.setWrappingWidth(WIDTH/2);
+		generalInfoText.setTextAlignment(TextAlignment.CENTER);
+		generalInfoText.setFont(smallFont);
 		
 		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
@@ -79,19 +84,17 @@ public class Interface{
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				xmlFile = chooseFile();
-				if(xmlFile != null){
+				File checkNull = chooseFile();
+				if(checkNull != null){
+					xmlFile = checkNull;
 					cont.setVisible(true);
 				}
 			}
 		});
 		
-		infoRoot.add(generalInfo, 0, 0);
-		infoRoot.add(fileChoose, 1, 0);
-		infoRoot.add(cont, 1,1);
-		infoRoot.setHgap(WIDTH/2);
-		infoRoot.setVgap(HEIGHT/2);
+		infoRoot.getChildren().addAll(generalInfoTitle,generalInfoText, fileChoose, cont);
 		infoRoot.setAlignment(Pos.CENTER);
+		
 
 		Scene info  = new Scene(infoRoot, WIDTH, HEIGHT);
 		stage.setScene(info);
@@ -136,11 +139,11 @@ public class Interface{
 		pause.setOnAction(event -> simulation.pause());
 		Button stepThrough = new Button(resources.getString("step"));
 		stepThrough.setOnAction(event -> {simulation.pause(); step();});
+		Button reset = new Button(resources.getString("reset"));
+		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
 		
-		Slider speed = createSlider();
-		
-		buttonPanel.getChildren().addAll(play, pause, stepThrough, speed);
-		buttonPanel.setLayoutX(WIDTH/2 - 170);
+		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
+		buttonPanel.setLayoutX(WIDTH/2 - 250);
 		buttonPanel.setLayoutY(HEIGHT - 40);
 	}
 	
@@ -157,21 +160,30 @@ public class Interface{
 		return speed;
 	}
 	
+	private Button createNewXMLButton(){
+		Button newXML = new Button(resources.getString("newXML"));
+		newXML.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event) {
+				simulation.pause();
+				File checkNull = chooseFile();
+				if(checkNull != null){
+					xmlFile = checkNull;
+					simulation.stop();
+					setupSimulation();
+				}}});
+		return newXML;
+	}
+
 	private void startSimulation(){
 		simulation = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(milliDelay), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLI_DELAY), e -> step());
 		simulation.setCycleCount(Timeline.INDEFINITE);
 		simulation.getKeyFrames().add(frame);
-		//simulation.play();
-		//step();
 	}
 
 	private void changeSimulationSpeed(double factor){
-		if(factor == 0){
-			milliDelay = Integer.MAX_VALUE;
-		}else{
-			milliDelay = INITIAL_MILLI_DELAY/factor;
-		}
+		simulation.setRate(factor);
 	}
 	
 	private void step(){
@@ -180,6 +192,4 @@ public class Interface{
 		myManager.update();
 		root = myDrawer.draw(root, myManager.getSociety(), false);	
 	}
-	
-	
 }
