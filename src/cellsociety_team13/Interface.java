@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -70,7 +71,6 @@ public class Interface{
 		VBox infoRoot = new VBox(50);
 		Text generalInfoTitle = new Text(resources.getString("generalInfoTitle"));
 		generalInfoTitle.setFont(font);
-		generalInfoTitle.setY(10);
 		Text generalInfoText = new Text(resources.getString("generalInfoText"));
 		generalInfoText.setWrappingWidth(WIDTH/2);
 		generalInfoText.setTextAlignment(TextAlignment.CENTER);
@@ -80,6 +80,10 @@ public class Interface{
 		cont.setVisible(false);
 		cont.setOnAction(event -> setupSimulation());
 		
+		Text nonXML = new Text("Not an XML file, select again");
+		nonXML.setFont(smallFont);
+		nonXML.setVisible(false);
+		
 		Button fileChoose = new Button(resources.getString("chooseXML"));
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
@@ -88,11 +92,16 @@ public class Interface{
 				if(checkNull != null){
 					xmlFile = checkNull;
 					cont.setVisible(true);
+					nonXML.setVisible(false);
+				}
+				else{
+					nonXML.setVisible(true);
+					cont.setVisible(false);
 				}
 			}
 		});
 		
-		infoRoot.getChildren().addAll(generalInfoTitle,generalInfoText, fileChoose, cont);
+		infoRoot.getChildren().addAll(generalInfoTitle,generalInfoText, fileChoose, cont, nonXML);
 		infoRoot.setAlignment(Pos.CENTER);
 		
 
@@ -126,7 +135,7 @@ public class Interface{
 		myDrawer = new Drawer();
 
 		root = myDrawer.draw(root, myManager.getSociety(), true);
-		stage.setScene(new Scene(root, WIDTH, HEIGHT));
+		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 		startSimulation();
 	}
 	
