@@ -1,4 +1,8 @@
 <Simulation simulationType="0">
+	<Title>Game of Life</Title>
+	<Author>Andres Lebbos</Author>
+	<dimX>10</dimX>
+	<dimY>10</dimY>
     <Cell>
         <x>0.5</x>
         <y>0.5</y>

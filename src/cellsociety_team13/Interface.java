@@ -1,7 +1,8 @@
 package cellsociety_team13;
 
 import java.io.File;
-
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,6 +24,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Interface{
+	public static final List<String> TITLE = Arrays.asList(new String[] {
+			"Game of Life",
+			"Fire",
+			"Predators and Pray / Shark and Fish",
+			"Segregation"
+	});
+	
 	private Stage stage;
 	private Font font = new Font("Times New Roman", 40);
 	private Font smallFont = new Font("Times New Roman", 20);
@@ -131,11 +139,13 @@ public class Interface{
 		
 		root.getChildren().add(buttonPanel);
 		
-		myManager = new XMLReader(xmlFile).getManager();
+		XMLReader read = new XMLReader(xmlFile);
+		myManager = read.getManager();
 		myDrawer = new Drawer();
 
 		root = myDrawer.draw(root, myManager.getSociety(), true);
 		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
+		stage.setTitle(TITLE.get(read.getTitleId()));
 		startSimulation();
 	}
 	
