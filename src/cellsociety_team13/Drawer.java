@@ -12,7 +12,7 @@ public class Drawer {
 		
 		for(Location loc: Grid.keySet()){
 			if(first){
-				loc.moveAndScaleShape(mySociety.getFurthestPoint());
+				loc.moveAndScaleShape(mySociety.getBottomRightPoint());
 			}
 			Polygon p = loc.getPolygon();
 			p.setFill(mySociety.getGrid().get(loc).getState());
