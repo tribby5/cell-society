@@ -38,8 +38,6 @@ public abstract class Referee {
 		Cell currentCell = grid.get(loc);
 		List<Cell> neighborList = pickNeighbors(soc, loc);
 		Cell updatedCell = judge(currentCell, neighborList);
-		System.out.println(currentCell);
-		System.out.println(updatedCell);
 		addChangers(loc, currentCell, updatedCell);
 		return updatedCell;
 	}

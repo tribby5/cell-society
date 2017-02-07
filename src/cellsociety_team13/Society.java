@@ -85,7 +85,7 @@ public class Society {
 			if(loc.getY() > max.getY())
 				max = new Point2D(max.getX(), loc.getY());
 		}
-		this.bottomRightPoint = max;
+		this.bottomRightPoint = new Point2D(max.getX() + findSideLength(), max.getY() + findSideLength());
 		
 		Point2D min = new Point2D(max.getX(), max.getY());
 		for(Location loc: grid.keySet()){
@@ -93,11 +93,16 @@ public class Society {
 				min = new Point2D(loc.getX(), min.getY());
 			if(loc.getY() < min.getY())
 				min = new Point2D(min.getX(), loc.getY());
-		}
-		
-		this.topLeftPoint = min;
+		}	
+		this.topLeftPoint = new Point2D(min.getX() - findSideLength(), min.getY() - findSideLength());
 	}
 	
+	private double findSideLength() {
+		for(Location loc: grid.keySet())
+			return loc.getPoly().getSideLength();
+		return 0;
+	}
+
 	public Point2D getBottomRightPoint(){
 		return bottomRightPoint;
 	}
@@ -118,7 +123,7 @@ public class Society {
             	continue;
             }
             
-            System.out.println("before: " + tempSide.size() + " " + tempVertex.size());
+            //System.out.println("before: " + tempSide.size() + " " + tempVertex.size());
 
             for(Location pointTest : grid.keySet())
                 if (pointBase != pointTest){
@@ -156,7 +161,7 @@ public class Society {
                 		}
                 	}
                 }
-            System.out.println("after: " + tempSide.size() + " " + tempVertex.size());
+            //System.out.println("after: " + tempSide.size() + " " + tempVertex.size());
             vertexNeighbor.put(pointBase, tempVertex);
             sideNeighbor.put(pointBase, tempSide);
         }
