@@ -54,6 +54,10 @@ public class Society {
 		return grid;
 	}
 	
+	public List<Location> getRawSideNeighbors(Location loc){
+		return sideNeighbor.get(loc);
+	}
+	
 	public List<Cell> getSideNeighbors(Location loc){
 		List<Location> neighborLocList = sideNeighbor.get(loc);
 		return getNeighbors(neighborLocList);		
@@ -73,6 +77,7 @@ public class Society {
 	}
 
 	public void updateGrid(Map<Location, Cell> newGrid) {
+		
 		grid = newGrid;
 	}
 	
