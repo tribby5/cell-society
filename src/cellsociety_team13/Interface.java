@@ -88,7 +88,7 @@ public class Interface{
 		cont.setVisible(false);
 		cont.setOnAction(event -> setupSimulation());
 		
-		Text nonXML = new Text("Not an XML file, select again");
+		Text nonXML = new Text(resources.getString("nonXML"));
 		nonXML.setFont(smallFont);
 		nonXML.setVisible(false);
 		
