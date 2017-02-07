@@ -66,7 +66,7 @@ public class Segregation extends Locator{
 					sameNeig++;
 			}
 
-		return sameNeig * 100 >= busyNeig * satisficationPercentage ;
+		return sameNeig * 100 >= busyNeig * satisficationPercentage;
 	}
 
 	@Override
