@@ -78,6 +78,10 @@ public class XMLReader {
 	public Manager getManager() {
 		return new Manager(society, referee);
 	}
+	
+	public int getTitleId(){
+		return REFEREES.indexOf(referee);
+	}
 
 	private void getReferee() {
 		currentElement = getRootElement();

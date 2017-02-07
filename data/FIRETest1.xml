@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Simulation simulationType="1">
+	<Title>Game of Life</Title>
+	<Author>Andres Lebbos</Author>
+	<dimX>10</dimX>
+	<dimY>10</dimY>
 	<Cell>
 		<x>0.5</x>
 		<y>0.5</y>
@@ -60,7 +64,7 @@
 		<poly>0</poly>
 		<CellType>2</CellType>
 	</Cell>
-		<Cell>
+	<Cell>
 		<x>1.5</x>
 		<y>0.5</y>
 		<poly>0</poly>
