@@ -70,13 +70,13 @@
 		<x>1.5</x>
 		<y>1.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
 		<y>2.5</y>
 		<poly>0</poly>
-		<CellType>1</CellType>
+		<CellType>0</CellType>
 	</Cell>
 	<Cell>
 		<x>1.5</x>
@@ -130,7 +130,7 @@
 		<x>2.5</x>
 		<y>1.5</y>
 		<poly>0</poly>
-		<CellType>1</CellType>
+		<CellType>0</CellType>
 	</Cell>
 	<Cell>
 		<x>2.5</x>
