@@ -61,8 +61,8 @@ public class Location{
 		Double[] vertices = shape.getVertices();
 		polygon = new Polygon();
 		for(int i = 0 ; i < shape.getSides() ; i++){
-			vertices[i * 2] += getX();
-			vertices[i * 2 + 1] += getY();
+			vertices[i * 2] += getY();
+			vertices[i * 2 + 1] += getX();
 		}
 		polygon.getPoints().addAll(vertices);
 	}

@@ -1,22 +1,17 @@
 package referees;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Referee;
-import cellsociety_team13.Society;
 import simulation.Segregation.Segregation_EmptyCell;
 
 public abstract class Locator extends Referee {
 
-	private Set<Cell> relocate;
+	private List<Cell> relocate;
 
 	private List<Location> emptyPlaces;
 
@@ -31,7 +26,7 @@ public abstract class Locator extends Referee {
 
 	@Override
 	public void setRelocaters() {
-		relocate = new TreeSet<>();
+		relocate = new ArrayList<>();
 		emptyPlaces = new ArrayList<>();
 	}
 	

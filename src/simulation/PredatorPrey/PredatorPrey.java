@@ -2,7 +2,6 @@ package simulation.PredatorPrey;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
@@ -50,8 +49,6 @@ public class PredatorPrey extends NoLocator{
 	private Cell getPredatorPrey_WaterCell() {
 		return new PredatorPrey_WaterCell();
 	}
-	
-	private Map<Location, Cell> grid;
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {

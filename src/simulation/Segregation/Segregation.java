@@ -9,7 +9,7 @@ import cellsociety_team13.Society;
 import referees.Locator;
 
 public class Segregation extends Locator{
-	private double satisficationPercentage;
+	private int satisficationPercentage;
 
 
 	/* Rules:
@@ -44,12 +44,13 @@ public class Segregation extends Locator{
 	public Segregation() {
 		super();
 		// TODO: set satisficationPercentage
-		this.satisficationPercentage = 50.0;
+		this.satisficationPercentage = 50;
 	}
 
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
 		if (!isCellSatisfied(currentCell, neighborList)){
+			
 			currentCell = currentCell.change(1);
 		}
 		return currentCell;
@@ -61,11 +62,11 @@ public class Segregation extends Locator{
 		for(Cell neighbor : neighborList)
 			if(neighbor.isNotEmpty()){
 				busyNeig++;
-				if(neighbor.getClass().equals(currentCell.getClass()))
+				if(neighbor.getClass() == currentCell.getClass())
 					sameNeig++;
 			}
 
-		return (sameNeig * 1.0 / busyNeig) >= satisficationPercentage ;
+		return sameNeig * 100 >= busyNeig * satisficationPercentage ;
 	}
 
 	@Override
