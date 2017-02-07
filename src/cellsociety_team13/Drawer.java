@@ -8,7 +8,6 @@ public class Drawer {
 	
 	public Group draw(Group root, Society mySociety, boolean notScaled){
 		Map<Location, Cell> Grid = mySociety.getGrid();
-		
 		for(Location loc: Grid.keySet()){
 			if(notScaled){
 				loc.moveAndScaleShape(mySociety.getBottomRightPoint());
