@@ -8,8 +8,15 @@ import java.util.Map;
 public abstract class Referee {
 	
 	private Map<Location, Cell> grid;
-	
+	private boolean torodialWorld;
+	private boolean vertexNeighbor;
+
 	public abstract List<Cell> getCellTypes();
+	
+	protected Referee(boolean vertexNeighborInput, boolean torodialWorldInput){
+		this.torodialWorld = torodialWorldInput;
+		this.vertexNeighbor = vertexNeighborInput;
+	}
 
 	public void giveSociety(Society soc) {
 		Map<Location, Cell> newGrid = new HashMap<>();
@@ -35,7 +42,12 @@ public abstract class Referee {
 		return updatedCell;
 	}
 
-	public abstract List<Cell> pickNeighbors(Society soc, Location loc);
+	public List<Cell> pickNeighbors(Society soc, Location loc){
+		if (isVertexNeighbor()){
+			return soc.getVertexNeighbors(loc);
+		}
+		return soc.getSideNeighbors(loc);
+	}
 	
 	public abstract Cell judge(Cell currentCell, List<Cell> neighborList);
 
@@ -44,4 +56,12 @@ public abstract class Referee {
 	public abstract void relocate();
 
 	public abstract void setRelocaters();
+
+	public boolean isTorodialWorld(){
+		return torodialWorld;
+	}
+	
+	public boolean isVertexNeighbor() {
+		return vertexNeighbor;
+	}
 }

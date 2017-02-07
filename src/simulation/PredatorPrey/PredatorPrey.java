@@ -38,6 +38,12 @@ public class PredatorPrey extends NoLocator{
 			getPredatorPrey_FishCell(),
 			getPredatorPrey_SharkCell()
 	});
+	public static final boolean torodialWorld = true;
+	public static final boolean vertexNeighbors = false;
+	
+	public PredatorPrey(){
+		super(vertexNeighbors, torodialWorld);
+	}
 	
 	private Cell getPredatorPrey_SharkCell() {
 		return new PredatorPrey_SharkCell();
@@ -63,10 +69,5 @@ public class PredatorPrey extends NoLocator{
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
-	}
-
-	@Override
-	public List<Cell> pickNeighbors(Society soc, Location loc) {
-		return soc.getSideNeighbors(loc);
 	}
 }

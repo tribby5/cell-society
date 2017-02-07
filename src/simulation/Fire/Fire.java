@@ -28,13 +28,20 @@ public class Fire extends NoLocator{
 	 * 
 	 * 
 	 */
+	
+	
 
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
 			getFIRE_Dead(),
 			getFIRE_Burning(),
 			getFIRE_Alive()
 	});
+	public static final boolean torodialWorld = false;
+	public static final boolean vertexNeighbors = false;
 	
+	public Fire(){
+		super(vertexNeighbors, torodialWorld);
+	}
 	
 	private Cell getFIRE_Dead() {
 		return new FIRE_Dead();
@@ -49,10 +56,7 @@ public class Fire extends NoLocator{
 	@Override
 	public Cell judge(Cell currentCell, List<Cell> neighborList) {
 		return currentCell.change(countBurningNeighbors(neighborList));
-	}
-	
-
-	
+	}	
 
 
 	@Override
@@ -67,8 +71,5 @@ public class Fire extends NoLocator{
 				count += 1;
 		return count;
 	}
-	@Override
-	public List<Cell> pickNeighbors(Society soc, Location loc) {
-		return soc.getSideNeighbors(loc);
-	}
+
 }

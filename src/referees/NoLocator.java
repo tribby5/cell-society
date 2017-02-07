@@ -6,6 +6,10 @@ import cellsociety_team13.Referee;
 
 public abstract class NoLocator extends Referee {
 
+	protected NoLocator(boolean vertexneighbors, boolean torodialworld) {
+		super(vertexneighbors, torodialworld);
+	}
+
 	@Override
 	public void addChangers(Location loc, Cell currentCell, Cell updatedCell) {
 		// do nothing

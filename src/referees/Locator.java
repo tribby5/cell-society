@@ -20,6 +20,10 @@ public abstract class Locator extends Referee {
 
 	private List<Location> emptyPlaces;
 
+	public Locator(boolean vertexneighbors, boolean torodialworld) {
+		super(vertexneighbors, torodialworld);
+	}
+
 	@Override
 	public void addChangers(Location loc, Cell currentCell, Cell updatedCell) {
 		if(updatedCell instanceof Segregation_EmptyCell){
