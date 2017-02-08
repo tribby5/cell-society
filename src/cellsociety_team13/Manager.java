@@ -1,19 +1,20 @@
 package cellsociety_team13;
 
-import javafx.geometry.Point2D;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Manager {
+public class Manager{
 	private Referee myReferee;
 	private Society mySociety;
+	
 	
 
 	public Manager(Society society, Referee referee){
 		myReferee = referee;
 		mySociety = society;
-		
-		if (myReferee.isTorodialWorld()){
-			//mySociety.addTorodialNeighbors();
-		}
 	}
 
 
@@ -23,11 +24,18 @@ public class Manager {
 
 
 	public void update() {
-		myReferee.giveSociety(mySociety);
+		myReferee.updateGrid(mySociety);
 		mySociety.updateGrid(myReferee.getGrid());
 	}
 	
-	public Point2D getFurthestPoint(){
-		return mySociety.getBottomRightPoint();
-	}
+	
+
+
+	
+	
+
 }
+
+	
+	
+	

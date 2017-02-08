@@ -1,22 +1,38 @@
 package cellsociety_team13;
+
 import java.util.List;
 
 import javafx.scene.paint.Color;
 
-public abstract class Cell {
-	private Color state;
 
-	public Cell(Color colorInput){
-		state = colorInput;
+public abstract class Cell {
+	private Color color;
+	private int totalStates;
+	private int state;
+	
+	public Cell(Color inputColor, int cellState ,int inputTotalStates){
+		setColor(inputColor);
+		this.totalStates = inputTotalStates;
+		this.state = cellState;
 	}
 
-	public Color getState(){
+	public Color getColor(){
+		return color;
+	}
+	
+	public void setColor(Color inputColor){
+		this.color = inputColor;
+	}
+
+	public abstract Cell updateCell(List<Cell> neighbors, List<Integer> neighborCount);
+	
+	public int getState(){
 		return state;
 	}
 	
-	public abstract Cell change(int n);
+	public int getMaxState(){
+		return totalStates;
+	}
 	
-	public abstract boolean isNotEmpty();
-
-	public abstract Cell surroundChange(Cell currentCell, List<Cell> neighborList);
+		
 }

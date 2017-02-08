@@ -14,7 +14,7 @@ public class Drawer {
 				loc.moveAndScaleShape(mySociety.getBottomRightPoint().subtract(mySociety.getTopLeftPoint()));
 			}
 			Polygon p = loc.getPolygon();
-			p.setFill(mySociety.getGrid().get(loc).getState());
+			p.setFill(mySociety.getGrid().get(loc).getColor());
 			root.getChildren().add(p);
 		}
 		return root;
