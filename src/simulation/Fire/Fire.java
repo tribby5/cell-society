@@ -1,17 +1,19 @@
-package simulation.Segregation;
+package simulation.Fire;
 
 import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Referee;
+import cellsociety_team13.Manager;
 
-public class SegregationReferee extends Referee{
-	
+
+public class Fire extends Manager{
+
+
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new Empty(),
-			new O(),
-			new X()
+			new Dead(),
+			new Burning(),
+			new Alive()
 	});
 
 	@Override

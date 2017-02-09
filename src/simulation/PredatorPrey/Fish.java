@@ -1,4 +1,4 @@
-package simulation.Segregation;
+package simulation.PredatorPrey;
 
 import java.util.List;
 import java.util.Map;
@@ -7,26 +7,25 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import javafx.scene.paint.Color;
 
-public class O extends SegregationCell{
-	public static final Color color = Color.BLUE;
-	public static final int priority = 0;
-	public static final int state = getState_O();
+public class Fish extends SeaAnimal{
+	public static final Color color = Color.GREEN;
+	public static final int priority = 1;
+	public static final int state = getState_Fish();
+
 	
-	public O() {
+	public Fish() {
 		super(color, state, priority);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
+
 
 	@Override
 	public Cell copy() {
-		return new O();
+		return new Fish();
 	}
-
 
 }

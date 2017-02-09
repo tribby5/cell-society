@@ -140,7 +140,7 @@ public class Interface{
 		root.getChildren().add(buttonPanel);
 		
 		XMLReader read = new XMLReader(xmlFile);
-		myManager = read.getManager();
+		myManager = read.extractManager();
 		myDrawer = new Drawer();
 
 		root = myDrawer.draw(root, myManager.getSociety(), true);

@@ -1,9 +1,11 @@
 package simulation.Segregation;
 
 import java.util.List;
+import java.util.Map;
 
 import cellTypes.ThreeStateCell;
 import cellsociety_team13.Cell;
+import cellsociety_team13.Location;
 import javafx.scene.paint.Color;
 
 public abstract class SegregationCell extends ThreeStateCell{
@@ -12,8 +14,8 @@ public abstract class SegregationCell extends ThreeStateCell{
 	public static final int stateEmpty = 0;
 	private double satisficationPercentage;
 
-	public SegregationCell(Color inputColor, int state) {
-		super(inputColor, state);
+	public SegregationCell(Color inputColor, int state, int priority) {
+		super(inputColor, state, priority);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,7 +35,7 @@ public abstract class SegregationCell extends ThreeStateCell{
 	}
 	
 	@Override
-	public Cell updateCell(List<Cell> neighbors, List<Integer> neighborCount) {
+	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
 		if(!this.isSatisfied(neighborCount.get(this.getState()), neighbors.size())){
 			// relocate to empty cell
 		}

@@ -1,19 +1,22 @@
 package cellsociety_team13;
 
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
 
-public abstract class Cell {
+public abstract class Cell implements Comparable<Cell>{
 	private Color color;
 	private int totalStates;
 	private int state;
+	private int priority;
 	
-	public Cell(Color inputColor, int cellState ,int inputTotalStates){
+	public Cell(Color inputColor, int cellState ,int inputTotalStates, int priority){
 		setColor(inputColor);
 		this.totalStates = inputTotalStates;
 		this.state = cellState;
+		this.priority = priority;
 	}
 
 	public Color getColor(){
@@ -24,7 +27,7 @@ public abstract class Cell {
 		this.color = inputColor;
 	}
 
-	public abstract Cell updateCell(List<Cell> neighbors, List<Integer> neighborCount);
+	public abstract Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount);
 	
 	public int getState(){
 		return state;
@@ -33,6 +36,12 @@ public abstract class Cell {
 	public int getMaxState(){
 		return totalStates;
 	}
+	
+	public int compareTo(Cell c){
+		return c.priority - this.priority;
+	}
+
+	public abstract Cell copy();
 	
 		
 }

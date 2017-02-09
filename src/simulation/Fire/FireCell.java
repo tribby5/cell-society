@@ -8,8 +8,8 @@ public abstract class FireCell extends ThreeStateCell{
 	public static final int stateBurning = 1;
 	public static final int stateDead = 0;
 	
-	public FireCell(Color inputColor, int state) {
-		super(inputColor, state);
+	public FireCell(Color inputColor, int state, int priority) {
+		super(inputColor, state, priority);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -1,19 +1,19 @@
-package simulation.GameOfLife;
+package simulation.Segregation;
 
 import java.util.Arrays;
 import java.util.List;
 
 import cellsociety_team13.Cell;
-import cellsociety_team13.Referee;
+import cellsociety_team13.Manager;
 
-public class GameOfLifeReferee extends Referee{
+public class SegregationManager extends Manager{
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new Off(),
-			new On()
+			new Empty(),
+			new O(),
+			new X()
 	});
 
-	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
 	}

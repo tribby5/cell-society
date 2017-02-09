@@ -13,14 +13,19 @@ public class Society {
 	private Map<Location, Cell> grid;
 	private Point2D bottomRightPoint;
 	private Point2D topLeftPoint;
-	private boolean torodialWorld;
 	
 	public Society(Map<Location, Cell> rawGrid){
-		torodialWorld = false;
 		grid = rawGrid;
 		generateNeighbors();		
 		calcCornerPoints();
-		
+	}
+	
+	public Map<Location, Cell> getGridCopy(){
+		return new HashMap<Location, Cell>(grid);
+	}
+	
+	public void pushNewGrid(Map<Location, Cell> newGrid) {
+		grid = newGrid;
 	}
 
 	private void generateNeighbors() {
@@ -31,7 +36,7 @@ public class Society {
             ArrayList<Location> tempVertex = new ArrayList<Location>();
             for(Location pointTest : grid.keySet())
                 if (pointBase != pointTest){
-                	double distanceBetween = distance(pointBase.getPoint(), pointTest.getPoint());
+                	double distanceBetween = pointBase.getPoint().distance(pointTest.getPoint());
                     if (distanceBetween 
                     		<= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
                         tempSide.add(pointTest);
@@ -43,39 +48,15 @@ public class Society {
             sideNeighbor.put(pointBase, tempSide);
         }
     }
-
-
-
-	public double distance(Point2D l1, Point2D l2){
-		return l1.distance(l2);
+	
+	public Map<Location, Cell> swap(Location loc1, Location loc2){
+		Cell temp = grid.get(loc1);
+		grid.put(loc1, grid.get(loc2));
+		grid.put(loc2, temp);
+		return getGridCopy();
 	}
 	
-	public Map<Location, Cell> getGrid(){
-		return grid;
-	}
-	
-	public List<Cell> getSideNeighbors(Location loc){
-		List<Location> neighborLocList = sideNeighbor.get(loc);
-		return getNeighbors(neighborLocList);		
-	}
-	
-	public List<Cell> getVertexNeighbors(Location loc){
-		List<Location> neighborLocList = vertexNeighbor.get(loc);
-		return getNeighbors(neighborLocList);
-	}
 
-	private List<Cell> getNeighbors(List<Location> neighborLocList) {
-		List<Cell> neighborCellList = new ArrayList<Cell>();
-		for(Location locNeighbor : neighborLocList){
-			neighborCellList.add(grid.get(locNeighbor));
-		}
-		return neighborCellList;
-	}
-
-	public void updateGrid(Map<Location, Cell> newGrid) {
-		grid = newGrid;
-	}
-	
 	private void calcCornerPoints() {
 		Point2D max = new Point2D(0, 0);
 		
@@ -97,6 +78,18 @@ public class Society {
 		this.topLeftPoint = new Point2D(min.getX() - findSideLength(), min.getY() - findSideLength());
 	}
 	
+	
+	public List<Location> getSideNeighbors(Location loc){
+		return sideNeighbor.get(loc);	
+	}
+	
+	public List<Location> getVertexNeighbors(Location loc){
+		return vertexNeighbor.get(loc);
+	}
+
+
+
+	
 	private double findSideLength() {
 		for(Location loc: grid.keySet())
 			return loc.getPoly().getSideLength();
@@ -110,67 +103,8 @@ public class Society {
 	public Point2D getTopLeftPoint(){
 		return topLeftPoint;
 	}
-
-	public void addTorodialNeighbors() {
-		this.torodialWorld = true;
-        for(Location pointBase : grid.keySet()){
-            ArrayList<Location> tempSide = sideNeighbor.get(pointBase);
-            ArrayList<Location> tempVertex = vertexNeighbor.get(pointBase);
-            
-            
-            
-            if(!checkIfOnEdge(tempSide, tempVertex)){
-            	continue;
-            }
-            
-            //System.out.println("before: " + tempSide.size() + " " + tempVertex.size());
-
-            for(Location pointTest : grid.keySet())
-                if (pointBase != pointTest){
-                	boolean onOppositeWalls = Math.max(pointBase.getX(), pointTest.getX()) == bottomRightPoint.getX()
-                								&& Math.min(pointBase.getX(), pointTest.getX()) == topLeftPoint.getX();
-                	
-                	boolean onFloorCeiling = Math.max(pointBase.getY(), pointTest.getY()) == bottomRightPoint.getY()
-                        						&& Math.min(pointBase.getY(), pointTest.getY()) == topLeftPoint.getY();
-                	
-                	
-                	if (onOppositeWalls && onFloorCeiling){
-                		tempVertex.add(pointTest);
-                		continue;
-                	}
-                	
-                	
-                	if (onOppositeWalls){
-                		for (int i = -1 ; i < 2 ; i++){
-                			if (Math.abs(pointBase.getY() - pointTest.getY()) <= i * pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius()){
-                				tempVertex.add(pointTest);
-                				if (i == 0){
-                					tempSide.add(pointTest);
-                				}
-                			}		
-                		}
-                	}
-                	if (onFloorCeiling){
-                		for (int i = -1 ; i < 2 ; i++){
-                			if (Math.abs(pointBase.getX() - pointTest.getX()) <= i * pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius()){
-                				tempVertex.add(pointTest);
-                				if (i == 0){
-                					tempSide.add(pointTest);
-                				}
-                			}		
-                		}
-                	}
-                }
-            //System.out.println("after: " + tempSide.size() + " " + tempVertex.size());
-            vertexNeighbor.put(pointBase, tempVertex);
-            sideNeighbor.put(pointBase, tempSide);
-        }
-		
-	}
 	
-	private boolean checkIfOnEdge(ArrayList<Location> tempSide, ArrayList<Location> tempVertex) {
-		return(tempSide.size() != 4 || tempVertex.size() != 8);
-	}
+	
 
 	
 }

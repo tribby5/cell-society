@@ -7,10 +7,11 @@ public abstract class GameOfLifeCell extends TwoStateCell{
 	
 	public static final int stateOn = 1;
 	public static final int stateOff = 0;
+	public static final int priority = 0;
 
 
 	public GameOfLifeCell(Color inputColor, int state) {
-		super(inputColor, state);
+		super(inputColor, state, priority);
 		// TODO Auto-generated constructor stub
 	}
 	

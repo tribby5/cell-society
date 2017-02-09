@@ -1,14 +1,14 @@
 package simulation.GameOfLife;
 
 import java.util.List;
-
+import java.util.Map;
 
 import cellsociety_team13.Cell;
+import cellsociety_team13.Location;
 import javafx.scene.paint.Color;
 
 public class Off extends GameOfLifeCell{
 	public static final Color color = Color.WHITE;
-	
 	public static final int state = getState_Off();
 
 	public Off() {
@@ -17,11 +17,16 @@ public class Off extends GameOfLifeCell{
 	}
 
 	@Override
-	public Cell updateCell(List<Cell> neighbors, List<Integer> neighborCount) {
+	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
 		if (neighborCount.get(getState_On()) == 3){
 			return new On();
 		}
 		return this;
+	}
+
+	@Override
+	public Cell copy() {
+		return new Off();
 	}
 	
 	
