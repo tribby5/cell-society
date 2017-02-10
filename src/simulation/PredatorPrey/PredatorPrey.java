@@ -28,6 +28,7 @@ public class PredatorPrey extends Manager{
 		PredatorPreyCell currentCell = (PredatorPreyCell) currentLocCell.getValue();
 		currentCell.act(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc, neighborCounts);
 		
+		
 	}
 
 }

@@ -27,8 +27,10 @@ public class Fish extends SeaAnimal{
 			moved = move(currentSociety, newSociety, location, neighborsLoc, neighborCounts.get(getState_Water()));
 		}
 		if (moved){
-			tryToReproduce(currentSociety, location, getState_Fish());
+			tryToReproduce(newSociety, location, getState_Fish());
 		}
+		
+		
 		
 	}
 

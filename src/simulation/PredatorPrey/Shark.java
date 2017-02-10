@@ -41,7 +41,7 @@ public class Shark extends SeaAnimal{
 		}
 		
 		if((hunted || moved)){
-			tryToReproduce(currentSociety, location, getState_Shark());
+			tryToReproduce(newSociety, location, getState_Shark());
 		}
 		
 		
