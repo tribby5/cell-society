@@ -1,5 +1,7 @@
 package simulation.GameOfLife;
 
+import java.util.List;
+
 import cellTypes.TwoStateCell;
 import javafx.scene.paint.Color;
 
@@ -12,7 +14,6 @@ public abstract class GameOfLifeCell extends TwoStateCell{
 
 	public GameOfLifeCell(Color inputColor, int state) {
 		super(inputColor, state, priority);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static int getState_On(){
@@ -23,6 +24,10 @@ public abstract class GameOfLifeCell extends TwoStateCell{
 		return stateOff;
 	}
 
-
+	public GameOfLifeCell updateCell(List<Integer> neighborCount){
+		return this.act(neighborCount);
+	}
+	
+	protected abstract GameOfLifeCell act(List<Integer> neighborCount);
 
 }

@@ -17,10 +17,6 @@ public class Fish extends SeaAnimal{
 		super(color, state, priority);
 	}
 
-	@Override
-	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		return this;
-	}
 
 
 	@Override

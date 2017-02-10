@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import simulation.Fire.Fire;
 import simulation.GameOfLife.GameOfLife;
 
+
 public class XMLReader {
 
 	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();

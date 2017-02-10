@@ -27,8 +27,6 @@ public abstract class Cell implements Comparable<Cell>{
 		this.color = inputColor;
 	}
 
-	public abstract Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount);
-	
 	public int getState(){
 		return state;
 	}

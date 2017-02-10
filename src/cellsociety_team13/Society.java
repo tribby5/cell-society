@@ -1,11 +1,17 @@
 package cellsociety_team13;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import javafx.geometry.Point2D;
+import simulation.Fire.FireCell;
 
 public class Society {
 	private Map<Location, ArrayList<Location>> vertexNeighbor;
@@ -20,9 +26,54 @@ public class Society {
 		calcCornerPoints();
 	}
 	
+	public Cell get(Location loc){
+		return grid.get(loc);
+	}
+	
+	public Society(Map<Location, Cell> grid2, Map<Location, ArrayList<Location>> vertexNeighbor2,
+			Map<Location, ArrayList<Location>> sideNeighbor2, Point2D bottomRightPoint2, Point2D topLeftPoint2) {
+		this.grid = new HashMap<> (grid2);
+		this.vertexNeighbor = vertexNeighbor2;
+		this.sideNeighbor = sideNeighbor2;
+		this.bottomRightPoint = bottomRightPoint2;
+		this.topLeftPoint = topLeftPoint2;
+	}
+
 	public Map<Location, Cell> getGridCopy(){
 		return new HashMap<Location, Cell>(grid);
 	}
+	
+	public List<Integer> countNeighbors(List<Location> neighborsLoc) {
+		Integer[] neighborCount = Collections.nCopies(grid.get(neighborsLoc.get(0)).getMaxState(), 0)
+				.toArray(new Integer[0]);
+		// from
+		// http://stackoverflow.com/questions/2154251/any-shortcut-to-initialize-all-array-elements-to-zero/2154340
+		for (Location neighborLoc : neighborsLoc) {
+			neighborCount[grid.get(neighborLoc).getState()]++;
+		}
+		return Arrays.asList(neighborCount);
+
+	}
+	
+	public Queue<Location> setProcessingOrder() {
+		PriorityQueue<Cell> qCells = new PriorityQueue<Cell>();
+		Queue<Location> qLocs = new LinkedList<Location>();
+		qCells.addAll(grid.values());
+		while (!qCells.isEmpty()) {
+			qLocs.add(getKeyFromValue(grid, qCells.poll()));
+		}
+		return qLocs;
+	}
+	
+	private Location getKeyFromValue(Map<Location, Cell> map, Cell value) {
+		for (Location key : map.keySet()) {
+			if (map.get(key) == value) {
+				return key;
+			}
+		}
+		return null;
+	}
+
 	
 	public void pushNewGrid(Map<Location, Cell> newGrid) {
 		grid = newGrid;
@@ -102,6 +153,14 @@ public class Society {
 	
 	public Point2D getTopLeftPoint(){
 		return topLeftPoint;
+	}
+
+	public Society copy() {
+		return new Society(grid, vertexNeighbor, sideNeighbor, bottomRightPoint, topLeftPoint);
+	}
+
+	public void put(Location currentLoc, Cell updatedCell) {
+		grid.put(currentLoc, updatedCell);
 	}
 	
 	

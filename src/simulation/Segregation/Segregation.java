@@ -5,8 +5,9 @@ import java.util.List;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Manager;
+import managerTypes.NotInPlaceManager;
 
-public class SegregationManager extends Manager{
+public class Segregation extends NotInPlaceManager{
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new Empty(),

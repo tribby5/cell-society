@@ -1,5 +1,7 @@
 package simulation.Fire;
 
+import java.util.List;
+
 import cellTypes.ThreeStateCell;
 import javafx.scene.paint.Color;
 
@@ -24,4 +26,10 @@ public abstract class FireCell extends ThreeStateCell{
 	public static int getState_Dead(){
 		return stateDead;
 	}
+	
+	public FireCell updateCell(List<Integer> neighborCount){
+		return this.act(neighborCount);
+	}
+	
+	protected abstract FireCell act(List<Integer> neighborCount);
 }
