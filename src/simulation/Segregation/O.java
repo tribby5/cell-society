@@ -17,11 +17,6 @@ public class O extends SegregationCell{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Cell copy() {

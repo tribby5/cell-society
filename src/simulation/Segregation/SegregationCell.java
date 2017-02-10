@@ -3,7 +3,7 @@ package simulation.Segregation;
 import java.util.List;
 import java.util.Map;
 
-import cellTypes.ThreeStateCell;
+import cells.ThreeStateCell;
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import javafx.scene.paint.Color;
@@ -34,14 +34,6 @@ public abstract class SegregationCell extends ThreeStateCell{
 		this.satisficationPercentage = input;
 	}
 	
-	@Override
-	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		if(!this.isSatisfied(neighborCount.get(this.getState()), neighbors.size())){
-			// relocate to empty cell
-		}
-		return this;
-	}
-
 	private boolean isSatisfied(Integer likeCount, Integer totalCount) {
 		if (likeCount > totalCount * satisficationPercentage){
 			return true;

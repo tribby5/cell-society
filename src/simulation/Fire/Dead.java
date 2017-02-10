@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Dead extends FireCell{
 	public static final Color color = Color.BLACK; //TODO: color imports
-	public static final int priority = 1;
+	public static final int priority = -1;
 	public static final int state = getState_Dead();
 	
 	public Dead() {

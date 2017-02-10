@@ -3,6 +3,8 @@ package cellsociety_team13;
 import java.util.List;
 import java.util.Queue;
 
+import javafx.util.Pair;
+
 public abstract class Manager {
 	private Society currentSociety;
 //	private Map<Location, Cell> grid;
@@ -28,14 +30,15 @@ public abstract class Manager {
 
 		while (!toProcess.isEmpty()) {
 			Location currentLoc = toProcess.poll();
+			Pair<Location, Cell> currentLocCell = new Pair<>(currentLoc, currentSociety.get(currentLoc));
 			List<Location> neighborsLoc = pickNeighbors(currentSociety, currentLoc);
 			List<Integer> neighborCounts = currentSociety.countNeighbors(neighborsLoc);
-			update(currentSociety, newSociety, currentLoc, neighborsLoc, neighborCounts);
+			update(currentSociety, newSociety, currentLocCell, neighborsLoc, neighborCounts);
 		}
 		return newSociety;
 	}
 	
-	protected abstract void update(Society currentSociety, Society newSociety, Location currentLoc, List<Location> neighborsLoc, List<Integer> neighborCounts);
+	protected abstract void update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc, List<Integer> neighborCounts);
 
 	public List<Location> pickNeighbors(Society soc, Location loc) {
 		// TODO: Pick neighbors

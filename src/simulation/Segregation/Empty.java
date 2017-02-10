@@ -17,10 +17,6 @@ public class Empty extends SegregationCell {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		return new Empty();
-	}
 
 	@Override
 	public Cell copy() {

@@ -1,6 +1,10 @@
 package simulation.PredatorPrey;
 
-import cellTypes.ThreeStateCell;
+import java.util.List;
+
+import cells.ThreeStateCell;
+import cellsociety_team13.Location;
+import cellsociety_team13.Society;
 import javafx.scene.paint.Color;
 
 public abstract class PredatorPreyCell extends ThreeStateCell{
@@ -25,5 +29,8 @@ public abstract class PredatorPreyCell extends ThreeStateCell{
 	public static int getState_Water(){
 		return stateWater;
 	}
+	
+	public abstract void act(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
+			List<Integer> neighborCounts);
 
 }

@@ -18,12 +18,6 @@ public class X extends SegregationCell{
 	}
 
 	@Override
-	public Cell updateCell(Map<Location, Cell> grid, List<Location> neighbors, List<Integer> neighborCount) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Cell copy() {
 		return new X();
 	}

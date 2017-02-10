@@ -2,7 +2,7 @@ package simulation.GameOfLife;
 
 import java.util.List;
 
-import cellTypes.TwoStateCell;
+import cells.TwoStateCell;
 import javafx.scene.paint.Color;
 
 public abstract class GameOfLifeCell extends TwoStateCell{

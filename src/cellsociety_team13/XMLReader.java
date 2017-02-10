@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 import javafx.scene.paint.Color;
 import simulation.Fire.Fire;
 import simulation.GameOfLife.GameOfLife;
+import simulation.PredatorPrey.PredatorPrey;
 
 
 public class XMLReader {
@@ -56,7 +57,7 @@ public class XMLReader {
 	private static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {
 			getGameOfLife(),
 			getFire(),
-			//getPredatorPrey(),
+			getPredatorPrey(),
 			//getSegregation()
 	});
 	
@@ -64,11 +65,11 @@ public class XMLReader {
 	private static Manager getSegregation() {
 		return new Segregation();
 	}
-
+	*/
 	private static Manager getPredatorPrey() {
 		return new PredatorPrey();
 	}
-	*/
+	
 
 	private static Manager getFire() {
 		return new Fire();

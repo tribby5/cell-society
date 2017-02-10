@@ -7,6 +7,7 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
+import javafx.util.Pair;
 
 public class GameOfLife extends Manager{
 
@@ -21,11 +22,11 @@ public class GameOfLife extends Manager{
 	}
 	
 	@Override
-	protected void update(Society currentSociety, Society newSociety, Location currentLoc,
+	protected void update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
 			List<Location> neighborsLoc, List<Integer> neighborCounts) {
-		GameOfLifeCell currentCell = (GameOfLifeCell) currentSociety.get(currentLoc);
+		GameOfLifeCell currentCell = (GameOfLifeCell) currentLocCell.getValue();
 		GameOfLifeCell updatedCell = currentCell.updateCell(neighborCounts);
-		newSociety.put(currentLoc, updatedCell);
+		newSociety.put(currentLocCell.getKey(), updatedCell);
 	}
 	
 

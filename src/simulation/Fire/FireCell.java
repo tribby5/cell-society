@@ -2,7 +2,7 @@ package simulation.Fire;
 
 import java.util.List;
 
-import cellTypes.ThreeStateCell;
+import cells.ThreeStateCell;
 import javafx.scene.paint.Color;
 
 public abstract class FireCell extends ThreeStateCell{

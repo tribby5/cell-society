@@ -1,8 +1,5 @@
 package cellsociety_team13;
 
-import java.util.List;
-import java.util.Map;
-
 import javafx.scene.paint.Color;
 
 
@@ -41,5 +38,7 @@ public abstract class Cell implements Comparable<Cell>{
 
 	public abstract Cell copy();
 	
-		
+	public int getPriority(){
+		return priority;
+	}
 }
