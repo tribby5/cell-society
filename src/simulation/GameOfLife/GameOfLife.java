@@ -5,58 +5,30 @@ import java.util.List;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
+import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
-import referees.NoLocator;
+import javafx.util.Pair;
 
-public class GameOfLife extends NoLocator{
-	/* Rules:
-	 * 
-	 * side Neighbors
-	 * 
-	 * Live:
-	 *  - if less than 2 live neighbors -> dies
-	 *  - if more than 3 live neighbors -> dies
-	 * 
-	 * Dead:
-	 *  - if 3 live neighbors -> lives
-	 */
-	
-	// use two state cells
+public class GameOfLife extends Manager{
+
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
-			getGOL_OffCell(),
-			getGOL_OnCell()
+			new Off(),
+			new On()
 	});
-	public static final boolean torodialWorld = true;
-	public static final boolean vertexNeighbors = true;
-	
-	public GameOfLife(){
-		super(vertexNeighbors, torodialWorld);
-	}
-	private Cell getGOL_OnCell() {
-		return new GOL_OnCell();
-	}
-
-	private Cell getGOL_OffCell() {
-		return new GOL_OffCell();
-	}
-	
-	public Cell judge(Cell currentCell, List<Cell> neighborList){
-		int liveCount = getLiveNeighborCount(neighborList);
-		return currentCell.change(liveCount);
-	}
-
-	public int getLiveNeighborCount(List<Cell> neighborList){
-		int liveCount = 0;
-		for(Cell c : neighborList){
-			if (c instanceof GOL_OnCell){
-				liveCount += 1;
-			}
-		}		
-		return liveCount;
-	}
 
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
 	}
+	
+	@Override
+	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
+			List<Location> neighborsLoc, List<Integer> neighborCounts) {
+		GameOfLifeCell currentCell = (GameOfLifeCell) currentLocCell.getValue();
+		GameOfLifeCell updatedCell = currentCell.updateCell(neighborCounts);
+		newSociety.put(currentLocCell.getKey(), updatedCell);
+		return true;
+	}
+	
+
 }

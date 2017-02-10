@@ -1,33 +1,51 @@
 package cellsociety_team13;
 
-import javafx.geometry.Point2D;
+import java.util.List;
+import java.util.Queue;
 
-public class Manager {
-	private Referee myReferee;
-	private Society mySociety;
-	
+import javafx.util.Pair;
 
-	public Manager(Society society, Referee referee){
-		myReferee = referee;
-		mySociety = society;
-		
-		if (myReferee.isTorodialWorld()){
-			//mySociety.addTorodialNeighbors();
-		}
+public abstract class Manager {
+	private Society currentSociety;
+//	private Map<Location, Cell> grid;
+
+	public void setSociety(Society society) {
+		this.currentSociety = society;
 	}
 
-
-	public Society getSociety(){
-		return mySociety;
+	public Society getSociety() {
+		return currentSociety;
 	}
-
 
 	public void update() {
-		myReferee.giveSociety(mySociety);
-		mySociety.updateGrid(myReferee.getGrid());
+		Society newSociety = currentSociety.copy();
+		currentSociety = updateSociety(newSociety);
+		
+	}
+
+	public abstract List<Cell> getCellTypes();
+
+	private Society updateSociety(Society newSociety) {		
+		Queue<Location> toProcess = currentSociety.setProcessingOrder();
+
+		while (!toProcess.isEmpty()) {
+			Location currentLoc = toProcess.poll();
+			Pair<Location, Cell> currentLocCell = new Pair<>(currentLoc, currentSociety.get(currentLoc));
+			List<Location> neighborsLoc = pickNeighbors(currentSociety, currentLoc);
+			List<Integer> neighborCounts = currentSociety.countNeighbors(neighborsLoc);
+			if(!update(currentSociety, newSociety, currentLocCell, neighborsLoc, neighborCounts)){
+				break;
+			}
+		}
+		return newSociety;
 	}
 	
-	public Point2D getFurthestPoint(){
-		return mySociety.getBottomRightPoint();
+	protected abstract boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc, List<Integer> neighborCounts);
+
+	public List<Location> pickNeighbors(Society soc, Location loc) {
+		// TODO: Pick neighbors
+		return soc.getVertexNeighbors(loc);
+		// return soc.getSideNeighbors(loc);
 	}
+	
 }

@@ -140,7 +140,7 @@ public class Interface{
 		root.getChildren().add(buttonPanel);
 		
 		XMLReader read = new XMLReader(xmlFile);
-		myManager = read.getManager();
+		myManager = read.extractManager();
 		myDrawer = new Drawer();
 
 		root = myDrawer.draw(root, myManager.getSociety(), true);
@@ -162,7 +162,6 @@ public class Interface{
 		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
 		
 		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
-		buttonPanel.setLayoutX(WIDTH/2 - 250);
 		buttonPanel.setLayoutY(HEIGHT - 40);
 	}
 	

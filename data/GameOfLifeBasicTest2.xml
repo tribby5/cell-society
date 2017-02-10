@@ -1,8 +1,5 @@
-<Simulation simulationType="2">
-	<Title>Game of Life</Title>
-	<Author>Andres Lebbos</Author>
-	<dimX>10</dimX>
-	<dimY>10</dimY>
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation simulationType="0">
 	<Cell>
 		<x>0.5</x>
 		<y>0.5</y>
@@ -63,7 +60,7 @@
 		<poly>0</poly>
 		<CellType>0</CellType>
 	</Cell>
-	<Cell>
+		<Cell>
 		<x>1.5</x>
 		<y>0.5</y>
 		<poly>0</poly>
@@ -331,73 +328,73 @@
 		<x>5.5</x>
 		<y>4.5</y>
 		<poly>0</poly>
-		<CellType>2</CellType>
+		<CellType>0</CellType>
 	</Cell>
 	<Cell>
 		<x>5.5</x>
 		<y>5.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>5.5</x>
+		<y>6.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>5.5</x>
+		<y>7.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>5.5</x>
+		<y>8.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>5.5</x>
+		<y>9.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>6.5</x>
+		<y>0.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>6.5</x>
+		<y>1.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>6.5</x>
+		<y>2.5</y>
+		<poly>0</poly>
+		<CellType>0</CellType>
+	</Cell>
+	<Cell>
+		<x>6.5</x>
+		<y>3.5</y>
 		<poly>0</poly>
 		<CellType>1</CellType>
 	</Cell>
 	<Cell>
-		<x>5.5</x>
-		<y>6.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>5.5</x>
-		<y>7.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>5.5</x>
-		<y>8.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>5.5</x>
-		<y>9.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>6.5</x>
-		<y>0.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>6.5</x>
-		<y>1.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>6.5</x>
-		<y>2.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
-		<x>6.5</x>
-		<y>3.5</y>
-		<poly>0</poly>
-		<CellType>0</CellType>
-	</Cell>
-	<Cell>
 		<x>6.5</x>
 		<y>4.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>6.5</x>
 		<y>5.5</y>
 		<poly>0</poly>
-		<CellType>0</CellType>
+		<CellType>1</CellType>
 	</Cell>
 	<Cell>
 		<x>6.5</x>

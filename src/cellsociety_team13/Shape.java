@@ -27,7 +27,6 @@ public abstract class Shape {
 		vertices = new Double[numSides * 2];
 		//System.out.print(numSides);
 		double angleBetweenVertices = 360 / numSides;
-		
 		for(int i = 0 ; i < numSides; i++){
 			double angleOfVertex = angle + i * angleBetweenVertices;															
 			vertices[i * 2] = center[0] + this.getRadius() * Math.cos(Math.toRadians(angleOfVertex));
