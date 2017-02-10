@@ -27,6 +27,10 @@ public abstract class FireCell extends ThreeStateCell{
 		return stateDead;
 	}
 	
+	public int getDefaultEmptyState(){
+		return getState_Dead();
+	}
+	
 	public FireCell updateCell(List<Integer> neighborCount){
 		return this.act(neighborCount);
 	}

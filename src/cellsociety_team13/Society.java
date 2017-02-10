@@ -2,6 +2,7 @@ package cellsociety_team13;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 import javafx.geometry.Point2D;
 import simulation.Fire.FireCell;
@@ -28,6 +30,14 @@ public class Society {
 
 	public Cell get(Location loc) {
 		return grid.get(loc);
+	}
+	
+	public Set<Location> keySet(){
+		return grid.keySet();
+	}
+	
+	public Collection<Cell> values(){
+		return grid.values();
 	}
 
 	public Society(Map<Location, Cell> grid2, Map<Location, ArrayList<Location>> vertexNeighbor2,

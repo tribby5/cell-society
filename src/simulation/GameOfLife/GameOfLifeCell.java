@@ -28,6 +28,10 @@ public abstract class GameOfLifeCell extends TwoStateCell{
 		return this.act(neighborCount);
 	}
 	
+	public int getDefaultEmptyState(){
+		return getState_Off();
+	}
+	
 	protected abstract GameOfLifeCell act(List<Integer> neighborCount);
 
 }

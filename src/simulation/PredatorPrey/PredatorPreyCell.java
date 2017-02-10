@@ -30,6 +30,10 @@ public abstract class PredatorPreyCell extends ThreeStateCell{
 		return stateWater;
 	}
 	
+	public int getDefaultEmptyState(){
+		return getState_Water();
+	}
+	
 	public abstract void act(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts);
 

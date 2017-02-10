@@ -33,17 +33,19 @@ public abstract class Manager {
 			Pair<Location, Cell> currentLocCell = new Pair<>(currentLoc, currentSociety.get(currentLoc));
 			List<Location> neighborsLoc = pickNeighbors(currentSociety, currentLoc);
 			List<Integer> neighborCounts = currentSociety.countNeighbors(neighborsLoc);
-			update(currentSociety, newSociety, currentLocCell, neighborsLoc, neighborCounts);
+			if(!update(currentSociety, newSociety, currentLocCell, neighborsLoc, neighborCounts)){
+				break;
+			}
 		}
 		return newSociety;
 	}
 	
-	protected abstract void update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc, List<Integer> neighborCounts);
+	protected abstract boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc, List<Integer> neighborCounts);
 
 	public List<Location> pickNeighbors(Society soc, Location loc) {
 		// TODO: Pick neighbors
 		return soc.getVertexNeighbors(loc);
 		// return soc.getSideNeighbors(loc);
 	}
-
+	
 }

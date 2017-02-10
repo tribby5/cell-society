@@ -23,11 +23,11 @@ public class PredatorPrey extends Manager{
 	}
 
 	@Override
-	protected void update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc,
+	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc,
 			List<Integer> neighborCounts) {
 		PredatorPreyCell currentCell = (PredatorPreyCell) currentLocCell.getValue();
 		currentCell.act(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc, neighborCounts);
-		
+		return true;
 		
 	}
 

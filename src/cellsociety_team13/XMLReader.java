@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import simulation.Fire.Fire;
 import simulation.GameOfLife.GameOfLife;
 import simulation.PredatorPrey.PredatorPrey;
+import simulation.Segregation.Segregation;
 
 
 public class XMLReader {
@@ -58,14 +59,14 @@ public class XMLReader {
 			getGameOfLife(),
 			getFire(),
 			getPredatorPrey(),
-			//getSegregation()
+			getSegregation()
 	});
 	
-	/*
+	
 	private static Manager getSegregation() {
 		return new Segregation();
 	}
-	*/
+	
 	private static Manager getPredatorPrey() {
 		return new PredatorPrey();
 	}
