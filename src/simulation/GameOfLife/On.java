@@ -9,6 +9,8 @@ public class On extends GameOfLifeCell{
 	
 	public static final Color color = Color.BLACK; //TODO: color imports
 	public static final int state = getState_On();
+	public static final int LOWER_THRESHOLD = 2;
+	public static final int HIGHER_THRESHOLD = 3;
 
 	public On() {
 		super(color, state);
@@ -16,7 +18,7 @@ public class On extends GameOfLifeCell{
 
 	@Override
 	public GameOfLifeCell act(List<Integer> neighborCount) {
-		if (neighborCount.get(getState_On()) < 2 || neighborCount.get(getState_On()) > 3){
+		if (neighborCount.get(getState_On()) < LOWER_THRESHOLD || neighborCount.get(getState_On()) > HIGHER_THRESHOLD){
 			return new Off();
 		}
 		return new On();

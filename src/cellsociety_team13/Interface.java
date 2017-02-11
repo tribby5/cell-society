@@ -77,12 +77,7 @@ public class Interface{
 	
 	public void setInfo(){
 		VBox infoRoot = new VBox(50);
-		Text generalInfoTitle = new Text(resources.getString("generalInfoTitle"));
-		generalInfoTitle.setFont(font);
-		Text generalInfoText = new Text(resources.getString("generalInfoText"));
-		generalInfoText.setWrappingWidth(WIDTH/2);
-		generalInfoText.setTextAlignment(TextAlignment.CENTER);
-		generalInfoText.setFont(smallFont);
+		infoRoot = createInformativeText(infoRoot);
 		
 		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
@@ -96,9 +91,7 @@ public class Interface{
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				File checkNull = chooseFile();
-				if(checkNull != null){
-					xmlFile = checkNull;
+				if(chooseFile()){
 					cont.setVisible(true);
 					nonXML.setVisible(false);
 				}
@@ -109,7 +102,7 @@ public class Interface{
 			}
 		});
 		
-		infoRoot.getChildren().addAll(generalInfoTitle,generalInfoText, fileChoose, cont, nonXML);
+		infoRoot.getChildren().addAll(fileChoose, cont, nonXML);
 		infoRoot.setAlignment(Pos.CENTER);
 		
 
@@ -117,7 +110,18 @@ public class Interface{
 		stage.setScene(info);
 	}
 	
-	private File chooseFile(){
+	private VBox createInformativeText(VBox infoRoot){
+		Text generalInfoTitle = new Text(resources.getString("generalInfoTitle"));
+		generalInfoTitle.setFont(font);
+		Text generalInfoText = new Text(resources.getString("generalInfoText"));
+		generalInfoText.setWrappingWidth(WIDTH/2);
+		generalInfoText.setTextAlignment(TextAlignment.CENTER);
+		generalInfoText.setFont(smallFont);	
+		infoRoot.getChildren().addAll(generalInfoTitle, generalInfoText);
+		return infoRoot;
+	}
+	
+	private boolean chooseFile(){
 		FileChooser xmlChooser = new FileChooser();
 		xmlChooser.setTitle(resources.getString("chooseXML"));
 		xmlChooser.setInitialDirectory(new File(XML_FILE_DIRECTORY));
@@ -126,11 +130,13 @@ public class Interface{
 				String name = file.getName();
 				String fileType = name.substring(name.lastIndexOf("."), name.length());
 				if(!fileType.equals(FILE_EXTENSION)){
-					return null;
+					xmlFile = null;
+					return false;
 				}
-				return file;
+				xmlFile = file;
+				return true;
 		}
-		return null;
+		return false;
 	}
 	
 	private void setupSimulation(){
@@ -184,9 +190,7 @@ public class Interface{
 			@Override
 			public void handle(ActionEvent event) {
 				simulation.pause();
-				File checkNull = chooseFile();
-				if(checkNull != null){
-					xmlFile = checkNull;
+				if(chooseFile()){
 					simulation.stop();
 					setupSimulation();
 				}}});
