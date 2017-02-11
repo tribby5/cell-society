@@ -16,21 +16,36 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 	public static final int stateSlime = 2;
 	public static final int statePatch = 1;
 	
-	private int chemical_deposit_count;
+	private double chemical_deposit_count;
+	private double evaporation_rate;
+	private double diffusion;
 
 	public SlimeMoldsCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
 	}
 	
-	public int getChemical_deposit_count() {
+	public double getChemical_deposit_count() {
 		return chemical_deposit_count;
 	}
 
-	public void setChemical_deposit_count(int chemical_deposit_count) {
+	public void setChemical_deposit_count(double chemical_deposit_count) {
 		this.chemical_deposit_count = chemical_deposit_count;
 	}
 	
-	
+	private void diffuseChemicalOnNeighborPatches(Society currentSociety, List<Location> neighborsLoc){
+		if(this.getChemical_deposit_count() != 0){
+			// evaporate
+			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - evaporation_rate));
+			
+			// diffuse to neighbors
+			for(Location neighborLoc : neighborsLoc){
+				((SlimeMoldsCell) currentSociety.get(neighborLoc)).setChemical_deposit_count(this.getChemical_deposit_count() * diffusion);
+			}
+			
+			// reduce diffused amount
+			this.setChemical_deposit_count(this.getChemical_deposit_count() * neighborsLoc.size() * (1 - diffusion));
+		}
+	}
 	
 	
 	public static int getState_Slime(){
@@ -61,7 +76,13 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 		return getState_Empty();
 	}
 
-	public abstract void act(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
+	public void update(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
+			List<Integer> neighborCounts){
+		diffuseChemicalOnNeighborPatches(currentSociety, neighborsLoc);
+		this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
+	}
+	
+	public abstract void act(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc,
 			List<Integer> neighborCounts);
 	
 	class SlimeMoldsCellComparator implements Comparator<SlimeMoldsCell> {
@@ -76,7 +97,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 					return c1.getState() - c2.getState();
 				}
 			} else {
-				return c1.getChemical_deposit_count() - c2.getChemical_deposit_count(); 
+				return (int) (c1.getChemical_deposit_count() - c2.getChemical_deposit_count()); 
 			}
 		}
 

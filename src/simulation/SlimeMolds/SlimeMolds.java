@@ -10,10 +10,6 @@ import cellsociety_team13.Society;
 import javafx.util.Pair;
 
 public class SlimeMolds extends Manager{
-	
-	private int evaporation_rate;
-	private int chemical_drops;
-	private int diffusion;
 
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new Empty(),
@@ -34,7 +30,7 @@ public class SlimeMolds extends Manager{
 	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
 			List<Location> neighborsLoc, List<Integer> neighborCounts) {
 		
-		((SlimeMoldsCell) currentLocCell.getValue()).act(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc, neighborCounts);
+		((SlimeMoldsCell) currentLocCell.getValue()).update(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc, neighborCounts);
 		
 		
 		return true;

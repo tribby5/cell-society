@@ -11,8 +11,6 @@ public class Patch extends SlimeMoldsCell {
 	public static final Color color = Color.SANDYBROWN;
 	public static final int priority = getPriority_Patch();
 	public static final int state = getState_Patch();
-	
-	
 
 	public Patch() {
 		super(color, state, priority);
@@ -35,7 +33,7 @@ public class Patch extends SlimeMoldsCell {
 	@Override
 	public void act(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc,
 			List<Integer> neighborCounts) {
-		// diffuse chemical on neighbor patches
+		// do nothing
 		
 	}
 
