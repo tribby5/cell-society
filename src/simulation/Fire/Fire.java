@@ -5,71 +5,32 @@ import java.util.List;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
+import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
-import referees.NoLocator;
+import javafx.util.Pair;
 
-public class Fire extends NoLocator{
-	/*Rules:
-	 * 
-	 * side Neighbors
-	 * 
-	 * Tree:
-	 *  - if any neighbors are burning
-	 *     - check if random number [0,1] is less than probCatch
-	 *       - if less -> burning
-	 *       - else -> leave as tree
-	 *  - else -> leave as tree
-	 * 
-	 * Burning:
-	 *  - after one turn of existence -> empty
-	 *       
-	 * Empty:
-	 * - stays empty
-	 * 
-	 * 
-	 */
-	
-	
+
+public class Fire extends Manager{
+
 
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
-			getFIRE_Dead(),
-			getFIRE_Burning(),
-			getFIRE_Alive()
+			new Dead(),
+			new Burning(),
+			new Alive()
 	});
-	public static final boolean torodialWorld = false;
-	public static final boolean vertexNeighbors = false;
-	
-	public Fire(){
-		super(vertexNeighbors, torodialWorld);
-	}
-	
-	private Cell getFIRE_Dead() {
-		return new FIRE_Dead();
-	}
-	private Cell getFIRE_Burning() {
-		return new FIRE_Burning();
-	}
-	private Cell getFIRE_Alive() {
-		return new FIRE_Alive();
-	}
-
-	@Override
-	public Cell judge(Cell currentCell, List<Cell> neighborList) {
-		return currentCell.change(countBurningNeighbors(neighborList));
-	}	
-
 
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
 	}
-		
-	private int countBurningNeighbors(List<Cell> neighborList){
-		int count = 0;
-		for (Cell c : neighborList)
-			if (c instanceof FIRE_Burning)
-				count += 1;
-		return count;
+
+	@Override
+	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
+			List<Location> neighborsLoc, List<Integer> neighborCounts) {
+		FireCell currentCell = (FireCell) currentLocCell.getValue();
+		FireCell updatedCell = currentCell.updateCell(neighborCounts);
+		newSociety.put(currentLocCell.getKey(), updatedCell);
+		return true;
 	}
 
 }

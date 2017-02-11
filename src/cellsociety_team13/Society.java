@@ -1,9 +1,16 @@
 package cellsociety_team13;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 
 import javafx.geometry.Point2D;
 
@@ -13,170 +20,194 @@ public class Society {
 	private Map<Location, Cell> grid;
 	private Point2D bottomRightPoint;
 	private Point2D topLeftPoint;
-	private boolean torodialWorld;
-	
-	public Society(Map<Location, Cell> rawGrid){
-		torodialWorld = false;
+	private Boolean orderMatters;
+
+	public Society(Map<Location, Cell> rawGrid) {
 		grid = rawGrid;
-		generateNeighbors();		
+		generateNeighbors();
 		calcCornerPoints();
+		orderMatters = null;
+	}
+
+	public Cell get(Location loc) {
+		return grid.get(loc);
+	}
+	
+	public Set<Location> keySet(){
+		return grid.keySet();
+	}
+	
+	public Collection<Cell> values(){
+		return grid.values();
+	}
+
+	public Society(Map<Location, Cell> grid2, Map<Location, ArrayList<Location>> vertexNeighbor2,
+			Map<Location, ArrayList<Location>> sideNeighbor2, Point2D bottomRightPoint2, Point2D topLeftPoint2, Boolean orderMatters2) {
+		this.grid = new HashMap<>(grid2);
+		this.vertexNeighbor = vertexNeighbor2;
+		this.sideNeighbor = sideNeighbor2;
+		this.bottomRightPoint = bottomRightPoint2;
+		this.topLeftPoint = topLeftPoint2;
+		this.orderMatters = orderMatters2;
+	}
+
+	public Map<Location, Cell> getGridCopy() {
+		return new HashMap<Location, Cell>(grid);
+	}
+
+	public List<Integer> countNeighbors(List<Location> neighborsLoc) {
+		Integer[] neighborCount = Collections.nCopies(grid.get(neighborsLoc.get(0)).getMaxState(), 0)
+				.toArray(new Integer[0]);
+		// from
+		// http://stackoverflow.com/questions/2154251/any-shortcut-to-initialize-all-array-elements-to-zero/2154340
+		for (Location neighborLoc : neighborsLoc) {
+			neighborCount[grid.get(neighborLoc).getState()]++;
+		}
+		return Arrays.asList(neighborCount);
+
+	}
+
+	public Queue<Location> setProcessingOrder() {
+		PriorityQueue<Cell> qCells = new PriorityQueue<Cell>();
+		Queue<Location> qLocs = new LinkedList<Location>();
 		
+		if(orderMatters == null){
+			orderMatters = isOrderImportant();
+		}
+		
+		if(orderMatters){
+			for (Cell c : grid.values()) {
+				if (c.getPriority() >= 0) {
+					qCells.add(c);
+				}
+			}
+	
+			while (!qCells.isEmpty()) {
+				qLocs.add(getKeyFromValue(grid, qCells.poll()));
+			}
+		} else {
+			qLocs.addAll(grid.keySet());
+		}
+		return qLocs;
+	}
+
+	private boolean isOrderImportant() {
+		int anyPriorityValue = -1;
+		for(Cell c : grid.values()){
+			if(c.getPriority() >= 0){
+				if(anyPriorityValue == -1){
+					// assign first value
+					anyPriorityValue = c.getPriority();
+				} else {
+					// first valued already assigned
+					if (anyPriorityValue != c.getPriority()){
+						// a different priority value found
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	private Location getKeyFromValue(Map<Location, Cell> map, Cell value) {
+		for (Location key : map.keySet()) {
+			if (map.get(key) == value) {
+				return key;
+			}
+		}
+		return null;
 	}
 
 	private void generateNeighbors() {
-        sideNeighbor = new HashMap<Location, ArrayList<Location>>();
-        vertexNeighbor = new HashMap<Location, ArrayList<Location>>(); 
-        for(Location pointBase : grid.keySet()){
-            ArrayList<Location> tempSide = new ArrayList<Location>();
-            ArrayList<Location> tempVertex = new ArrayList<Location>();
-            for(Location pointTest : grid.keySet())
-                if (pointBase != pointTest){
-                	double distanceBetween = distance(pointBase.getPoint(), pointTest.getPoint());
-                    if (distanceBetween 
-                    		<= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
-                        tempSide.add(pointTest);
-                    if (distanceBetween 
-                    		<= pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius())
-                        tempVertex.add(pointTest);
-                }
-            vertexNeighbor.put(pointBase, tempVertex);
-            sideNeighbor.put(pointBase, tempSide);
-        }
-    }
-
-
-
-	public double distance(Point2D l1, Point2D l2){
-		return l1.distance(l2);
-	}
-	
-	public Map<Location, Cell> getGrid(){
-		return grid;
-	}
-	
-	public List<Cell> getSideNeighbors(Location loc){
-		List<Location> neighborLocList = sideNeighbor.get(loc);
-		return getNeighbors(neighborLocList);		
-	}
-	
-	public List<Cell> getVertexNeighbors(Location loc){
-		List<Location> neighborLocList = vertexNeighbor.get(loc);
-		return getNeighbors(neighborLocList);
-	}
-
-	private List<Cell> getNeighbors(List<Location> neighborLocList) {
-		List<Cell> neighborCellList = new ArrayList<Cell>();
-		for(Location locNeighbor : neighborLocList){
-			neighborCellList.add(grid.get(locNeighbor));
+		sideNeighbor = new HashMap<Location, ArrayList<Location>>();
+		vertexNeighbor = new HashMap<Location, ArrayList<Location>>();
+		for (Location pointBase : grid.keySet()) {
+			ArrayList<Location> tempSide = new ArrayList<Location>();
+			ArrayList<Location> tempVertex = new ArrayList<Location>();
+			for (Location pointTest : grid.keySet())
+				if (pointBase != pointTest) {
+					double distanceBetween = pointBase.getPoint().distance(pointTest.getPoint());
+					if (distanceBetween <= pointBase.getPoly().getApothem() + pointTest.getPoly().getApothem())
+						tempSide.add(pointTest);
+					if (distanceBetween <= pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius())
+						tempVertex.add(pointTest);
+				}
+			vertexNeighbor.put(pointBase, tempVertex);
+			sideNeighbor.put(pointBase, tempSide);
 		}
-		return neighborCellList;
 	}
 
-	public void updateGrid(Map<Location, Cell> newGrid) {
-		grid = newGrid;
+	public void swap(Location loc1, Location loc2) {
+		Cell temp = get(loc1);
+		put(loc1, grid.get(loc2));
+		put(loc2, temp);
 	}
-	
+
 	private void calcCornerPoints() {
 		Point2D max = new Point2D(0, 0);
-		
-		for(Location loc: grid.keySet()){
-			if(loc.getX() > max.getX())
+
+		for (Location loc : grid.keySet()) {
+			if (loc.getX() > max.getX())
 				max = new Point2D(loc.getX(), max.getY());
-			if(loc.getY() > max.getY())
+			if (loc.getY() > max.getY())
 				max = new Point2D(max.getX(), loc.getY());
 		}
 		this.bottomRightPoint = new Point2D(max.getX() + findSideLength(), max.getY() + findSideLength());
-		
+
 		Point2D min = new Point2D(max.getX(), max.getY());
-		for(Location loc: grid.keySet()){
-			if(loc.getX() < min.getX())
+		for (Location loc : grid.keySet()) {
+			if (loc.getX() < min.getX())
 				min = new Point2D(loc.getX(), min.getY());
-			if(loc.getY() < min.getY())
+			if (loc.getY() < min.getY())
 				min = new Point2D(min.getX(), loc.getY());
-		}	
+		}
 		this.topLeftPoint = new Point2D(min.getX() - findSideLength(), min.getY() - findSideLength());
 	}
-	
+
+	public List<Location> getSideNeighbors(Location loc) {
+		return sideNeighbor.get(loc);
+	}
+
+	public List<Location> getVertexNeighbors(Location loc) {
+		return vertexNeighbor.get(loc);
+	}
+
 	private double findSideLength() {
-		for(Location loc: grid.keySet())
+		for (Location loc : grid.keySet())
 			return loc.getPoly().getSideLength();
 		return 0;
 	}
 
-	public Point2D getBottomRightPoint(){
+	public Point2D getBottomRightPoint() {
 		return bottomRightPoint;
 	}
-	
-	public Point2D getTopLeftPoint(){
+
+	public Point2D getTopLeftPoint() {
 		return topLeftPoint;
 	}
 
-	public void addTorodialNeighbors() {
-		this.torodialWorld = true;
-        for(Location pointBase : grid.keySet()){
-            ArrayList<Location> tempSide = sideNeighbor.get(pointBase);
-            ArrayList<Location> tempVertex = vertexNeighbor.get(pointBase);
-            
-            
-            
-            if(!checkIfOnEdge(tempSide, tempVertex)){
-            	continue;
-            }
-            
-            //System.out.println("before: " + tempSide.size() + " " + tempVertex.size());
-
-            for(Location pointTest : grid.keySet())
-                if (pointBase != pointTest){
-                	boolean onOppositeWalls = Math.max(pointBase.getX(), pointTest.getX()) == bottomRightPoint.getX()
-                								&& Math.min(pointBase.getX(), pointTest.getX()) == topLeftPoint.getX();
-                	
-                	boolean onFloorCeiling = Math.max(pointBase.getY(), pointTest.getY()) == bottomRightPoint.getY()
-                        						&& Math.min(pointBase.getY(), pointTest.getY()) == topLeftPoint.getY();
-                	
-                	
-                	if (onOppositeWalls && onFloorCeiling){
-                		tempVertex.add(pointTest);
-                		continue;
-                	}
-                	
-                	
-                	if (onOppositeWalls){
-                		for (int i = -1 ; i < 2 ; i++){
-                			if (Math.abs(pointBase.getY() - pointTest.getY()) <= i * pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius()){
-                				tempVertex.add(pointTest);
-                				if (i == 0){
-                					tempSide.add(pointTest);
-                				}
-                			}		
-                		}
-                	}
-                	if (onFloorCeiling){
-                		for (int i = -1 ; i < 2 ; i++){
-                			if (Math.abs(pointBase.getX() - pointTest.getX()) <= i * pointBase.getPoly().getRadius() + pointTest.getPoly().getRadius()){
-                				tempVertex.add(pointTest);
-                				if (i == 0){
-                					tempSide.add(pointTest);
-                				}
-                			}		
-                		}
-                	}
-                }
-            //System.out.println("after: " + tempSide.size() + " " + tempVertex.size());
-            vertexNeighbor.put(pointBase, tempVertex);
-            sideNeighbor.put(pointBase, tempSide);
-        }
-		
+	public Society copy() {
+		return new Society(grid, vertexNeighbor, sideNeighbor, bottomRightPoint, topLeftPoint, orderMatters);
 	}
-	
-	private boolean checkIfOnEdge(ArrayList<Location> tempSide, ArrayList<Location> tempVertex) {
-		return(tempSide.size() != 4 || tempVertex.size() != 8);
+
+	public void put(Location currentLoc, Cell updatedCell) {
+		grid.put(currentLoc, updatedCell);
+	}
+
+	public boolean tryToSwap(Location loc, Location potentialLoc, Integer targetState) {
+		if (get(potentialLoc).getState() == targetState){
+			swap(loc, potentialLoc);
+			return true;
+		}
+		return false;
 	}
 	
 	
 	public Map<String, Integer> getPopulation(){
 		HashMap<String, Integer> population = new HashMap<String, Integer>();
 		for(Cell cell:grid.values()){
-			String color = cell.getState().toString();
+			String color = Integer.toString(cell.getState());
 			if(!population.containsKey(color)){
 				population.put(color, 1);
 			}
@@ -188,5 +219,4 @@ public class Society {
 	}
 	
 
-	
 }

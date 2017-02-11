@@ -1,0 +1,18 @@
+Simulation
+	Different neighbor combo (side, vertex, … )
+	Implement Triangle, Hexagonal
+	Edge handling: toroidal and infinite
+	4 more simulations
+Configuration
+	Error checking on XML file
+	XML files hold:
+		Specific locations
+		Percentages of populations
+		Totally random
+	Generalized “styles”, no simulation specifics
+	Save XML file
+Visualization
+	Graphs of populations
+	Users to change parameters
+	Users to change cell state
+	Multiple simulations at the same time
