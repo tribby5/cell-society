@@ -1,0 +1,15 @@
+#NetIDs: mrt28 and ah365
+
+#Code Smells Refactoring
+1. Make a separate method that will generate a button when called and handed the proper parameters. One or two instances of duplicated code from this aspect had to do with the repeated code that went into creating and then modifying the buttons. For the most part, these actions are similar for generating a lot of buttons. Therefore we can put all of these calls in one method, and pass in the necessary aspects that an individual button needs. The tricky part about this will be setting the action of the button, because often times it will require a lot more.
+The code has been refactored. Basically I added as much as possible into the chooseFile() function so that no code has to be duplicated. Originally, I checked if the file was null outside of the chooseFile() function and just returned the file but now I set the file to the instance variable and return a boolean value representing whether or not the file was null.
+
+2. Make an abstract method in the superclass of Locator and NoLocator called addChangers. The code is duplicated in both of these classes, and both serve the same general purpose although they will be carried out differently. Thus, by making it an abstract method higher up in the hierarchy, it allows the programmer to later delineate between the method of the two different classes. 
+Resolution to this: We have as a group decided to completely refactor our Locator and noLocator classes. So this problem was solved by simply implementing the behavior of Locator and noLocator directly into the simulation type. What Locator did was basically find a cell a spot if it was supposed to move around the grid. noLocator basically did nothing but originally a cell had to be either. So you won't see this code as part of this push to github but it is because we already fixed this code after the analysis of our code was done but before I did this lab. 
+
+#Checklist Refactoring
+1. Remove the magic values in the Game of Life simulation. Right now he has 2 and 3 as the minimum and maximum thresholds for when a cell would die, but this doesn't allow for possibly changing the threshold down the road if the actual shell changes shape or otherwise.
+Resolution: This was an easy fix, just added some constants which increase readability and can easily be changed to modify the rules of the GOL of Life Simulation. 
+
+2. The methods get lengthy here and there. Although it is to be noted that the numbers on the analysis do not accurately reflect the true method length. This is not a major problem but is the next biggest problem because the checklist program did not find many issues with the program. This is something to stay cognizant of while coding.
+Resolution to this: As a starting point for further trimming down methods I made a helper method for the setInfo() method in the Interface. Originally, in this method it created a bunch of text objects which were to be displayed. Now I call a short helper method which creates these Text instances and adds them to the root used in the Scene. 
