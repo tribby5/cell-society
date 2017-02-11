@@ -171,6 +171,22 @@ public class Society {
 	private boolean checkIfOnEdge(ArrayList<Location> tempSide, ArrayList<Location> tempVertex) {
 		return(tempSide.size() != 4 || tempVertex.size() != 8);
 	}
+	
+	
+	public Map<String, Integer> getPopulation(){
+		HashMap<String, Integer> population = new HashMap<String, Integer>();
+		for(Cell cell:grid.values()){
+			String color = cell.getState().toString();
+			if(!population.containsKey(color)){
+				population.put(color, 1);
+			}
+			else{
+				population.put(color, population.get(color) + 1);
+			}
+		}
+		return population;
+	}
+	
 
 	
 }
