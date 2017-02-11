@@ -3,6 +3,7 @@ package cellsociety_team13;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -35,7 +36,7 @@ public class Interface{
 	private Font font = new Font("Times New Roman", 35);
 	private Font smallFont = new Font("Times New Roman", 20);
 	public static final int WIDTH = 500;
-	public static final int HEIGHT = 550;
+	public static final int HEIGHT = 680;
 	public static final int GRID_WIDTH = 500;
 	public static final int GRID_HEIGHT = 500;
 	private File xmlFile = null;
@@ -50,11 +51,18 @@ public class Interface{
 	private Timeline simulation;
 	private Drawer myDrawer;
 	private Manager myManager;
+	private PopGraph graph;
 	
+	/**
+	 * The constructor for the Interface class. This will create an interface object
+	 * that will provide the user interface for the simulator to be played on. 
+	 * @param primaryStage Stage on which Scenes will be displayed
+	 */
 	public Interface(Stage primaryStage){
 		stage = primaryStage;
 		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		setWelcome();
+		
 	}
 	
 	public void setWelcome(){
@@ -73,6 +81,11 @@ public class Interface{
 		
 		stage.setScene(welcome);
 		stage.show();
+	}
+	
+	public void makeGraph(Map<String, Integer> test){
+		graph = new PopGraph(test, WIDTH, 170);
+		graph.setY(HEIGHT - 200);
 	}
 	
 	public void setInfo(){
@@ -146,10 +159,13 @@ public class Interface{
 		root.getChildren().add(buttonPanel);
 		
 		XMLReader read = new XMLReader(xmlFile);
+
 		myManager = read.extractManager();
+		makeGraph(myManager.getSociety().getPopulation());
 		myDrawer = new Drawer();
 
 		root = myDrawer.draw(root, myManager.getSociety(), true);
+		root = graph.draw(root);
 		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 		stage.setTitle(TITLE.get(read.getTitleId()));
 		startSimulation();
@@ -166,9 +182,23 @@ public class Interface{
 		stepThrough.setOnAction(event -> {simulation.pause(); step();});
 		Button reset = new Button(resources.getString("reset"));
 		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
+		Button newInterface = new Button("Add Simulation");
+		newInterface.setOnAction(e -> {addInterface();});
 		
-		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
+		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset, newInterface);
 		buttonPanel.setLayoutY(HEIGHT - 40);
+	}
+	
+	private void addInterface(){
+		if(chooseFile()){
+			Interface first = new Interface(new Stage());
+			first.setXMLFile(xmlFile);
+			first.setupSimulation();
+		}
+	}
+	
+	public void setXMLFile(File file){
+		xmlFile = file;
 	}
 	
 	private Slider createSlider(){
@@ -210,6 +240,8 @@ public class Interface{
 	
 	private void step(){
 		root.getChildren().clear();
+		graph.update(myManager.getSociety().getPopulation());
+		root = graph.draw(root);
 		root.getChildren().add(buttonPanel);
 		myManager.update();
 		root = myDrawer.draw(root, myManager.getSociety(), false);	

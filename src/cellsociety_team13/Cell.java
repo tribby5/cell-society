@@ -1,7 +1,6 @@
 package cellsociety_team13;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
 import javafx.scene.paint.Color;

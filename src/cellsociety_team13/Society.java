@@ -202,5 +202,21 @@ public class Society {
 		}
 		return false;
 	}
+	
+	
+	public Map<String, Integer> getPopulation(){
+		HashMap<String, Integer> population = new HashMap<String, Integer>();
+		for(Cell cell:grid.values()){
+			String color = Integer.toString(cell.getState());
+			if(!population.containsKey(color)){
+				population.put(color, 1);
+			}
+			else{
+				population.put(color, population.get(color) + 1);
+			}
+		}
+		return population;
+	}
+	
 
 }
