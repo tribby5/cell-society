@@ -13,6 +13,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class Society {
 	private Map<Location, ArrayList<Location>> vertexNeighbor;
@@ -204,10 +205,10 @@ public class Society {
 	}
 	
 	
-	public Map<String, Integer> getPopulation(){
-		HashMap<String, Integer> population = new HashMap<String, Integer>();
+	public Map<Color, Integer> getPopulation(){
+		HashMap<Color, Integer> population = new HashMap<Color, Integer>();
 		for(Cell cell:grid.values()){
-			String color = Integer.toString(cell.getState());
+			Color color = cell.getColor();
 			if(!population.containsKey(color)){
 				population.put(color, 1);
 			}

@@ -3,7 +3,6 @@ package cellsociety_team13;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.prism.paint.Color;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -13,34 +12,35 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 import javafx.scene.Node;
 
 
 public class PopGraph {
 	private LineChart<Number, Number> popChart;
-	private HashMap<String, XYChart.Series<Number, Number>> population = new HashMap<String, XYChart.Series<Number, Number>>();
+	private HashMap<Color, XYChart.Series<Number, Number>> population = new HashMap<Color, XYChart.Series<Number, Number>>();
 	private int iteration = 0;
 	public final static int MAX_SIZE = 10;
 
-	public PopGraph(Map<String, Integer> pop, int maxWidth, int maxHeight){
+	public PopGraph(Map<Color, Integer> pop, int maxWidth, int maxHeight){
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
 		popChart = new LineChart<Number,Number>(xAxis, yAxis);
-		for(String key: pop.keySet()){
+		for(Color key: pop.keySet()){
 			population.put(key, createSeries(key, pop.get(key)));
 		}
 		popChart.setMaxHeight(maxHeight);
 		popChart.setMaxWidth(maxWidth);
 	}
 	
-	public void update(Map<String, Integer> pop){
+	public void update(Map<Color, Integer> map){
 		iteration++;
-		for(String key:pop.keySet()){
+		for(Color key:map.keySet()){
 			if(population.containsKey(key)){
-				population.get(key).getData().add(new Data<Number, Number>((Number) iteration, (Number) pop.get(key)));
+				population.get(key).getData().add(new Data<Number, Number>((Number) iteration, (Number) map.get(key)));
 			}
 			else{
-				population.put(key, createSeries(key, pop.get(key)));
+				population.put(key, createSeries(key, map.get(key)));
 			}
 		}
 		/*
@@ -52,13 +52,13 @@ public class PopGraph {
 		*/
 	}
 	
-	private Series<Number, Number> createSeries(String color, Integer value){		
+	private Series<Number, Number> createSeries(Color key, Integer value){		
 		XYChart.Series<Number, Number> temp = new XYChart.Series<Number, Number>();
 		temp.getData().add(new Data<Number, Number>((Number) iteration, (Number) value));
 		
 		temp.nodeProperty().addListener((ObservableValue<? extends Node> o, Node old, Node node) ->{
 			if(node != null){
-				String colorCall = String.format("-fx-stroke: %s;", "#" + color.substring(2));
+				String colorCall = String.format("-fx-stroke: %s;", "#" + key.toString().substring(2));
 				node.setStyle(colorCall);
 			}
 		});
@@ -67,7 +67,7 @@ public class PopGraph {
 	
 	public Group draw(Group root){
 		popChart.getData().clear();
-		for(String key : population.keySet()){
+		for(Color key : population.keySet()){
 			popChart.getData().add(population.get(key));
 		}
 		root.getChildren().add(popChart);

@@ -83,7 +83,7 @@ public class Interface{
 		stage.show();
 	}
 	
-	public void makeGraph(Map<String, Integer> test){
+	public void makeGraph(Map<Color, Integer> test){
 		graph = new PopGraph(test, WIDTH, 170);
 		graph.setY(HEIGHT - 200);
 	}
