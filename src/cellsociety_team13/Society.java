@@ -83,7 +83,7 @@ public class Society {
 			}
 	
 			while (!qCells.isEmpty()) {
-				qLocs.add(getKeyFromValue(grid, qCells.poll()));
+				qLocs.add(getKeyFromValue(qCells.poll()));
 			}
 		} else {
 			qLocs.addAll(grid.keySet());
@@ -109,10 +109,10 @@ public class Society {
 		}
 		return true;
 	}
-
-	private Location getKeyFromValue(Map<Location, Cell> map, Cell value) {
-		for (Location key : map.keySet()) {
-			if (map.get(key) == value) {
+	
+	public Location getKeyFromValue(Cell value) {
+		for (Location key : grid.keySet()) {
+			if (grid.get(key) == value) {
 				return key;
 			}
 		}

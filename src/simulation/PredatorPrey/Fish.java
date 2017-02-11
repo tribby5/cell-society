@@ -10,10 +10,10 @@ import javafx.scene.paint.Color;
 
 public class Fish extends SeaAnimal{
 	public static final Color color = Color.GREEN;
-	public static final int priority = 1;
-	public static final int TURNS_TO_REPRODUCTION = 4;
 	public static final int state = getState_Fish();
-
+	public static final int priority = getPriority_Fish();
+	
+	public static final int TURNS_TO_REPRODUCTION = 4;
 	
 	public Fish() {
 		super(color, state, priority, TURNS_TO_REPRODUCTION);

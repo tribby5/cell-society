@@ -19,7 +19,7 @@ public class On extends GameOfLifeCell{
 		if (neighborCount.get(getState_On()) < 2 || neighborCount.get(getState_On()) > 3){
 			return new Off();
 		}
-		return new On();
+		return this;
 	}
 
 	@Override

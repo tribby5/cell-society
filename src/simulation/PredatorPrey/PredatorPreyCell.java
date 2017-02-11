@@ -11,6 +11,9 @@ public abstract class PredatorPreyCell extends ThreeStateCell{
 	public static final int stateShark = 2;
 	public static final int stateFish = 1;
 	public static final int stateWater = 0;
+	public static final int priorityShark = 0;
+	public static final int priorityFish = 1;
+	public static final int priorityWater = -1;
 
 
 	public PredatorPreyCell(Color inputColor, int state, int priority) {
@@ -28,6 +31,18 @@ public abstract class PredatorPreyCell extends ThreeStateCell{
 
 	public static int getState_Water(){
 		return stateWater;
+	}
+	
+	public static int getPriority_Shark(){
+		return priorityShark;
+	}
+	
+	public static int getPriority_Fish(){
+		return priorityFish;
+	}
+	
+	public static int getPriority_Water(){
+		return priorityWater;
 	}
 	
 	public int getDefaultEmptyState(){
