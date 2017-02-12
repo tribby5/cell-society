@@ -38,7 +38,7 @@ public class Patch extends SlimeMoldsCell {
 	public void act(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc,
 			List<Integer> neighborCounts) {
 		if(newSociety.get(loc).getState() == state){
-			if (((Patch) newSociety.get(loc)).getChemical_deposit_count() <=  MIN_CHEM_VALUE){
+			if (((Patch) newSociety.get(loc)).getChemical_deposit_count() <  MIN_CHEM_VALUE){
 				newSociety.put(loc, new Empty());
 			} else {
 				newSociety.put(loc, this);
