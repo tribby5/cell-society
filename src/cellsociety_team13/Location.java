@@ -35,8 +35,12 @@ public class Location{
 		place = new Point2D(Double.parseDouble(data.get(FIELDS.get(0))), Double.parseDouble(data.get(FIELDS.get(1))));
 		shape = POLYS.get(Integer.parseInt(data.get(FIELDS.get(2))));
 	}
-
-
+	
+	public Location(double x, double y, Shape pShape) {
+		place = new Point2D(x, y);
+		shape = pShape;
+	}
+	
 	private static Shape getTriangle_Down() {
 		return new Triangle_Down();
 	}

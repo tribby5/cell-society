@@ -8,4 +8,14 @@ public abstract class Triangle extends Shape{
 	public Triangle(double startingAngle) {
 		super(numSides, startingAngle);
 	}
+	
+	@Override
+	public double getXAdvance() {
+		return getSideLength();
+	}
+
+	@Override
+	public double getYAdvance() {
+		return 3*getApothem();
+	}
 }

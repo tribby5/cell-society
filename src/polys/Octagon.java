@@ -9,4 +9,19 @@ public class Octagon extends Shape{
 	public Octagon() {
 		super(numSides, 0);
 	}
+
+	@Override
+	public double getXAdvance() {
+		return 0;
+	}
+
+	@Override
+	public double getYAdvance() {
+		return 0;
+	}
+
+	@Override
+	public Shape changeNext() {
+		return new Octagon();
+	}
 }
