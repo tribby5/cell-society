@@ -30,6 +30,7 @@ public class PopGraph {
 		}
 		popChart.setMaxHeight(maxHeight);
 		popChart.setMaxWidth(maxWidth);
+		popChart.setCreateSymbols(false);
 	}
 	
 	public void update(Map<Color, Integer> map){
