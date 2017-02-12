@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class Alive extends FireCell{
 	public static final Color color = Color.GREEN; //TODO: color imports
-	public static final int priority = 0;
+	public static final int priority = getPriority_Alive();
 	public static final int state = getState_Alive();
 	private double probCatch;
 	
@@ -26,7 +26,7 @@ public class Alive extends FireCell{
 				return new Burning();
 			}
 		}
-		return new Alive();
+		return this;
 	}
 	
 	public void setProbCatch(double inputProbCatch){

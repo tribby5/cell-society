@@ -21,7 +21,7 @@ public class On extends GameOfLifeCell{
 		if (neighborCount.get(getState_On()) < LOWER_THRESHOLD || neighborCount.get(getState_On()) > HIGHER_THRESHOLD){
 			return new Off();
 		}
-		return new On();
+		return this;
 	}
 
 	@Override

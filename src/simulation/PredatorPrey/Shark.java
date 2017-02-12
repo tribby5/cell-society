@@ -10,10 +10,11 @@ import javafx.scene.paint.Color;
 
 public class Shark extends SeaAnimal{
 	public static final Color color = Color.GREY;
+	public static final int priority = getPriority_Shark();
+	public static final int state = getState_Shark();
+	
 	public static final int TURNS_TO_REPRODUCTION = 10;
 	public static final int INITIAL_ENERGY = 5;
-	public static final int priority = 0;
-	public static final int state = getState_Shark();
 	private static final int FISH_NUTRITIONAL_VALUE = 2;
 	
 	private int energy;

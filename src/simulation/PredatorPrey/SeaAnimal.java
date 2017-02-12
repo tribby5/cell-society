@@ -1,8 +1,5 @@
 package simulation.PredatorPrey;
 
-import java.util.List;
-import java.util.Random;
-
 import cellsociety_team13.Location;
 import cellsociety_team13.Society;
 import javafx.scene.paint.Color;
@@ -16,11 +13,6 @@ public abstract class SeaAnimal extends PredatorPreyCell{
 		super(inputColor, state, priority);
 		this.turnsToReproduction = turnsToReproduction; 
 		this.dead = false;
-	}
-	
-	protected boolean moveOrHunt(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc,
-			Integer waterCount) {
-		return (swapWithRandomTarget(currentSociety, newSociety, loc, neighborsLoc, waterCount, getState_Water()));
 	}
 	
 	protected void tryToReproduce(Society newSociety, Location location, int motherCellState){

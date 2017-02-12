@@ -9,6 +9,9 @@ public abstract class FireCell extends ThreeStateCell{
 	public static final int stateAlive = 2;
 	public static final int stateBurning = 1;
 	public static final int stateDead = 0;
+	public static final int priorityAlive = 0;
+	public static final int priorityBurning = 1;
+	public static final int priorityDead = -1;
 	
 	public FireCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
@@ -25,6 +28,18 @@ public abstract class FireCell extends ThreeStateCell{
 	
 	public static int getState_Dead(){
 		return stateDead;
+	}
+	
+	public static int getPriority_Alive(){
+		return priorityAlive;
+	}
+	
+	public static int getPriority_Burning(){
+		return priorityBurning;
+	}
+	
+	public static int getPriority_Dead(){
+		return priorityDead;
 	}
 	
 	public int getDefaultEmptyState(){

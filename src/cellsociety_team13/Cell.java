@@ -48,6 +48,7 @@ public abstract class Cell implements Comparable<Cell>{
 	public boolean swapWithRandomTarget(Society currentSociety, Society newSociety, Location loc, Collection<Location> eligibleLocs, Integer targetCount, Integer targetState){
 		Random rand = new Random();
 		int pick = rand.nextInt(targetCount) + 1;
+		
 		for(Location neighborLoc : eligibleLocs){
 			if(currentSociety.get(neighborLoc).getState() == targetState){
 				pick--;

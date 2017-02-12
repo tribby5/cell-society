@@ -19,9 +19,11 @@ import org.xml.sax.SAXException;
 
 import javafx.scene.paint.Color;
 import simulation.Fire.Fire;
+import simulation.ForagingAnts.ForagingAnts;
 import simulation.GameOfLife.GameOfLife;
 import simulation.PredatorPrey.PredatorPrey;
 import simulation.Segregation.Segregation;
+import simulation.SlimeMolds.SlimeMolds;
 
 
 public class XMLReader {
@@ -59,8 +61,18 @@ public class XMLReader {
 			getGameOfLife(),
 			getFire(),
 			getPredatorPrey(),
-			getSegregation()
+			getSegregation(),
+			getSlimeMolds(),
+			getForagingAnts()
 	});
+	
+	private static Manager getSlimeMolds() {
+		return new SlimeMolds();
+	}
+	
+	private static Manager getForagingAnts() {
+		return new ForagingAnts();
+	}
 	
 	
 	private static Manager getSegregation() {
@@ -106,7 +118,6 @@ public class XMLReader {
 				Map<String, String> locationData = new HashMap<>();
 				for (String field: Location.FIELDS)
 					locationData.put(field, getTextValue(field));
-				//System.out.println(locationData);
 				Location newLocation = new Location(locationData);
 				Cell newCell = manager.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))).copy();
 				grid.put(newLocation, newCell);

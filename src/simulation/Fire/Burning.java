@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Burning extends FireCell{
 	public static final Color color = Color.RED; //TODO: color imports
-	public static final int priority = 1;
+	public static final int priority = getPriority_Burning();
 	public static final int state = getState_Burning();
 	
 	public Burning() {
