@@ -9,4 +9,19 @@ public class Square extends Shape{
 	public Square() {
 		super(numSides, startingAngle);
 	}
+
+	@Override
+	public double getXAdvance() {
+		return getSideLength();
+	}
+
+	@Override
+	public double getYAdvance() {
+		return getSideLength();
+	}
+
+	@Override
+	public Shape changeNext() {
+		return new Square();
+	}
 }

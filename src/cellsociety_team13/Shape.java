@@ -66,5 +66,11 @@ public abstract class Shape {
 	public double getSideLength(){
 		return sideLength;
 	}
+
+	public abstract double getXAdvance();
+	
+	public abstract double getYAdvance();
+
+	public abstract Shape changeNext();
 	
 }
