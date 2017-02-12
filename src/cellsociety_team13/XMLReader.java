@@ -57,9 +57,9 @@ public class XMLReader {
 	public XMLReader(File xmlFile) throws XMLException {
 		file = xmlFile;
 		getManager();
-		getParameters();
 		getSociety();
 		manager.setSociety(society);
+		//getParameters();
 	}
 
 	private static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {
@@ -115,19 +115,22 @@ public class XMLReader {
 	}
 	
 	private void getParameters() throws XMLException {
-		Map<String, Double> map = new HashMap<>();
-		NodeList nList = currentElement.getElementsByTagName(PARAMETER);
-		Node nNode = nList.item(0);
-		currentElement = (Element) nNode;
-		for(String par: manager.getParametersLabel()){
-			map.put(par, Double.parseDouble(getTextValue(par)));
-		}
-		manager.setParameters(map);
+		Node nNode = getRootElement().getElementsByTagName(PARAMETER).item(0);
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			currentElement = (Element) nNode;
+			Map<String, Double> map = new HashMap<>();
+			for(String par: manager.getParametersLabel()){
+				map.put(par, Double.parseDouble(getTextValue(par)));
+			}
+			manager.setParameters(map);
+		} else
+			throw new XMLException("XML file does not represent some necessary parameter values!");
+		
 	}
 
 	private void getSociety() throws XMLException {
 		Map<Location, Cell> grid = new HashMap<Location, Cell>();
-		NodeList nList = currentElement.getElementsByTagName(CELL);
+		NodeList nList = getRootElement().getElementsByTagName(CELL);
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -138,10 +141,11 @@ public class XMLReader {
 				Location newLocation = new Location(locationData);
 				Cell newCell = manager.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))).copy();
 				grid.put(newLocation, newCell);
+
+				society = new Society(grid);
 			} else
 				throw new XMLException("XML file does not represent some necessary cell values!");
 		}
-		society = new Society(grid);
 		
 		
 	}
