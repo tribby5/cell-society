@@ -31,4 +31,11 @@ public class PredatorPrey extends Manager{
 		
 	}
 
+	@Override
+	public Manager copy() {
+		return new PredatorPrey();
+	}
+	
+	
+
 }

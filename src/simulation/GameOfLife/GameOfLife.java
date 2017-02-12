@@ -29,6 +29,11 @@ public class GameOfLife extends Manager{
 		newSociety.put(currentLocCell.getKey(), updatedCell);
 		return true;
 	}
+
+	@Override
+	public Manager copy() {
+		return new GameOfLife();
+	}
 	
 
 }

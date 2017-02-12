@@ -20,12 +20,11 @@ public abstract class Manager {
 	public void update() {
 		Society newSociety = currentSociety.copy();
 		currentSociety = updateSociety(newSociety);
-		
 	}
 
 	public abstract List<Cell> getCellTypes();
 
-	private Society updateSociety(Society newSociety) {		
+	public Society updateSociety(Society newSociety) {		
 		Queue<Location> toProcess = currentSociety.setProcessingOrder();
 
 		while (!toProcess.isEmpty()) {
@@ -41,11 +40,14 @@ public abstract class Manager {
 	}
 	
 	protected abstract boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc, List<Integer> neighborCounts);
+	
+	public abstract Manager copy();
 
 	public List<Location> pickNeighbors(Society soc, Location loc) {
 		// TODO: Pick neighbors
 		return soc.getVertexNeighbors(loc);
 		// return soc.getSideNeighbors(loc);
 	}
+	
 	
 }

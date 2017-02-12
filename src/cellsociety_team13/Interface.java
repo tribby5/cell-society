@@ -164,7 +164,7 @@ public class Interface{
 		makeGraph(myManager.getSociety().getPopulation());
 		myDrawer = new Drawer();
 
-		root = myDrawer.draw(root, myManager.getSociety(), true);
+		root = myDrawer.draw(root, myManager, true);
 		root = graph.draw(root);
 		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 		stage.setTitle(TITLE.get(read.getTitleId()));
@@ -245,7 +245,7 @@ public class Interface{
 		root = graph.draw(root);
 		root.getChildren().add(buttonPanel);
 		myManager.update();
-		root = myDrawer.draw(root, myManager.getSociety(), false);	
+		root = myDrawer.draw(root, myManager, false);	
 	}
 	
 	public String getXMLFile(){

@@ -54,4 +54,9 @@ public class Segregation extends Manager{
 		return (likeCount > totalCount * satisficationPercentage);
 	}
 
+	@Override
+	public Manager copy() {
+		return new Segregation();
+	}
+
 }

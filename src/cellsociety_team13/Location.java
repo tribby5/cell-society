@@ -65,12 +65,12 @@ public class Location{
 			vertices[i * 2 + 1] += getX();
 		}
 		polygon.getPoints().addAll(vertices);
+		polygon.setOnMouseClicked(e -> System.out.println("Okay"));
 	}
 	
 	public void regeneratePolygon(){
 		polygon.getPoints().clear();
 		polygon.getPoints().addAll(shape.getVertices());
-		//System.out.println(polygon);
 	}	
 	
 	public double getX(){

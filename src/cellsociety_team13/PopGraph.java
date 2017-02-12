@@ -11,7 +11,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.Node;
 
@@ -43,13 +42,6 @@ public class PopGraph {
 				population.put(key, createSeries(key, map.get(key)));
 			}
 		}
-		/*
-		if(iteration > MAX_SIZE){
-			for(String key: population.keySet()){
-				population.get(key).getData().remove(0);
-			}
-		}
-		*/
 	}
 	
 	private Series<Number, Number> createSeries(Color key, Integer value){		
@@ -58,6 +50,8 @@ public class PopGraph {
 		
 		temp.nodeProperty().addListener((ObservableValue<? extends Node> o, Node old, Node node) ->{
 			if(node != null){
+				//Basic code structure gotten from stack
+				//http://stackoverflow.com/questions/29921149/how-to-change-xycharts-color-in-javafx
 				String colorCall = String.format("-fx-stroke: %s;", "#" + key.toString().substring(2));
 				node.setStyle(colorCall);
 			}
