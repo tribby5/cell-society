@@ -13,6 +13,8 @@ public abstract class FireCell extends ThreeStateCell{
 	public static final int priorityBurning = 1;
 	public static final int priorityDead = -1;
 	
+	private double probCatch;
+	
 	public FireCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
 		// TODO Auto-generated constructor stub
@@ -51,4 +53,13 @@ public abstract class FireCell extends ThreeStateCell{
 	}
 	
 	protected abstract FireCell act(List<Integer> neighborCount);
+
+	public void setProbCatch(double probCatch){
+		this.probCatch = probCatch;
+	}
+	
+	protected double getProbCatch(){
+		return this.probCatch;
+	}
+
 }

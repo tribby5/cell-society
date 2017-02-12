@@ -48,4 +48,16 @@ public class ForagingAnts extends Manager{
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void createParametersBounds() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateParameter(String parameterLabel, double newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

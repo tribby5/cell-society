@@ -59,7 +59,7 @@ public class XMLReader {
 		getManager();
 		getSociety();
 		manager.setSociety(society);
-		//getParameters();
+		getParameters();
 	}
 
 	private static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {

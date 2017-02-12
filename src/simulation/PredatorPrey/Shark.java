@@ -1,7 +1,6 @@
 package simulation.PredatorPrey;
 
 import java.util.List;
-import java.util.Map;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
@@ -13,15 +12,13 @@ public class Shark extends SeaAnimal{
 	public static final int priority = getPriority_Shark();
 	public static final int state = getState_Shark();
 	
-	public static final int TURNS_TO_REPRODUCTION = 10;
-	public static final int INITIAL_ENERGY = 5;
 	private static final int FISH_NUTRITIONAL_VALUE = 2;
 	
 	private int energy;
 	
 	public Shark() {
-		super(color, state, priority, TURNS_TO_REPRODUCTION);
-		energy = INITIAL_ENERGY;
+		super(color, state, priority);
+		energy = this.getSharkInitialEnergy();
 	}
 	
 	public void act(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,

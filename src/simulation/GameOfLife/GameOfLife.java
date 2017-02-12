@@ -44,6 +44,17 @@ public class GameOfLife extends Manager{
 
 	@Override
 	public void setParameters(Map<String, Double> data) {
-		// TODO Auto-generated method stub
+		// no parameters
+	}
+
+	@Override
+	public void createParametersBounds() {
+		setParametersBounds(null);
+		
+	}
+
+	@Override
+	public void updateParameter(String parameterLabel, double newValue) {
+		// no parameters
 	}
 }

@@ -4,6 +4,9 @@
 	<Author>Andres Lebbos</Author>
 	<dimX>10</dimX>
 	<dimY>10</dimY>
+	<Parameter>
+		<par1>98</par1>
+	</Parameter>
 	<Cell>
 		<x>0.5</x>
 		<y>0.5</y>

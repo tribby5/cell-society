@@ -1,6 +1,7 @@
 package simulation.Fire;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +13,23 @@ import javafx.util.Pair;
 
 
 public class Fire extends Manager{
+	public static final String PROBCATCH_PARAMETER_LABEL = "par1";
+	public static final String PROBCATCH_PARAMETER_LABEL_GUI = "Probability of Catching Fire";
+	private double probCatch;
+	private List<Double> probCatchBounds = Arrays.asList(new Double[] {
+			0.0,
+			probCatch,
+			100.0
+	});;
+	
 
+
+	public double getProbCatch() {
+		return probCatch;
+	}
 
 	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
-			"par1"
+			PROBCATCH_PARAMETER_LABEL
 	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
@@ -32,9 +46,12 @@ public class Fire extends Manager{
 	@Override
 	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
 		List<Location> neighborsLoc, List<Integer> neighborCounts) {
-
 		
 		FireCell currentCell = (FireCell) currentLocCell.getValue();
+		
+		// set parameters
+		currentCell.setProbCatch(probCatch);
+		
 		FireCell updatedCell = currentCell.updateCell(neighborCounts);
 		newSociety.put(currentLocCell.getKey(), updatedCell);
 		
@@ -52,8 +69,22 @@ public class Fire extends Manager{
 
 	@Override
 	public void setParameters(Map<String, Double> data) {
-		// TODO Auto-generated method stub
+		probCatch = data.get(PROBCATCH_PARAMETER_LABEL);	
+		createParametersBounds();
+	}
+
+	@Override
+	public void updateParameter(String parameterLabel, double newValue) {
+		if(parameterLabel.equals(PROBCATCH_PARAMETER_LABEL_GUI)){
+			probCatch = newValue;
+		}
 		
 	}
 
+	@Override
+	public void createParametersBounds() {
+		Map<String, List<Double>> parametersBounds = new HashMap<>();
+		parametersBounds.put(PROBCATCH_PARAMETER_LABEL_GUI, probCatchBounds);
+		setParametersBounds(parametersBounds);
+	}
 }

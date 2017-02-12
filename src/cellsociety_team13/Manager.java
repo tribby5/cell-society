@@ -8,7 +8,7 @@ import javafx.util.Pair;
 
 public abstract class Manager {
 	private Society currentSociety;
-//	private Map<Location, Cell> grid;
+	private Map<String, List<Double>> parametersBounds;
 
 	public void setSociety(Society society) {
 		this.currentSociety = society;
@@ -51,6 +51,18 @@ public abstract class Manager {
 	}
 	
 	public abstract List<String> getParametersLabel();
+	
+	public abstract void createParametersBounds();
+	
+	public abstract void updateParameter(String parameterLabel, double newValue);
 
-	public abstract void setParameters(Map<String, Double> data);
+	public abstract void setParameters(Map<String, Double> parameters);
+
+	public void setParametersBounds(Map<String, List<Double>> parametersBounds) {
+		this.parametersBounds = parametersBounds;
+	}
+	
+	public Map<String, List<Double>> getParametersBounds(){
+		return this.parametersBounds;
+	}
 }

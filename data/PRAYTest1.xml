@@ -5,7 +5,8 @@
 	<dimY>10</dimY>
 	<Parameter>
 		<par1>10</par1>
-		<par2>5</par2>
+		<par2>4</par2>
+		<par3>5</par3>
 	</Parameter>
 	<Cell>
 		<x>0.5</x>
