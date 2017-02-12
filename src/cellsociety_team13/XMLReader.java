@@ -27,14 +27,14 @@ import simulation.SlimeMolds.SlimeMolds;
 
 public class XMLReader {
 
-	private static final DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
-
 	private static final String SIMULATION_TYPE = "simulationType";
 
 	private static final String CELL = "Cell";
 
 	private static final String CELL_TYPE = "CellType";
 
+	private DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
+	
 	private File file;
 
 	private Society society;
@@ -50,8 +50,9 @@ public class XMLReader {
 	 * It receives the file it is going to read.
 	 * 
 	 * @param xmlFile the file the XML is going to read
+	 * @throws XMLException 
 	 */
-	public XMLReader(File xmlFile) {
+	public XMLReader(File xmlFile) throws XMLException {
 		file = xmlFile;
 		getManager();
 		getSociety();
@@ -101,7 +102,7 @@ public class XMLReader {
 		return managerId;
 	}
 
-	private void getManager() {
+	private void getManager() throws XMLException {
 		currentElement = getRootElement();
 		if (isValidFile()){
 			managerId = Integer.parseInt(getAttribute(SIMULATION_TYPE));
@@ -110,7 +111,7 @@ public class XMLReader {
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
 	}
 
-	private void getSociety() {
+	private void getSociety() throws XMLException {
 		Map<Location, Cell> grid = new HashMap<Location, Cell>();
 		NodeList nList = currentElement.getElementsByTagName(CELL);
 		for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -131,7 +132,7 @@ public class XMLReader {
 		
 	}
 
-	private Element getRootElement() {
+	private Element getRootElement() throws XMLException {
 		try {
 			DOCUMENT_BUILDER.reset();
 			Document xmlDocument = DOCUMENT_BUILDER.parse(file);
@@ -151,7 +152,7 @@ public class XMLReader {
 		return currentElement.getAttribute(att);
 	}
 
-	private String getTextValue (String att) {
+	private String getTextValue (String att) throws XMLException {
 		NodeList nodeList = currentElement.getElementsByTagName(att);
 		if (nodeList != null && nodeList.getLength() > 0)
 			return nodeList.item(0).getTextContent();
@@ -159,7 +160,7 @@ public class XMLReader {
 			throw new XMLException("Couldn't get attribute for %s", att);
 	}
 
-	private static DocumentBuilder getDocumentBuilder() {
+	private static DocumentBuilder getDocumentBuilder() throws XMLException {
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e){

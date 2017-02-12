@@ -1,6 +1,6 @@
 package cellsociety_team13;
 
-public class XMLException extends RuntimeException {
+public class XMLException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public XMLException (String message, Object ... values) {

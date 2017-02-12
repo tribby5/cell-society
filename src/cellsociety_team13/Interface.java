@@ -160,17 +160,20 @@ public class Interface{
 		
 		root.getChildren().add(buttonPanel);
 		
-		XMLReader read = new XMLReader(xmlFile);
+		try {
+			XMLReader read = new XMLReader(xmlFile);
+			myManager = read.extractManager();
+			makeGraph(myManager.getSociety().getPopulation());
+			myDrawer = new Drawer();
 
-		myManager = read.extractManager();
-		makeGraph(myManager.getSociety().getPopulation());
-		myDrawer = new Drawer();
+			root = myDrawer.draw(root, myManager, true);
+			root = graph.draw(root);
+			stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
+			stage.setTitle(TITLE.get(read.getTitleId()));
+			startSimulation();
+		} catch (XMLException e) {
+		}
 
-		root = myDrawer.draw(root, myManager, true);
-		root = graph.draw(root);
-		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
-		stage.setTitle(TITLE.get(read.getTitleId()));
-		startSimulation();
 	}
 	
 	private void createButtonPanel(){
