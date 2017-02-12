@@ -115,7 +115,6 @@ public class XMLReader {
 	}
 	
 	private void getParameters() throws XMLException {
-		// TODO Auto-generated method stub
 		Map<String, Double> map = new HashMap<>();
 		NodeList nList = currentElement.getElementsByTagName(PARAMETER);
 		Node nNode = nList.item(0);
