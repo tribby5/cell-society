@@ -1,9 +1,9 @@
 package simulation.Segregation;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
@@ -12,11 +12,19 @@ import cellsociety_team13.Society;
 import javafx.util.Pair;
 
 public class Segregation extends Manager{
-	public static final String SATISFICATION_PARAMETER_LABEL = "par1";
-	private Double satisficationPercentage;
+	public static final String SATISFACTION_PARAMETER_LABEL = "par1";
+	public static final String SATISFACTION_PARAMETER_LABEL_GUI = "Satisfaction Percentage";
+	
+	private Double satisfactionPercentage;
 		
+	private List<Double> satisfactionPercentageBounds = Arrays.asList(new Double[] {
+			0.0,
+			satisfactionPercentage,
+			100.0
+	});;
+	
 	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
-			SATISFICATION_PARAMETER_LABEL
+			SATISFACTION_PARAMETER_LABEL
 	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
@@ -52,7 +60,7 @@ public class Segregation extends Manager{
 	}
 
 	private boolean isSatisfied(Integer likeCount, Integer totalCount) {
-		return (100 * likeCount > totalCount * satisficationPercentage);
+		return (100 * likeCount > totalCount * satisfactionPercentage);
 	}
 
 	@Override
@@ -66,6 +74,22 @@ public class Segregation extends Manager{
 
 	@Override
 	public void setParameters(Map<String, Double> data) {
-		satisficationPercentage = data.get(SATISFICATION_PARAMETER_LABEL);
+		satisfactionPercentage = data.get(SATISFACTION_PARAMETER_LABEL);
+		createParametersBounds();
+	}
+
+	@Override
+	public void createParametersBounds() {
+		Map<String, List<Double>> parametersBounds = new HashMap<>();
+		parametersBounds.put(SATISFACTION_PARAMETER_LABEL_GUI, satisfactionPercentageBounds);
+		setParametersBounds(parametersBounds);
+		
+	}
+
+	@Override
+	public void updateParameter(String parameterLabel, double newValue) {
+		if(parameterLabel.equals(SATISFACTION_PARAMETER_LABEL_GUI)){
+			satisfactionPercentage = newValue;
+		}
 	}
 }
