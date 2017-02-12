@@ -52,17 +52,25 @@ public class Interface{
 	private Drawer myDrawer;
 	private Manager myManager;
 	private PopGraph graph;
+	private InterfaceHandler myHandler;
 	
 	/**
 	 * The constructor for the Interface class. This will create an interface object
 	 * that will provide the user interface for the simulator to be played on. 
 	 * @param primaryStage Stage on which Scenes will be displayed
 	 */
-	public Interface(Stage primaryStage){
+	public Interface(Stage primaryStage, InterfaceHandler handler){
 		stage = primaryStage;
 		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		setWelcome();
-		
+		myHandler = handler;
+	}
+	
+	public Interface(File file, InterfaceHandler handler){
+		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
+		xmlFile = file;
+		myHandler = handler;
+		setupSimulation();
 	}
 	
 	public void setWelcome(){
@@ -104,7 +112,8 @@ public class Interface{
 		fileChoose.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				if(chooseFile()){
+				xmlFile = chooseFile();
+				if(xmlFile != null){
 					cont.setVisible(true);
 					nonXML.setVisible(false);
 				}
@@ -134,7 +143,7 @@ public class Interface{
 		return infoRoot;
 	}
 	
-	private boolean chooseFile(){
+	private File chooseFile(){
 		FileChooser xmlChooser = new FileChooser();
 		xmlChooser.setTitle(resources.getString("chooseXML"));
 		xmlChooser.setInitialDirectory(new File(XML_FILE_DIRECTORY));
@@ -143,16 +152,14 @@ public class Interface{
 				String name = file.getName();
 				String fileType = name.substring(name.lastIndexOf("."), name.length());
 				if(!fileType.equals(FILE_EXTENSION)){
-					xmlFile = null;
-					return false;
+					return null;
 				}
-				xmlFile = file;
-				return true;
+				return file;
 		}
-		return false;
+		return null;
 	}
 	
-	private void setupSimulation(){
+	public void setupSimulation(){
 		root = new Group();
 		createButtonPanel();
 		
@@ -190,11 +197,11 @@ public class Interface{
 	}
 	
 	private void addInterface(){
-		if(chooseFile()){
-			Interface first = new Interface(new Stage());
-			first.setXMLFile(xmlFile);
-			first.setupSimulation();
+		File newFile = chooseFile();
+		if(newFile != null){
+			myHandler.addInterface(newFile);
 		}
+		
 	}
 	
 	public void setXMLFile(File file){
@@ -220,7 +227,8 @@ public class Interface{
 			@Override
 			public void handle(ActionEvent event) {
 				simulation.pause();
-				if(chooseFile()){
+				xmlFile = chooseFile();
+				if(xmlFile != null){
 					simulation.stop();
 					setupSimulation();
 				}}});
@@ -238,12 +246,27 @@ public class Interface{
 		simulation.setRate(factor);
 	}
 	
-	private void step(){
+	public void step(){
 		root.getChildren().clear();
 		graph.update(myManager.getSociety().getPopulation());
 		root = graph.draw(root);
 		root.getChildren().add(buttonPanel);
 		myManager.update();
 		root = myDrawer.draw(root, myManager.getSociety(), false);	
+	}
+	
+	public String getXMLFile(){
+		return xmlFile.toString();
+	}
+	public Manager getManager(){
+		return myManager;
+	}
+	
+	public void playSimulation(){
+		simulation.play();
+	}
+	
+	public void pauseSimulation(){
+		simulation.pause();
 	}
 }
