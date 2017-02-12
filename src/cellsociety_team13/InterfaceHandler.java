@@ -29,12 +29,7 @@ public class InterfaceHandler {
 		next.setupSimulation();
 		
 		interfaces.add(next);
-		/*
-		for(int i = 0; i < interfaces.size(); i++){
-			System.out.println(interfaces.get(i).getXMLFile());
-		}
-		System.out.println(interfaces.get(0).getManager().getSociety() == interfaces.get(1).getManager().getSociety());
-		*/
+		
 		if(interfaces.size() == 2){
 			createControlPanel();
 		}

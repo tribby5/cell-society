@@ -19,6 +19,7 @@ public class Society {
 	private Map<Location, ArrayList<Location>> vertexNeighbor;
 	private Map<Location, ArrayList<Location>> sideNeighbor;
 	private Map<Location, Cell> grid;
+	private Map<Integer, Color> states;
 	private Point2D bottomRightPoint;
 	private Point2D topLeftPoint;
 	private Boolean orderMatters;
@@ -207,6 +208,7 @@ public class Society {
 	
 	public Map<Color, Integer> getPopulation(){
 		HashMap<Color, Integer> population = new HashMap<Color, Integer>();
+		
 		for(Cell cell:grid.values()){
 			Color color = cell.getColor();
 			if(!population.containsKey(color)){
@@ -218,6 +220,10 @@ public class Society {
 		}
 		return population;
 	}
+
 	
+	public Map<Integer, Color> getStates(){
+		return states;
+	}
 
 }

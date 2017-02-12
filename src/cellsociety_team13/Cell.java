@@ -1,6 +1,7 @@
 package cellsociety_team13;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
@@ -29,6 +30,10 @@ public abstract class Cell implements Comparable<Cell>{
 
 	public int getState(){
 		return state;
+	}
+	
+	public void setState(int newState){
+		state = newState;
 	}
 	
 	public int getMaxState(){
@@ -65,4 +70,15 @@ public abstract class Cell implements Comparable<Cell>{
 	}
 	
 	public abstract int getDefaultEmptyState();
+	
+	public void changeState(Map<Integer, Color> states){
+		if(state == states.keySet().size()-1){
+			state = 0;
+			color = states.get(0);
+		}
+		else{
+			color = states.get(state+1);
+			state++;
+		}
+	}
 }

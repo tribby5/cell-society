@@ -17,7 +17,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javafx.scene.paint.Color;
 import simulation.Fire.Fire;
 import simulation.ForagingAnts.ForagingAnts;
 import simulation.GameOfLife.GameOfLife;
@@ -42,7 +41,9 @@ public class XMLReader {
 	
 	private Manager manager;
 
-	private Element currentElement; 
+	private Element currentElement;
+
+	private int managerId; 
 
 	/**
 	 * Constructs a class that has the objective of reading an XML file. 
@@ -97,14 +98,15 @@ public class XMLReader {
 	}
 	
 	public int getTitleId(){
-		return MANAGERS.indexOf(manager);
+		return managerId;
 	}
 
 	private void getManager() {
 		currentElement = getRootElement();
-		if (isValidFile())
-			manager = MANAGERS.get(Integer.parseInt(getAttribute(SIMULATION_TYPE)));
-		else
+		if (isValidFile()){
+			managerId = Integer.parseInt(getAttribute(SIMULATION_TYPE));
+			manager = MANAGERS.get(managerId).copy();
+		}else
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
 	}
 

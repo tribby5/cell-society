@@ -29,5 +29,9 @@ public class ForagingAnts extends Manager{
 		((ForagingAntsCell) currentLocCell.getValue()).update(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc);
 		return true;
 	}
+	
+	public Manager copy(){
+		return new ForagingAnts();
+	}
 
 }

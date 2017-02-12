@@ -33,4 +33,7 @@ public class SlimeMolds extends Manager{
 		return true;
 	}
 
+	public Manager copy(){
+		return new SlimeMolds();
+	}
 }
