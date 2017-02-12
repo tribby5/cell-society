@@ -28,7 +28,9 @@ public class Interface{
 			"Game of Life",
 			"Fire",
 			"Predators and Pray / Shark and Fish",
-			"Segregation"
+			"Segregation",
+			"SlimeMolds",
+			"ForagingAnts"
 	});
 	
 	private Stage stage;

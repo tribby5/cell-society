@@ -12,10 +12,10 @@ import javafx.util.Pair;
 public class ForagingAnts extends Manager{
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
-			new Obstacle(),
+			new Patch(),
 			new Nest(),
 			new FoodSource(),
-			new Patch()
+			new Obstacle()
 	});
 
 	@Override

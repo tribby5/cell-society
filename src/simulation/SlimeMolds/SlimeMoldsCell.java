@@ -16,9 +16,12 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 	public static final int stateSlime = 2;
 	public static final int statePatch = 1;
 	
+	public static final double MIN_CHEM_VALUE = 0.1;
+	
 	private double chemical_deposit_count;
-	private double evaporation_rate;
-	private double diffusion;
+	private double evaporation_rate = 0.1;
+	private double diffusion = 0.05;
+	
 
 	public SlimeMoldsCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
@@ -30,16 +33,27 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 
 	public void setChemical_deposit_count(double chemical_deposit_count) {
 		this.chemical_deposit_count = chemical_deposit_count;
+		if (this.chemical_deposit_count < MIN_CHEM_VALUE){
+			this.chemical_deposit_count = 0;
+		} else if (this.getState() == getState_Patch()){
+			((Patch) this).updateColor();
+		}
 	}
 	
-	private void updateChemicalDeposits(Society currentSociety, List<Location> neighborsLoc){
-		if(this.getChemical_deposit_count() != 0){
+	public void incrementChemical_deposit_count(double chemical_deposit_count_addition){
+		setChemical_deposit_count(this.chemical_deposit_count + chemical_deposit_count_addition);
+	}
+	
+	private void updateChemicalDeposits(Society newSociety, List<Location> neighborsLoc){
+		if(this.getChemical_deposit_count() >= MIN_CHEM_VALUE){
 			// evaporate
 			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - evaporation_rate));
-			
 			// diffuse to neighbors
 			for(Location neighborLoc : neighborsLoc){
-				((SlimeMoldsCell) currentSociety.get(neighborLoc)).setChemical_deposit_count(this.getChemical_deposit_count() * diffusion);
+				if (newSociety.get(neighborLoc).getState() == stateEmpty){
+					newSociety.put(neighborLoc, new Patch());
+				}
+				((SlimeMoldsCell) newSociety.get(neighborLoc)).incrementChemical_deposit_count(this.getChemical_deposit_count() * diffusion);
 			}
 			
 			// reduce diffused amount
@@ -78,7 +92,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 
 	public void update(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts){
-		updateChemicalDeposits(currentSociety, neighborsLoc);
+		updateChemicalDeposits(newSociety, neighborsLoc);
 		this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
 	}
 	

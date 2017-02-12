@@ -17,12 +17,12 @@ public class Slime extends Patch {
 	public static final int state = getState_Slime();
 	
 	
-	private int chemical_drops;
-	private int sniff_threshhold;
+	private int chemical_drops = 2;
+	private double sniff_threshhold = 1.0;
 	
-	private double sniff_angle_max;
-	private double wiggle_angle;
-	private double slime_angle;
+	private double sniff_angle_max = 50;
+	private double wiggle_angle = 40;
+	private double orientation_angle = 0;
 	
 	private int wiggle_bias;
 
@@ -51,9 +51,10 @@ public class Slime extends Patch {
 
 	private void turnAndMove(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc) {
 		Queue<Location> targetNeighborsLoc = orderNeighbors(currentSociety, loc, neighborsLoc);
+		
 		boolean moved = false;
 		boolean shouldTurn = false;
-		while(!shouldTurn || !targetNeighborsLoc.isEmpty()){
+		while(!shouldTurn && !targetNeighborsLoc.isEmpty()){
 			Location tempTargetLoc = targetNeighborsLoc.poll();
 			if(currentSociety.get(tempTargetLoc).getState() == getState_Patch()){
 				moved = newSociety.tryToSwap(loc, tempTargetLoc, getState_Patch());
@@ -69,7 +70,7 @@ public class Slime extends Patch {
 				}
 			}
 			if(shouldTurn){
-				slime_angle +=  loc.calculateAngleDifference(tempTargetLoc, slime_angle); 
+				orientation_angle +=  loc.calculateAngleDifference(tempTargetLoc, orientation_angle); 
 			}
 			
 			if(moved){
@@ -89,20 +90,17 @@ public class Slime extends Patch {
 		double maxDeposit = 0.0;
 		for (Location neighborLoc : neighborsLoc) {
 			SlimeMoldsCell neighbor = (SlimeMoldsCell) currentSociety.get(neighborLoc);
-			double angleDifference = loc.calculateAngleDifference(neighborLoc, slime_angle);
-
+			double angleDifference = loc.calculateAngleDifference(neighborLoc, orientation_angle);
 			if (Math.abs(angleDifference) <= sniff_angle_max && neighbor.getChemical_deposit_count() >= maxDeposit) {
 				maxDeposit = neighbor.getChemical_deposit_count();
 				targetNeighbors.add(neighbor);
 			}
 		}
-		
 		Collections.sort(targetNeighbors, new SlimeMoldsCellComparator());
 		Queue<Location> targetNeighborsLoc = new LinkedList<Location>();
 		for (SlimeMoldsCell c : targetNeighbors){
 			targetNeighborsLoc.add(currentSociety.getKeyFromValue(c));
 		}
-		
 		return targetNeighborsLoc;
 	}
 
@@ -110,11 +108,11 @@ public class Slime extends Patch {
 		this.setChemical_deposit_count(this.getChemical_deposit_count() + chemical_drops);
 	}
 
-	public int getSniff_threshhold() {
+	public double getSniff_threshhold() {
 		return sniff_threshhold;
 	}
 
-	public void setSniff_threshhold(int sniff_threshhold) {
+	public void setSniff_threshhold(double sniff_threshhold) {
 		this.sniff_threshhold = sniff_threshhold;
 	}
 

@@ -118,7 +118,6 @@ public class XMLReader {
 				Map<String, String> locationData = new HashMap<>();
 				for (String field: Location.FIELDS)
 					locationData.put(field, getTextValue(field));
-				//System.out.println(locationData);
 				Location newLocation = new Location(locationData);
 				Cell newCell = manager.getCellTypes().get(Integer.parseInt(getTextValue(CELL_TYPE))).copy();
 				grid.put(newLocation, newCell);

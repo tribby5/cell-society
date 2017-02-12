@@ -16,6 +16,10 @@ public class Ant {
 	private double wiggle_angle_max;
 
 	private ForagingAntsCell home;
+	
+	public Ant(ForagingAntsCell inputHome){
+		home = inputHome;
+	}
 
 	public static final Color color = Color.RED; // TODO: color imports
 
@@ -53,9 +57,9 @@ public class Ant {
 
 	private void ifAtStartTurnToMaxPheromone(Society currentSociety, Location loc, List<Location> neighborsLoc,
 			String label) {
-		if ((label.equals(ForagingAntsCell.HOME_PHEROMONE_LABEL) && home.getState() == ForagingAntsCell.getState_Nest())
+		if ((label.equals(ForagingAntsCell.HOME_PHEROMONE_LABEL) && home.getState() == ForagingAntsCell.getState_FoodSource())
 				|| (label.equals(ForagingAntsCell.FOOD_PHEROMONE_LABEL)
-						&& home.getState() == ForagingAntsCell.getState_FoodSource())) {
+						&& home.getState() == ForagingAntsCell.getState_Nest())) {
 			turnToMaxPheromone(currentSociety, loc, neighborsLoc, label);
 		}
 	}
@@ -94,8 +98,12 @@ public class Ant {
 			eligibleNeighborsLoc = extractEligibleNeighbors(currentSociety, loc, neighborsLoc, 180.0);
 		}
 
+		System.out.println(eligibleNeighborsLoc.size());
+		
 		if (eligibleNeighborsLoc.size() == 0) {
 			return null;
+		} else if (eligibleNeighborsLoc.size() == 1){
+			return eligibleNeighborsLoc.get(0);
 		}
 
 		Location target = null;
