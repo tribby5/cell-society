@@ -37,9 +37,11 @@ public class Drawer {
 	}
 	
 	private void updateCell(Location loc, Society society, Manager manager){
-		Cell cell = society.get(loc);
-		cell.changeState(states);
-		society.put(loc, cell);
+		Integer oldCellState = society.get(loc).getState();
+		Integer newCellState = (oldCellState + 1) %  society.get(loc).getMaxState();
+		Cell newCell = manager.getCellTypes().get(newCellState).copy();
+		
+		society.put(loc, newCell);
 		loc.applyColorStateToPolygon(society.get(loc).getColor());
 		manager.setSociety(society);
 	}

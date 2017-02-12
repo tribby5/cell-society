@@ -18,6 +18,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 	
 	public static final double MIN_CHEM_VALUE = 0.1;
 	
+	
 	private double chemical_deposit_count;
 	private double evaporation_rate = 0.1;
 	private double diffusion = 0.05;
@@ -44,10 +45,10 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 		setChemical_deposit_count(this.chemical_deposit_count + chemical_deposit_count_addition);
 	}
 	
-	private void updateChemicalDeposits(Society newSociety, List<Location> neighborsLoc){
+	private void updateChemicalDeposits(Society newSociety, Location loc, List<Location> neighborsLoc){
 		if(this.getChemical_deposit_count() >= MIN_CHEM_VALUE){
 			// evaporate
-			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - evaporation_rate));
+			((SlimeMoldsCell) newSociety.get(loc)).setChemical_deposit_count(this.getChemical_deposit_count() * (1 - evaporation_rate));
 			// diffuse to neighbors
 			for(Location neighborLoc : neighborsLoc){
 				if (newSociety.get(neighborLoc).getState() == stateEmpty){
@@ -57,7 +58,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 			}
 			
 			// reduce diffused amount
-			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - neighborsLoc.size() * diffusion));
+			((SlimeMoldsCell) newSociety.get(loc)).setChemical_deposit_count(this.getChemical_deposit_count() * (1 - neighborsLoc.size() * diffusion));
 		}
 	}
 	
@@ -92,8 +93,10 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 
 	public void update(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts){
-		updateChemicalDeposits(newSociety, neighborsLoc);
-		this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
+		if(this.getState() == getState_Slime()){
+			updateChemicalDeposits(newSociety, location, neighborsLoc);
+			this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
+		}
 	}
 	
 	public abstract void act(Society currentSociety, Society newSociety, Location loc, List<Location> neighborsLoc,

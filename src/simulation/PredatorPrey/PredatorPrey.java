@@ -27,7 +27,7 @@ public class PredatorPrey extends Manager{
 	public List<Cell> getCellTypes() {
 		return CELLS;
 	}
-	
+
 	@Override
 	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell, List<Location> neighborsLoc,
 			List<Integer> neighborCounts) {
