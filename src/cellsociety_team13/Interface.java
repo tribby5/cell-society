@@ -66,13 +66,6 @@ public class Interface{
 		myHandler = handler;
 	}
 	
-	public Interface(File file, InterfaceHandler handler){
-		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
-		xmlFile = file;
-		myHandler = handler;
-		setupSimulation();
-	}
-	
 	public void setWelcome(){
 		Text title = new Text(resources.getString("welcome"));
 		title.setTextAlignment(TextAlignment.CENTER);
