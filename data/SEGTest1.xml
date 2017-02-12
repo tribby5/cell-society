@@ -1,10 +1,10 @@
 <Simulation simulationType="3">
-	<Title>Game of Life</Title>
+	<Title>Segregation</Title>
 	<Author>Andres Lebbos</Author>
 	<dimX>10</dimX>
 	<dimY>10</dimY>
 	<Parameter>
-		<par1>50</par1>
+		<par1>10</par1>
 	</Parameter>
 	<Cell>
 		<x>0.5</x>

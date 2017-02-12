@@ -12,10 +12,16 @@ import javafx.util.Pair;
 
 
 public class Fire extends Manager{
+	public static final String PROBCATCH_PARAMETER_LABEL = "par1";
+	private double probCatch;
 
+
+	public double getProbCatch() {
+		return probCatch;
+	}
 
 	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
-			"par1"
+			PROBCATCH_PARAMETER_LABEL
 	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
@@ -32,9 +38,12 @@ public class Fire extends Manager{
 	@Override
 	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
 		List<Location> neighborsLoc, List<Integer> neighborCounts) {
-
 		
 		FireCell currentCell = (FireCell) currentLocCell.getValue();
+		
+		// set parameters
+		currentCell.setProbCatch(probCatch);
+		
 		FireCell updatedCell = currentCell.updateCell(neighborCounts);
 		newSociety.put(currentLocCell.getKey(), updatedCell);
 		
@@ -52,8 +61,7 @@ public class Fire extends Manager{
 
 	@Override
 	public void setParameters(Map<String, Double> data) {
-		// TODO Auto-generated method stub
-		
+		probCatch = data.get(PROBCATCH_PARAMETER_LABEL);		
 	}
 
 }

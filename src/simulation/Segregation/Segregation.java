@@ -12,15 +12,11 @@ import cellsociety_team13.Society;
 import javafx.util.Pair;
 
 public class Segregation extends Manager{
+	public static final String SATISFICATION_PARAMETER_LABEL = "par1";
 	private Double satisficationPercentage;
-	
-	public Segregation(){
-		Random rand = new Random();
-		satisficationPercentage = rand.nextDouble() * 100;
-	}
-	
+		
 	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
-			"par1"
+			SATISFICATION_PARAMETER_LABEL
 	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
@@ -56,7 +52,7 @@ public class Segregation extends Manager{
 	}
 
 	private boolean isSatisfied(Integer likeCount, Integer totalCount) {
-		return (likeCount > totalCount * satisficationPercentage);
+		return (100 * likeCount > totalCount * satisficationPercentage);
 	}
 
 	@Override
@@ -70,7 +66,6 @@ public class Segregation extends Manager{
 
 	@Override
 	public void setParameters(Map<String, Double> data) {
-		// TODO Auto-generated method stub
-		
+		satisficationPercentage = data.get(SATISFICATION_PARAMETER_LABEL);
 	}
 }

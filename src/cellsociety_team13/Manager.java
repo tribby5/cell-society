@@ -52,5 +52,5 @@ public abstract class Manager {
 	
 	public abstract List<String> getParametersLabel();
 
-	public abstract void setParameters(Map<String, Double> data);
+	public abstract void setParameters(Map<String, Double> parameters);
 }
