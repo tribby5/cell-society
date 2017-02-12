@@ -102,12 +102,12 @@ public class Society {
 					// first valued already assigned
 					if (anyPriorityValue != c.getPriority()){
 						// a different priority value found
-						return false;
+						return true;
 					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	public Location getKeyFromValue(Cell value) {
