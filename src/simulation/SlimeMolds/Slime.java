@@ -69,7 +69,7 @@ public class Slime extends Patch {
 				}
 			}
 			if(shouldTurn){
-				slime_angle +=  calculateAngleDifference(loc, tempTargetLoc); 
+				slime_angle +=  loc.calculateAngleDifference(tempTargetLoc, slime_angle); 
 			}
 			
 			if(moved){
@@ -89,7 +89,7 @@ public class Slime extends Patch {
 		double maxDeposit = 0.0;
 		for (Location neighborLoc : neighborsLoc) {
 			SlimeMoldsCell neighbor = (SlimeMoldsCell) currentSociety.get(neighborLoc);
-			double angleDifference = calculateAngleDifference(loc, neighborLoc);
+			double angleDifference = loc.calculateAngleDifference(neighborLoc, slime_angle);
 
 			if (Math.abs(angleDifference) <= sniff_angle_max && neighbor.getChemical_deposit_count() >= maxDeposit) {
 				maxDeposit = neighbor.getChemical_deposit_count();
@@ -106,18 +106,6 @@ public class Slime extends Patch {
 		return targetNeighborsLoc;
 	}
 
-	private double calculateAngleDifference(Location loc, Location neighborLoc) {
-		double distance = loc.getPoint().distance(neighborLoc.getPoint());
-		double distanceX = neighborLoc.getX() - loc.getX();
-		double angle = (Math.toDegrees(Math.acos(distanceX / distance))) - (slime_angle);
-
-		if (angle > 180) {
-			angle -= 360;
-			;
-		}
-		return angle;
-	}
-	
 	public void dropChemicalDeposit(){
 		this.setChemical_deposit_count(this.getChemical_deposit_count() + chemical_drops);
 	}

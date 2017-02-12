@@ -112,4 +112,15 @@ public class Location{
 		shape.setSideLength(Interface.GRID_WIDTH/point.getX());
 		generatePolygon();
 	}
+	
+	public double calculateAngleDifference(Location neighborLoc, double orientation) {
+		double distance = this.getPoint().distance(neighborLoc.getPoint());
+		double distanceX = neighborLoc.getX() - this.getX();
+		double angle = (Math.toDegrees(Math.acos(distanceX / distance))) - (orientation);
+
+		if (angle > 180) {
+			angle -= 360;
+		}
+		return angle;
+	}
 }

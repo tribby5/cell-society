@@ -14,9 +14,9 @@ public class Empty extends SlimeMoldsCell{
 
 	public Empty() {
 		super(color, state, priority);
-		this.setChemical_deposit_count(0);
+		setChemical_deposit_count(0);
 	}
-
+	
 	@Override
 	public Cell copy() {
 		return new Empty();
@@ -28,5 +28,4 @@ public class Empty extends SlimeMoldsCell{
 		// do nothing
 		
 	}
-
 }

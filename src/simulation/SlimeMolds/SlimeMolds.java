@@ -29,10 +29,7 @@ public class SlimeMolds extends Manager{
 	@Override
 	protected boolean update(Society currentSociety, Society newSociety, Pair<Location, Cell> currentLocCell,
 			List<Location> neighborsLoc, List<Integer> neighborCounts) {
-		
 		((SlimeMoldsCell) currentLocCell.getValue()).update(currentSociety, newSociety, currentLocCell.getKey(), neighborsLoc, neighborCounts);
-		
-		
 		return true;
 	}
 

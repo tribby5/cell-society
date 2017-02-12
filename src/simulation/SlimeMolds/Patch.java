@@ -8,21 +8,22 @@ import cellsociety_team13.Society;
 import javafx.scene.paint.Color;
 
 public class Patch extends SlimeMoldsCell {
-	public static final Color color = Color.SANDYBROWN;
+	public static final Color colorHasChem = Color.SANDYBROWN;
+	public static final Color colorEmpty = Color.BLACK;
 	public static final int priority = getPriority_Patch();
 	public static final int state = getState_Patch();
 
 	public Patch() {
-		super(color, state, priority);
+		super(colorEmpty, state, priority);
 	}
 	
 	public Patch(int chemDeposit){
-		this();
+		super(colorHasChem, state, priority);
 		setChemical_deposit_count(chemDeposit);
 	}
 	
 	public Patch(Color inputColor, int state, int priority) {
-		super(color, state, priority);
+		super(inputColor, state, priority);
 	}
 
 	@Override

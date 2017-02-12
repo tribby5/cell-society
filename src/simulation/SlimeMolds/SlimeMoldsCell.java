@@ -32,7 +32,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 		this.chemical_deposit_count = chemical_deposit_count;
 	}
 	
-	private void diffuseChemicalOnNeighborPatches(Society currentSociety, List<Location> neighborsLoc){
+	private void updateChemicalDeposits(Society currentSociety, List<Location> neighborsLoc){
 		if(this.getChemical_deposit_count() != 0){
 			// evaporate
 			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - evaporation_rate));
@@ -43,7 +43,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 			}
 			
 			// reduce diffused amount
-			this.setChemical_deposit_count(this.getChemical_deposit_count() * neighborsLoc.size() * (1 - diffusion));
+			this.setChemical_deposit_count(this.getChemical_deposit_count() * (1 - neighborsLoc.size() * diffusion));
 		}
 	}
 	
@@ -55,7 +55,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 	public static int getState_Patch(){
 		return statePatch;
 	}
-	
+
 	public static int getState_Empty(){
 		return stateEmpty;
 	}
@@ -78,7 +78,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 
 	public void update(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts){
-		diffuseChemicalOnNeighborPatches(currentSociety, neighborsLoc);
+		updateChemicalDeposits(currentSociety, neighborsLoc);
 		this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
 	}
 	
