@@ -30,12 +30,6 @@ public class InterfaceHandler {
 		
 		interfaces.add(next);
 		
-		for(int i = 0; i < interfaces.size(); i++){
-			System.out.println(interfaces.get(i).getXMLFile());
-		}
-		System.out.println(interfaces.get(0).getManager() == interfaces.get(1).getManager());
-		System.out.println(interfaces.get(0).getManager().getClass() == interfaces.get(1).getManager().getClass());
-		
 		if(interfaces.size() == 2){
 			createControlPanel();
 		}
