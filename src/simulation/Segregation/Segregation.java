@@ -2,6 +2,7 @@ package simulation.Segregation;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import cellsociety_team13.Cell;
@@ -17,6 +18,10 @@ public class Segregation extends Manager{
 		Random rand = new Random();
 		satisficationPercentage = rand.nextDouble() * 100;
 	}
+	
+	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
+			"par1"
+	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new Empty(),
@@ -58,5 +63,14 @@ public class Segregation extends Manager{
 	public Manager copy() {
 		return new Segregation();
 	}
+	
+	public List<String> getParametersLabel(){
+		return PARAMETERS;
+	}
 
+	@Override
+	public void setParameters(Map<String, Double> data) {
+		// TODO Auto-generated method stub
+		
+	}
 }

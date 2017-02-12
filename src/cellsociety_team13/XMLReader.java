@@ -33,6 +33,8 @@ public class XMLReader {
 
 	private static final String CELL_TYPE = "CellType";
 
+	private static final String PARAMETER = "Parameter";
+
 	private DocumentBuilder DOCUMENT_BUILDER = getDocumentBuilder();
 	
 	private File file;
@@ -55,10 +57,11 @@ public class XMLReader {
 	public XMLReader(File xmlFile) throws XMLException {
 		file = xmlFile;
 		getManager();
+		getParameters();
 		getSociety();
 		manager.setSociety(society);
 	}
-	
+
 	private static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {
 			getGameOfLife(),
 			getFire(),
@@ -109,6 +112,18 @@ public class XMLReader {
 			manager = MANAGERS.get(managerId).copy();
 		}else
 			throw new XMLException("XML file does not represent %s", SIMULATION_TYPE);
+	}
+	
+	private void getParameters() throws XMLException {
+		// TODO Auto-generated method stub
+		Map<String, Double> map = new HashMap<>();
+		NodeList nList = currentElement.getElementsByTagName(PARAMETER);
+		Node nNode = nList.item(0);
+		currentElement = (Element) nNode;
+		for(String par: manager.getParametersLabel()){
+			map.put(par, Double.parseDouble(getTextValue(par)));
+		}
+		manager.setParameters(map);
 	}
 
 	private void getSociety() throws XMLException {
