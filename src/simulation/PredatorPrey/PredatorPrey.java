@@ -2,6 +2,7 @@ package simulation.PredatorPrey;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
@@ -10,6 +11,11 @@ import cellsociety_team13.Society;
 import javafx.util.Pair;
 
 public class PredatorPrey extends Manager{
+	
+	private static final List<String> PARAMETERS = Arrays.asList(new String[] {
+			"par1",
+			"par2"
+	});;
 	
 	private List<Cell> CELLS = Arrays.asList(new Cell[] {
 			new Water(),
@@ -36,6 +42,13 @@ public class PredatorPrey extends Manager{
 		return new PredatorPrey();
 	}
 	
-	
+	public List<String> getParametersLabel(){
+		return PARAMETERS;
+	}
 
+	@Override
+	public void setParameters(Map<String, Double> data) {
+		// TODO Auto-generated method stub
+		
+	}
 }

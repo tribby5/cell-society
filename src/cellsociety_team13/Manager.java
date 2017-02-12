@@ -1,6 +1,7 @@
 package cellsociety_team13;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import javafx.util.Pair;
@@ -49,5 +50,7 @@ public abstract class Manager {
 		// return soc.getSideNeighbors(loc);
 	}
 	
-	
+	public abstract List<String> getParametersLabel();
+
+	public abstract void setParameters(Map<String, Double> data);
 }
