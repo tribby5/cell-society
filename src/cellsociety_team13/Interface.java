@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
@@ -48,7 +49,7 @@ public class Interface{
 	public static final String XML_FILE_DIRECTORY = "./data";
 	public static final String FILE_EXTENSION = ".xml";
 	private Group root;
-	private HBox buttonPanel;
+	private VBox buttonPanel;
 	private ResourceBundle resources;
 	private Timeline simulation;
 	private Drawer myDrawer;
@@ -87,8 +88,8 @@ public class Interface{
 	}
 	
 	public void makeGraph(Map<Color, Integer> test){
-		graph = new PopGraph(test, WIDTH, 170);
-		graph.setY(HEIGHT - 200);
+		graph = new PopGraph(test, WIDTH, 130);
+		graph.setY(HEIGHT - 210);
 	}
 	
 	public void setInfo(){
@@ -157,7 +158,6 @@ public class Interface{
 	public void setupSimulation(){
 		root = new Group();
 		createButtonPanel();
-		
 		root.getChildren().add(buttonPanel);
 		
 		try {
@@ -172,12 +172,16 @@ public class Interface{
 			stage.setTitle(TITLE.get(read.getTitleId()));
 			startSimulation();
 		} catch (XMLException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle(resources.getString("badXMLTitle"));
+			alert.setContentText(resources.getString("badXML"));
+			alert.showAndWait().ifPresent(response ->{setInfo();});
 		}
 
 	}
 	
 	private void createButtonPanel(){
-		buttonPanel = new HBox();
+		buttonPanel = new VBox(0);
 		
 		Button play = new Button(resources.getString("play"));
 		play.setOnAction(event -> simulation.play());
@@ -190,8 +194,10 @@ public class Interface{
 		Button newInterface = new Button("Add Simulation");
 		newInterface.setOnAction(e -> {addInterface();});
 		
-		buttonPanel.getChildren().addAll(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset, newInterface);
-		buttonPanel.setLayoutY(HEIGHT - 40);
+		HBox rowOne = new HBox(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
+		HBox rowTwo = new HBox(newInterface);
+		buttonPanel.getChildren().addAll(rowOne, rowTwo);
+		buttonPanel.setLayoutY(HEIGHT - 70);
 	}
 	
 	private void addInterface(){
@@ -246,10 +252,10 @@ public class Interface{
 	
 	public void step(){
 		root.getChildren().clear();
-		graph.update(myManager.getSociety().getPopulation());
 		root = graph.draw(root);
 		root.getChildren().add(buttonPanel);
 		myManager.update();
+		graph.update(myManager.getSociety().getPopulation());
 		root = myDrawer.draw(root, myManager, false);	
 	}
 	
