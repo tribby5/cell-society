@@ -10,10 +10,21 @@ public abstract class SegregationCell extends ThreeStateCell{
 	public static final int priorityXO = 0;
 	public static final int priorityEmpty = -1;
 
+	/**
+	 * basic constructor, sends parameters from subclass to superclass
+	 * @param inputColor : color
+	 * @param state
+	 * @param priority
+	 */
 	public SegregationCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
 	}
 
+	/**
+	 * 
+	 * @return states and priorities of cells
+	 * used to avoid all instanceof and ensures no errors in casting
+	 */
 	public static int getState_X(){
 		return stateX;
 	}
@@ -36,7 +47,6 @@ public abstract class SegregationCell extends ThreeStateCell{
 	public static int getPriority_Empty(){
 		return priorityEmpty;
 	}
-	
 	
 	public int getDefaultEmptyState(){
 		return getState_Empty();

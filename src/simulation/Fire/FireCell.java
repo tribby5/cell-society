@@ -14,10 +14,23 @@ public abstract class FireCell extends ThreeStateCell {
 	public static final int priorityDead = -1;
 
 	private double probCatch;
+	
+	/**
+	 * basic constructor, sends parameters from subclass to superclass
+	 * @param inputColor : color
+	 * @param state
+	 * @param priority
+	 */
 
 	public FireCell(Color inputColor, int state, int priority) {
 		super(inputColor, state, priority);
 	}
+	
+	/**
+	 * 
+	 * @return states and priorities of cells
+	 * used to avoid all instanceof and ensures no errors in casting
+	 */
 
 	public static int getState_Alive() {
 		return stateAlive;
@@ -46,13 +59,12 @@ public abstract class FireCell extends ThreeStateCell {
 	public int getDefaultEmptyState() {
 		return getState_Dead();
 	}
-
-	public FireCell updateCell(List<Integer> neighborCount) {
-		return this.act(neighborCount);
-	}
-
-	protected abstract FireCell act(List<Integer> neighborCount);
-
+	
+	/**
+	 * getters and setters for variables
+	 * @param probCatch
+	 */
+	
 	public void setProbCatch(double probCatch) {
 		this.probCatch = probCatch;
 	}
@@ -60,5 +72,19 @@ public abstract class FireCell extends ThreeStateCell {
 	protected double getProbCatch() {
 		return this.probCatch;
 	}
+	
+	
+	/**
+	 * update cell method, sends updates via the act method in cells
+	 * @param neighborCount
+	 * @return
+	 */
+	public FireCell updateCell(List<Integer> neighborCount) {
+		return this.act(neighborCount);
+	}
+
+	protected abstract FireCell act(List<Integer> neighborCount);
+
+
 
 }
