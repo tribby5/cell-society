@@ -74,15 +74,20 @@ public class Slime extends Patch {
 			}
 			
 			if(moved){
-				swapChemicalDepositAmounts(currentSociety, loc, tempTargetLoc);
+				swapChemicalDepositAmounts(currentSociety, newSociety, loc, tempTargetLoc);
 			}
 		}
 	}
 
-	private void swapChemicalDepositAmounts(Society currentSociety, Location loc, Location tempTargetLoc) {
-		double tempAmount = ((SlimeMoldsCell) currentSociety.get(loc)).getChemical_deposit_count();
-		((SlimeMoldsCell) currentSociety.get(loc)).setChemical_deposit_count(((SlimeMoldsCell) currentSociety.get(tempTargetLoc)).getChemical_deposit_count());
-		((SlimeMoldsCell) currentSociety.get(tempTargetLoc)).setChemical_deposit_count(tempAmount);
+	private void swapChemicalDepositAmounts(Society currentSociety, Society newSociety, Location loc, Location tempTargetLoc) {
+		double tempAmount = ((SlimeMoldsCell) currentSociety.get(tempTargetLoc)).getChemical_deposit_count();
+		if(tempAmount == 0){
+			newSociety.put(loc, new Patch(((SlimeMoldsCell) currentSociety.get(tempTargetLoc)).getChemical_deposit_count()));
+		} else {
+			((SlimeMoldsCell) newSociety.get(loc)).setChemical_deposit_count(((SlimeMoldsCell) currentSociety.get(tempTargetLoc)).getChemical_deposit_count());
+		}
+		((SlimeMoldsCell) newSociety.get(tempTargetLoc)).setChemical_deposit_count(tempAmount);
+
 	}
 
 	private Queue<Location> orderNeighbors(Society currentSociety, Location loc, List<Location> neighborsLoc) {

@@ -35,6 +35,8 @@ import javafx.util.Duration;
 	 * @author Matthew Tribby
 	 *
 	 */
+import simulation.SlimeMolds.SlimeMolds;
+
 public class Interface{
 	public static final List<String> TITLE = Arrays.asList(new String[] {
 			"Game of Life",
@@ -189,12 +191,14 @@ public class Interface{
 		try {
 			XMLReader read = new XMLReader(xmlFile);
 			myManager = read.extractManager();
-			makeGraph(myManager.getSociety().getPopulation());
 			myDrawer = new Drawer();
 			createButtonPanel();
 			root.getChildren().add(buttonPanel);
 			root = myDrawer.draw(root, myManager, true);
-			root = graph.draw(root);
+			if(!(myManager instanceof SlimeMolds)){
+				makeGraph(myManager.getSociety().getPopulation());
+				root = graph.draw(root);
+			}
 			stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 			stage.setTitle(TITLE.get(read.getTitleId()));
 			
@@ -323,7 +327,10 @@ public class Interface{
 	 */
 	public void step(){
 		root.getChildren().clear();
-		root = graph.draw(root);
+		if(!(myManager instanceof SlimeMolds)){
+			graph.update(myManager.getSociety().getPopulation());
+			root = graph.draw(root);
+		}
 		root.getChildren().add(buttonPanel);
 		myManager.update();
 		graph.update(myManager.getSociety().getPopulation());
