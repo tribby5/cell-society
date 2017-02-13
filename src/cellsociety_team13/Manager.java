@@ -142,5 +142,9 @@ public abstract class Manager {
 	}
 	
 	public abstract void setDefaultParameters();
+
+	public abstract int getType();
+
+	public abstract String getParameterValue(String par);
 	
 }

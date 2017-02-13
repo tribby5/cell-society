@@ -61,4 +61,15 @@ public class GameOfLife extends Manager{
 	public void setDefaultParameters() {
 		// no parameters
 	}
+
+	@Override
+	public int getType() {
+		return 0;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -277,6 +277,10 @@ public class Interface{
 		}
 	}
 	
+	private void addInterfact(Manager manager){
+		myHandler.addInterface(manager);
+	}
+	
 	/**
 	 * Set the instance variable for the XML file
 	 * @param file file we want to be the XML file for this interface

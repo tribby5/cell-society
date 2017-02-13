@@ -10,12 +10,18 @@ public abstract class Triangle extends Shape{
 	}
 	
 	@Override
-	public double getXAdvance() {
-		return getSideLength();
+	public double getYAdvance() {
+		return INITIAL_SIDE_LENGTH/2;
 	}
 
 	@Override
-	public double getYAdvance() {
-		return 3*getApothem();
+	public double getXAdvance() {
+		return getRadius()+getApothem();
+	}
+	
+	@Override
+	public double[] getCenter() {
+		double[] center = {getSideLength() / 2.0, getRadius()};
+		return center;
 	}
 }

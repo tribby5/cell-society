@@ -60,4 +60,22 @@ public class ForagingAnts extends Manager{
 		
 	}
 
+	@Override
+	public void setDefaultParameters() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

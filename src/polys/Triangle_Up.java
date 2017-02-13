@@ -13,4 +13,14 @@ public class Triangle_Up extends Triangle {
 	public Shape changeNext() {
 		return new Triangle_Down();
 	}
+
+	@Override
+	public int getType() {
+		return 3;
+	}
+
+	@Override
+	public Shape copy() {
+		return new Triangle_Up();
+	}
 }

@@ -93,4 +93,15 @@ public class Fire extends Manager{
 	public void setDefaultParameters() {
 		probCatch = 10;
 	}
+
+	@Override
+	public int getType() {
+		return 1;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

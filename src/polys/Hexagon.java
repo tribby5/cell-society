@@ -24,4 +24,20 @@ public class Hexagon extends Shape{
 	public Shape changeNext() {
 		return new Hexagon();
 	}
+	
+	@Override
+	public int getType() {
+		return 1;
+	}
+
+	@Override
+	public Shape copy() {
+		return new Hexagon();
+	}
+	
+	@Override
+	public double[] getCenter() {
+		double[] center = {getSideLength(), getSideLength()};
+		return center;
+	}
 }

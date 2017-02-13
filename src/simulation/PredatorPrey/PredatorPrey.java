@@ -133,4 +133,15 @@ public class PredatorPrey extends Manager{
 		sharkTurnsToReproduce = 10;
 		sharkInitialEnergy = 10;
 	}
+
+	@Override
+	public int getType() {
+		return 2;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

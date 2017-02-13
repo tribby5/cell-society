@@ -98,4 +98,15 @@ public class Segregation extends Manager{
 	public void setDefaultParameters() {
 		satisfactionPercentage = 50.0;
 	}
+
+	@Override
+	public int getType() {
+		return 3;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

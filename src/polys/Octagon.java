@@ -24,4 +24,20 @@ public class Octagon extends Shape{
 	public Shape changeNext() {
 		return new Octagon();
 	}
+
+	@Override
+	public int getType() {
+		return 2;
+	}
+
+	@Override
+	public Shape copy() {
+		return new Octagon();
+	}
+
+	@Override
+	public double[] getCenter() {
+		double[] center = {getSideLength() / 2.0, getSideLength() / 2.0};
+		return center;
+	}
 }
