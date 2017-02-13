@@ -20,8 +20,7 @@ public class Society {
 	private Map<Location, ArrayList<Location>> sideNeighbor;
 	private Map<Location, Cell> grid;
 	private Map<Integer, Color> states;
-	private Point2D bottomRightPoint;
-	private Point2D topLeftPoint;
+	private Point2D scalarPoint;
 	private Boolean orderMatters;
 
 	public Society(Map<Location, Cell> rawGrid) {
@@ -44,12 +43,11 @@ public class Society {
 	}
 
 	public Society(Map<Location, Cell> grid2, Map<Location, ArrayList<Location>> vertexNeighbor2,
-			Map<Location, ArrayList<Location>> sideNeighbor2, Point2D bottomRightPoint2, Point2D topLeftPoint2, Boolean orderMatters2) {
+			Map<Location, ArrayList<Location>> sideNeighbor2, Point2D scalarPoint2, Boolean orderMatters2) {
 		this.grid = new HashMap<>(grid2);
 		this.vertexNeighbor = vertexNeighbor2;
 		this.sideNeighbor = sideNeighbor2;
-		this.bottomRightPoint = bottomRightPoint2;
-		this.topLeftPoint = topLeftPoint2;
+		this.scalarPoint = scalarPoint2;
 		this.orderMatters = orderMatters2;
 	}
 
@@ -155,16 +153,7 @@ public class Society {
 			if (loc.getY() > max.getY())
 				max = new Point2D(max.getX(), loc.getY());
 		}
-		this.bottomRightPoint = new Point2D(max.getX() + findSideLength(), max.getY() + findSideLength());
-
-		Point2D min = new Point2D(max.getX(), max.getY());
-		for (Location loc : grid.keySet()) {
-			if (loc.getX() < min.getX())
-				min = new Point2D(loc.getX(), min.getY());
-			if (loc.getY() < min.getY())
-				min = new Point2D(min.getX(), loc.getY());
-		}
-		this.topLeftPoint = new Point2D(min.getX() - findSideLength(), min.getY() - findSideLength());
+		this.scalarPoint = new Point2D(1.3*max.getX(), 1.3*max.getY());
 	}
 
 	public List<Location> getSideNeighbors(Location loc) {
@@ -181,16 +170,12 @@ public class Society {
 		return 0;
 	}
 
-	public Point2D getBottomRightPoint() {
-		return bottomRightPoint;
-	}
-
-	public Point2D getTopLeftPoint() {
-		return topLeftPoint;
+	public double getScalarPoint() {
+		return Math.max(scalarPoint.getX(), scalarPoint.getY());
 	}
 
 	public Society copy() {
-		return new Society(grid, vertexNeighbor, sideNeighbor, bottomRightPoint, topLeftPoint, orderMatters);
+		return new Society(grid, vertexNeighbor, sideNeighbor, scalarPoint, orderMatters);
 	}
 
 	public void put(Location currentLoc, Cell updatedCell) {

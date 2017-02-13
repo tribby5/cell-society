@@ -23,9 +23,8 @@ public abstract class Shape {
 	}
 
 	private void calculateVertices() {
-		double[] center = {sideLength / 2.0, sideLength / 2.0};
+		double[] center = getCenter();
 		vertices = new Double[numSides * 2];
-		//System.out.print(numSides);
 		double angleBetweenVertices = 360 / numSides;
 		for(int i = 0 ; i < numSides; i++){
 			double angleOfVertex = angle + i * angleBetweenVertices;															
@@ -34,6 +33,8 @@ public abstract class Shape {
 		}
 	}
 	
+	public abstract double[] getCenter();
+
 	private void calculateRadius() {
 		this.radius = sideLength / (2 * Math.sin(Math.toRadians(180.0 / numSides)));		
 	}
@@ -72,5 +73,9 @@ public abstract class Shape {
 	public abstract double getYAdvance();
 
 	public abstract Shape changeNext();
+
+	public abstract int getType();
+
+	public abstract Shape copy();
 	
 }

@@ -2,6 +2,8 @@ package cellsociety_team13;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -20,7 +22,8 @@ public class Drawer {
 		Society mySociety = myManager.getSociety();
 		for(Location loc: mySociety.keySet()){
 			if(notScaled){
-				loc.moveAndScaleShape(mySociety.getBottomRightPoint().subtract(mySociety.getTopLeftPoint()));
+				double scal = mySociety.getScalarPoint();
+				loc.moveAndScaleShape(new Point2D(scal, scal));
 				createStates(myManager);
 			}
 			Polygon p = loc.getPolygon();

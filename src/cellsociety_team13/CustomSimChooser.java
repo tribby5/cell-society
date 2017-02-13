@@ -139,9 +139,9 @@ public class CustomSimChooser {
 			grid = getHexagonBoard();
 		}
 		
-		//Society society = new CellGenerator(grid, newManager).getSociety();
-		//newManager.setSociety(society);
-		//newManager.setDefaultParameter();
+		Society society = new CellGenerator(grid, newManager).getSociety();
+		newManager.setSociety(society);
+		newManager.setDefaultParameters();
 	}
 }
 

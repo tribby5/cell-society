@@ -111,4 +111,21 @@ public class SlimeMolds extends Manager{
 			diffusionRate = newValue;
 		} 
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getType() {
+		return 4;
+	}
+
+	@Override
+	public String getParameterValue(String par) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

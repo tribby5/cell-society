@@ -76,6 +76,10 @@ public class InterfaceHandler {
 			interfaces.get(i).step();
 		}
 	}
+
+	public void addInterface(Manager manager) {
+		
+	}
 	
 	
 }

@@ -24,4 +24,20 @@ public class Square extends Shape{
 	public Shape changeNext() {
 		return new Square();
 	}
+
+	@Override
+	public int getType() {
+		return 0;
+	}
+
+	@Override
+	public Shape copy() {
+		return new Square();
+	}
+
+	@Override
+	public double[] getCenter() {
+		double[] center = {getSideLength()/2.0, getSideLength()/2.0};
+		return center;
+	}
 }

@@ -210,4 +210,13 @@ public class Location{
 		}
 		return angleDif;
 	}
+
+	public String getInfo(String field) {
+		List<String> fieldValue = Arrays.asList(new String[] {
+					""+getX(),
+					""+getY(),
+					""+getPoly().getType()
+			});
+		return fieldValue.get(FIELDS.indexOf(field));
+	}
 }
