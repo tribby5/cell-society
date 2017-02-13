@@ -2,6 +2,8 @@ package simulation.PredatorPrey;
 
 import java.util.List;
 
+import org.omg.CORBA.SystemException;
+
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Society;
@@ -23,6 +25,10 @@ public class Shark extends SeaAnimal{
 	
 	public void act(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts) {
+		if(this.getTurns() == 0){
+			energy = this.getSharkInitialEnergy();
+		}
+		
 		if(isAlive()){
 			energy--;
 			this.setTurns(this.getTurns() + 1);
@@ -31,8 +37,8 @@ public class Shark extends SeaAnimal{
 			if (neighborCounts.get(getState_Fish()) != 0){
 				hunted = swapWithRandomTarget(currentSociety, newSociety, location, neighborsLoc, neighborCounts.get(getState_Fish()), getState_Fish());
 			}
-			
-			if(hunted || energy == 0){
+			//System.out.println(energy);
+			if(hunted || energy <= 0){
 				((SeaAnimal) newSociety.get(location)).dies();
 				newSociety.put(location, new Water());
 				energy += FISH_NUTRITIONAL_VALUE;

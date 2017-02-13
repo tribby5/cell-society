@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
@@ -20,14 +21,12 @@ public class Slime extends Patch {
 	private int chemical_drops = 2;
 	private double sniff_threshhold = 1.0;
 	
-	private double sniff_angle_max = 50;
-	private double wiggle_angle = 40;
-	private double orientation_angle = 0;
-	
-	private int wiggle_bias;
+	private double orientation_angle;
 
 	public Slime() {
 		super(color, state, priority);
+		Random rand = new Random();
+		orientation_angle = rand.nextDouble() * 360;
 	}
 
 	public Slime(int chemDeposit) {
@@ -96,7 +95,7 @@ public class Slime extends Patch {
 		for (Location neighborLoc : neighborsLoc) {
 			SlimeMoldsCell neighbor = (SlimeMoldsCell) currentSociety.get(neighborLoc);
 			double angleDifference = loc.calculateAngleDifference(neighborLoc, orientation_angle);
-			if (Math.abs(angleDifference) <= sniff_angle_max && neighbor.getChemical_deposit_count() >= maxDeposit) {
+			if (Math.abs(angleDifference) <= this.getSniff_angle_max() && neighbor.getChemical_deposit_count() >= maxDeposit) {
 				maxDeposit = neighbor.getChemical_deposit_count();
 				targetNeighbors.add(neighbor);
 			}
@@ -112,37 +111,4 @@ public class Slime extends Patch {
 	public void dropChemicalDeposit(){
 		this.setChemical_deposit_count(this.getChemical_deposit_count() + chemical_drops);
 	}
-
-	public double getSniff_threshhold() {
-		return sniff_threshhold;
-	}
-
-	public void setSniff_threshhold(double sniff_threshhold) {
-		this.sniff_threshhold = sniff_threshhold;
-	}
-
-	public double getSniff_angle_max() {
-		return sniff_angle_max;
-	}
-
-	public void setSniff_angle_max(double sniff_angle) {
-		this.sniff_angle_max = sniff_angle;
-	}
-
-	public double getWiggle_angle() {
-		return wiggle_angle;
-	}
-
-	public void setWiggle_angle(double wiggle_angle) {
-		this.wiggle_angle = wiggle_angle;
-	}
-
-	public int getWiggle_bias() {
-		return wiggle_bias;
-	}
-
-	public void setWiggle_bias(int wiggle_bias) {
-		this.wiggle_bias = wiggle_bias;
-	}
-
 }

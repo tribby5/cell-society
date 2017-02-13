@@ -330,10 +330,10 @@ public class Interface{
 		if(!(myManager instanceof SlimeMolds)){
 			graph.update(myManager.getSociety().getPopulation());
 			root = graph.draw(root);
+			graph.update(myManager.getSociety().getPopulation());
 		}
 		root.getChildren().add(buttonPanel);
 		myManager.update();
-		graph.update(myManager.getSociety().getPopulation());
 		root = myDrawer.draw(root, myManager, false);	
 	}
 	

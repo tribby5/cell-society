@@ -16,11 +16,11 @@ public class Fire extends Manager{
 	public static final String PROBCATCH_PARAMETER_LABEL = "par1";
 	public static final String PROBCATCH_PARAMETER_LABEL_GUI = "Probability of Catching Fire";
 	private double probCatch;
-	private Double[] probCatchBounds = {
+	private List<Double> probCatchBounds = Arrays.asList( new Double [] {
 			0.0,
 			probCatch,
 			100.0
-	};
+	});;
 	
 
 
@@ -70,7 +70,7 @@ public class Fire extends Manager{
 	@Override
 	public void setParameters(Map<String, Double> data) {
 		probCatch = data.get(PROBCATCH_PARAMETER_LABEL);
-		probCatchBounds[1] = probCatch;
+		probCatchBounds.set(1, probCatch);
 		createParametersBounds();
 	}
 
@@ -85,7 +85,7 @@ public class Fire extends Manager{
 	@Override
 	public void createParametersBounds() {
 		Map<String, List<Double>> parametersBounds = new HashMap<String, List<Double>>();
-		parametersBounds.put(PROBCATCH_PARAMETER_LABEL_GUI, Arrays.asList(probCatchBounds));
+		parametersBounds.put(PROBCATCH_PARAMETER_LABEL_GUI, probCatchBounds);
 		setParametersBounds(parametersBounds);
 	}
 }

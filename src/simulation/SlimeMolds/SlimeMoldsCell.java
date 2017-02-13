@@ -20,8 +20,36 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 	
 	
 	private double chemical_deposit_count;
-	private double evaporation_rate = 0.1;
-	private double diffusion = 0.05;
+	private double evaporation_rate;
+	private double diffusion;
+	private double sniff_angle_max;
+	
+	
+	public double getEvaporation_rate() {
+		return evaporation_rate;
+	}
+
+	public void setEvaporation_rate(double evaporation_rate) {
+		this.evaporation_rate = evaporation_rate;
+	}
+
+	public double getDiffusion() {
+		return diffusion;
+	}
+
+	public void setDiffusion(double diffusion) {
+		this.diffusion = diffusion;
+	}
+
+	public double getSniff_angle_max() {
+		return sniff_angle_max;
+	}
+
+	public void setSniff_angle_max(double sniff_angle_max) {
+		this.sniff_angle_max = sniff_angle_max;
+	}
+
+
 	
 
 	public SlimeMoldsCell(Color inputColor, int state, int priority) {

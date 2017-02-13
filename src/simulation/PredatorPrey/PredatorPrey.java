@@ -24,19 +24,19 @@ public class PredatorPrey extends Manager{
 	private int sharkInitialEnergy;
 	
 	private List<Double> fishTurnsToReproduceBounds = Arrays.asList(new Double[] {
-			4.0,
+			1.0,
 			(double) fishTurnsToReproduce,
 			10.0
 	});;
 	
 	private List<Double> sharkTurnsToReproduceBounds = Arrays.asList(new Double[] {
-			4.0,
+			1.0,
 			(double) sharkTurnsToReproduce,
 			20.0
 	});;
 	
 	private List<Double> sharkInitialEnergyBounds = Arrays.asList(new Double[] {
-			4.0,
+			1.0,
 			(double) sharkInitialEnergy,
 			20.0
 	});;
@@ -100,6 +100,9 @@ public class PredatorPrey extends Manager{
 		fishTurnsToReproduce = data.get(FISH_TURNS_TO_REPRODUCE_PARAMETER_LABEL).intValue();
 		sharkTurnsToReproduce = data.get(SHARK_TURNS_TO_REPRODUCE_PARAMETER_LABEL).intValue();
 		sharkInitialEnergy = data.get(SHARK_INITIAL_ENERGY_PARAMETER_LABEL).intValue();
+		fishTurnsToReproduceBounds.set(1, (double) fishTurnsToReproduce);
+		sharkTurnsToReproduceBounds.set(1, (double) sharkTurnsToReproduce);
+		sharkInitialEnergyBounds.set(1, (double) sharkInitialEnergy);
 		createParametersBounds();
 	}
 
