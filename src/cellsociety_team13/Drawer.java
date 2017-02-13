@@ -18,17 +18,6 @@ public class Drawer {
 			}
 			Polygon p = loc.getPolygon();
 			p.setOnMouseClicked(e -> updateCell(loc, mySociety, myManager));
-			
-			/*
-				int count = 0;
-				for(Cell cell : mySociety.values()){
-					if(cell.getState() == 0){
-						count++;
-					}
-				}
-				System.out.println("Zero Count: " + count);
-			*/
-			
 			p.setFill(mySociety.get(loc).getColor());
 			root.getChildren().add(p);
 			

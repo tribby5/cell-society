@@ -59,6 +59,7 @@ public class XMLReader {
 		getManager();
 		getSociety();
 		manager.setSociety(society);
+		if(!(manager instanceof GameOfLife))
 		getParameters();
 	}
 
@@ -115,6 +116,7 @@ public class XMLReader {
 	}
 	
 	private void getParameters() throws XMLException {
+		try{
 		Node nNode = getRootElement().getElementsByTagName(PARAMETER).item(0);
 		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 			currentElement = (Element) nNode;
@@ -125,7 +127,9 @@ public class XMLReader {
 			manager.setParameters(map);
 		} else
 			throw new XMLException("XML file does not represent some necessary parameter values!");
-		
+		}
+		catch(NullPointerException e){
+		}
 	}
 
 	private void getSociety() throws XMLException {
