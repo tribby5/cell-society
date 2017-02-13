@@ -193,7 +193,7 @@ public class Interface{
 		try {
 			XMLReader read = new XMLReader(xmlFile);
 			myManager = read.extractManager();
-			setupSimulation(TITLE.get(read.getTitleId()));
+			setupSimulation(TITLE.get(myManager.getType()));
 		} catch (XMLException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle(resources.getString("badXMLTitle"));
