@@ -23,6 +23,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import simulation.SlimeMolds.SlimeMolds;
 
 public class Interface{
 	public static final List<String> TITLE = Arrays.asList(new String[] {
@@ -163,11 +164,12 @@ public class Interface{
 		try {
 			XMLReader read = new XMLReader(xmlFile);
 			myManager = read.extractManager();
-			makeGraph(myManager.getSociety().getPopulation());
 			myDrawer = new Drawer();
-
 			root = myDrawer.draw(root, myManager, true);
-			root = graph.draw(root);
+			if(!(myManager instanceof SlimeMolds)){
+				makeGraph(myManager.getSociety().getPopulation());
+				root = graph.draw(root);
+			}
 			stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 			stage.setTitle(TITLE.get(read.getTitleId()));
 			startSimulation();
@@ -246,8 +248,10 @@ public class Interface{
 	
 	public void step(){
 		root.getChildren().clear();
-		graph.update(myManager.getSociety().getPopulation());
-		root = graph.draw(root);
+		if(!(myManager instanceof SlimeMolds)){
+			graph.update(myManager.getSociety().getPopulation());
+			root = graph.draw(root);
+		}
 		root.getChildren().add(buttonPanel);
 		myManager.update();
 		root = myDrawer.draw(root, myManager, false);	

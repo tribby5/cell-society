@@ -20,9 +20,9 @@ public class Patch extends SlimeMoldsCell {
 		this.setChemical_deposit_count(MIN_CHEM_VALUE);
 	}
 	
-	public Patch(int chemDeposit){
+	public Patch(double d){
 		super(beginningColor, state, priority);
-		setChemical_deposit_count(chemDeposit);
+		setChemical_deposit_count(d);
 	}
 	
 	public Patch(Color inputColor, int state, int priority) {

@@ -8,7 +8,7 @@ import cellsociety_team13.Society;
 import javafx.scene.paint.Color;
 
 public class Empty extends SlimeMoldsCell{
-	public static final Color color = Color.RED;
+	public static final Color color = Color.BLACK;
 	public static final int priority = getPriority_Empty();
 	public static final int state = getState_Empty();
 

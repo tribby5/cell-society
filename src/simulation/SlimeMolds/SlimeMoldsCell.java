@@ -93,7 +93,7 @@ public abstract class SlimeMoldsCell extends ThreeStateCell {
 
 	public void update(Society currentSociety, Society newSociety, Location location, List<Location> neighborsLoc,
 			List<Integer> neighborCounts){
-		// updateChemicalDeposits(newSociety, location, neighborsLoc);
+		updateChemicalDeposits(newSociety, location, neighborsLoc);
 		this.act(currentSociety, newSociety, location, neighborsLoc, neighborCounts);
 
 	}
