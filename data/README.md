@@ -1,3 +1,8 @@
-# cellsociety 
+# cellsociety Data Files
 
-Put your example and test XML files here.
+GOL prefix: Game of Life test
+FIRE prefix: Fire test
+PRAY prefix: Predator and Prey test
+SEG prefix: Segregation test
+SLIME prefix: Slime test
+

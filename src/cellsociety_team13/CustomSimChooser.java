@@ -24,27 +24,26 @@ import javafx.stage.Stage;
 
 
 public class CustomSimChooser {
-	private ResourceBundle resources;
 	private Interface parent;
 	public static final String RESOURCE_PACKAGE = "English";
+	private ResourceBundle resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 	private String[] inputs = new String[2];
 	private int newSideLength = 0;
 	String[] simulationNames = new String[]{
-			"Game of Life",
-			"Fire",
-			"Predator and Prey",
-			"Segregation",
-			"Slime Molds"
+			resources.getString("gol"),
+			resources.getString("fire"),
+			resources.getString("pap"),
+			resources.getString("seg"),
+			resources.getString("slime")
 	};
 	private String[] shapeTypes = new String[]{
-			"Rectangle",
-			"Triangle",
-			"Hexagon"
+			resources.getString("rect"),
+			resources.getString("tri"),
+			resources.getString("hex")
 	};
 	
 	public CustomSimChooser(Interface inter){
 		parent = inter;
-		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		Stage choiceStage = new Stage();
 		VBox root = createContent();
 		choiceStage.setScene(new Scene(root, 200, 200));

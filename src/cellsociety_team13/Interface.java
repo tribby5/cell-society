@@ -38,13 +38,14 @@ import javafx.util.Duration;
 import simulation.SlimeMolds.SlimeMolds;
 
 public class Interface{
-	public static final List<String> TITLE = Arrays.asList(new String[] {
-			"Game of Life",
-			"Fire",
-			"Predators and Pray / Shark and Fish",
-			"Segregation",
-			"SlimeMolds",
-			"ForagingAnts"
+	public static final String RESOURCE_PACKAGE = "English";
+	private ResourceBundle resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
+	public final List<String> TITLE = Arrays.asList(new String[] {
+			resources.getString("gol"),
+			resources.getString("fire"),
+			resources.getString("pap2"),
+			resources.getString("seg"),
+			resources.getString("slime")
 	});
 	
 	private Stage stage;
@@ -57,12 +58,10 @@ public class Interface{
 	private File xmlFile = null;
 	public static final int FRAMES_PER_SEC = 1;
 	public static final double MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
-	public static final String RESOURCE_PACKAGE = "English";
 	public static final String XML_FILE_DIRECTORY = "./data";
 	public static final String FILE_EXTENSION = ".xml";
 	private Group root;
 	private VBox buttonPanel;
-	private ResourceBundle resources;
 	private Timeline simulation;
 	private Drawer myDrawer;
 	private Manager myManager;
@@ -76,7 +75,6 @@ public class Interface{
 	 */
 	public Interface(Stage primaryStage, InterfaceHandler handler){
 		stage = primaryStage;
-		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		setWelcome();
 		myHandler = handler;
 	}
