@@ -8,15 +8,16 @@ import javafx.scene.paint.Color;
 
 /**
  * The Alive tree cell. It has a very simple rule for updating
+ * 
  * @author Miguel Anderson (mra21)
  *
  */
 
-public class Alive extends FireCell{
-	public static final Color color = Color.GREEN; //TODO: color imports
+public class Alive extends FireCell {
+	public static final Color color = Color.GREEN; // TODO: color imports
 	public static final int priority = getPriority_Alive();
 	public static final int state = getState_Alive();
-	
+
 	/**
 	 * basic constructor, sends preset values to the superclass
 	 */
@@ -28,10 +29,10 @@ public class Alive extends FireCell{
 	 * the main method of the class, controls how the alive tree becomes burning
 	 */
 	@Override
-	public FireCell act(List<Integer> neighborCount){		
-		if (neighborCount.get(getState_Burning()) != 0){
+	public FireCell act(List<Integer> neighborCount) {
+		if (neighborCount.get(getState_Burning()) != 0) {
 			Random rand = new Random();
-			if(this.getProbCatch() > rand.nextDouble() * 100){
+			if (this.getProbCatch() > rand.nextDouble() * 100) {
 				return new Burning();
 			}
 		}
