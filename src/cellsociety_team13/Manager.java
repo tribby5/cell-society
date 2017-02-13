@@ -140,4 +140,7 @@ public abstract class Manager {
 	public Map<String, List<Double>> getParametersBounds(){
 		return this.parametersBounds;
 	}
+	
+	public abstract void setDefaultParameters();
+	
 }

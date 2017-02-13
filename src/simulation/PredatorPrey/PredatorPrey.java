@@ -126,4 +126,11 @@ public class PredatorPrey extends Manager{
 			sharkInitialEnergy = (int) newValue;
 		}
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		fishTurnsToReproduce = 7;
+		sharkTurnsToReproduce = 10;
+		sharkInitialEnergy = 10;
+	}
 }

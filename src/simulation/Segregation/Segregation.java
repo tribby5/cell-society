@@ -93,4 +93,9 @@ public class Segregation extends Manager{
 			satisfactionPercentage = newValue;
 		}
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		satisfactionPercentage = 50.0;
+	}
 }

@@ -56,4 +56,9 @@ public class GameOfLife extends Manager{
 	public void updateParameter(String parameterLabel, double newValue) {
 		// no parameters
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		// no parameters
+	}
 }

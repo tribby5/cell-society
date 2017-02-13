@@ -88,4 +88,9 @@ public class Fire extends Manager{
 		parametersBounds.put(PROBCATCH_PARAMETER_LABEL_GUI, probCatchBounds);
 		setParametersBounds(parametersBounds);
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		probCatch = 10;
+	}
 }
