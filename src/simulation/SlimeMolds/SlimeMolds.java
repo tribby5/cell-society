@@ -49,10 +49,6 @@ public class SlimeMolds extends Manager{
 			new Slime()
 	});
 	
-	public SlimeMolds(){
-		//TODO initialize variables
-	}
-	
 	@Override
 	public List<Cell> getCellTypes() {
 		return CELLS;
@@ -114,7 +110,8 @@ public class SlimeMolds extends Manager{
 
 	@Override
 	public void setDefaultParameters() {
-		asdfafd
-		
+		sniffAngle = (sniffAngleBounds.get(0) + sniffAngleBounds.get(2))/2;
+		evaporationRate = (evaporationRateBounds.get(0) + evaporationRateBounds.get(2))/2;
+		diffusionRate = (diffusionRateBounds.get(0) + diffusionRateBounds.get(2))/2;
 	}
 }
