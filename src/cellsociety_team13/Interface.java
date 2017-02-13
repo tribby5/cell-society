@@ -198,9 +198,10 @@ public class Interface{
 		stepThrough.setOnAction(event -> {simulation.pause(); step();});
 		Button reset = new Button(resources.getString("reset"));
 		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
-		Button newInterface = new Button("Add Simulation");
+		Button newInterface = new Button(resources.getString("addSim"));
 		newInterface.setOnAction(e -> {addInterface();});
 		Slider speed = createSlider(0,1,5);
+		speed.setMajorTickUnit(1);
 		speed.valueProperty().addListener((observable, oldValue, newValue) -> {changeSimulationSpeed((double) newValue);});
 		
 		HBox rowOne = new HBox(play, pause, stepThrough, speed, createNewXMLButton(), reset);
@@ -210,16 +211,17 @@ public class Interface{
 	}
 	
 	private Button createCustomSimButton(){
-		Button customSim = new Button("Create Custom");
-		//customSim.setOnAction(e -> {new customSimChooser()});
+		Button customSim = new Button(resources.getString("custom"));
+		customSim.setOnAction(e -> {new customSimChooser();});
 		return customSim;
 	}
 	
 	private HBox createParameterChanger(){
 		HBox parameterChanger = new HBox();
 		Map<String, List<Double>> params = myManager.getParametersBounds();
-		//from stack overflow: http://stackoverflow.com/questions/2319538/most-concise-way-to-convert-a-setstring-to-a-liststring
+
 		if(params != null){
+			//from stack overflow: http://stackoverflow.com/questions/2319538/most-concise-way-to-convert-a-setstring-to-a-liststring
 			List<String> names = new ArrayList<String>(params.keySet());
 			//from stack overflow: http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
 			ObservableList<String> obsNames = FXCollections.observableArrayList(names);
@@ -260,7 +262,6 @@ public class Interface{
 		slider.setMax(max);
 		slider.setValue(start);
 		slider.setBlockIncrement((max-min)/5);
-		slider.setMajorTickUnit(2);
 		slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
 		return slider;
