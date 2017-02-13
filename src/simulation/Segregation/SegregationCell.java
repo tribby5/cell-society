@@ -1,8 +1,6 @@
 package simulation.Segregation;
 
 import cells.ThreeStateCell;
-import cellsociety_team13.Location;
-import cellsociety_team13.Society;
 import javafx.scene.paint.Color;
 
 public abstract class SegregationCell extends ThreeStateCell{
