@@ -12,11 +12,8 @@ public class Patch extends SlimeMoldsCell {
 	public static final int priority = getPriority_Patch();
 	public static final int state = getState_Patch();
 	
-	private Color color;
-
 	public Patch() {
 		super(beginningColor, state, priority);
-		color = beginningColor;
 		this.setChemical_deposit_count(MIN_CHEM_VALUE);
 	}
 	

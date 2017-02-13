@@ -63,7 +63,7 @@ public class Society {
 	 * @param sideNeighbor2
 	 *            the already-calculated side neighbors from parent
 	 * @param scalarPoint2
-	 * 			  the point to determine scale
+	 *            the point to determine scale
 	 * @param orderMatters2
 	 *            the boolean that controls whether order is important when
 	 *            processing cells. For example, in predatorprey simulation,
@@ -86,6 +86,7 @@ public class Society {
 	 */
 	public Society copy() {
 		return new Society(grid, vertexNeighbor, sideNeighbor, scalarPoint, orderMatters);
+
 	}
 
 	/*
@@ -207,7 +208,6 @@ public class Society {
 		return vertexNeighbor.get(loc);
 	}
 
-
 	/**
 	 * creates a list of integers with the counts of different types of
 	 * neighbors the is used in many of the simulations so it is calculated at
@@ -228,12 +228,10 @@ public class Society {
 		return Arrays.asList(neighborCount);
 
 	}
-	
+
 	public double getScalarPoint() {
 		return Math.max(scalarPoint.getX(), scalarPoint.getY());
 	}
-
-	
 
 	/**
 	 * creates a queue of locations that is sorted by the cells priority the
@@ -268,6 +266,7 @@ public class Society {
 
 	/**
 	 * creates a color population for the graph below the visual grid
+	 * 
 	 * @return
 	 */
 	public Map<Color, Integer> getPopulation() {
@@ -284,8 +283,8 @@ public class Society {
 		return population;
 	}
 
-
 	private void calcCornerPoints() {
+
 		Point2D max = new Point2D(0, 0);
 
 		for (Location loc : grid.keySet()) {
@@ -294,7 +293,9 @@ public class Society {
 			if (loc.getY() > max.getY())
 				max = new Point2D(max.getX(), loc.getY());
 		}
-		this.scalarPoint = new Point2D(1.3*max.getX(), 1.3*max.getY());
+
+		this.scalarPoint = new Point2D(1.3 * max.getX(), 1.3 * max.getY());
+
 	}
 
 	private boolean isOrderImportant() {
