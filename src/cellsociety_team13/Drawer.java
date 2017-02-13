@@ -9,6 +9,13 @@ import javafx.scene.shape.Polygon;
 public class Drawer {
 	private HashMap<Integer, Color> states;
 	
+	/**
+	 * Draws the grid of cells onto the root. 
+	 * @param root Group which the polygons will be added to
+	 * @param myManager Manager of the specific simulation
+	 * @param notScaled Boolean which represents whether or not the points have been scaled yet
+	 * @return root that is updated with grid of cells
+	 */
 	public Group draw(Group root, Manager myManager, boolean notScaled){
 		Society mySociety = myManager.getSociety();
 		for(Location loc: mySociety.keySet()){

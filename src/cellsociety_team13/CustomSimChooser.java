@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class customSimChooser {
+public class CustomSimChooser {
 	private ResourceBundle resources;
 	public static final String RESOURCE_PACKAGE = "English";
 	private String[] inputs = new String[3];
@@ -35,7 +35,7 @@ public class customSimChooser {
 			"Hexagon"
 	});
 	
-	public customSimChooser(){
+	public CustomSimChooser(){
 		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		Stage choiceStage = new Stage();
 		VBox root = createContent();
@@ -90,3 +90,4 @@ public class customSimChooser {
 		return obsList;
 	}
 }
+

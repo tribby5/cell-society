@@ -30,7 +30,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+	/**
+	 * Class which creates an interface which is a single instance of simulator
+	 * @author Matthew Tribby
+	 *
+	 */
 public class Interface{
 	public static final List<String> TITLE = Arrays.asList(new String[] {
 			"Game of Life",
@@ -75,6 +79,10 @@ public class Interface{
 		myHandler = handler;
 	}
 	
+	/**
+	 * Sets the welcome screen for the simulator. A basic screen with a continue
+	 * button
+	 */
 	public void setWelcome(){
 		Text title = new Text(resources.getString("welcome"));
 		title.setTextAlignment(TextAlignment.CENTER);
@@ -93,11 +101,20 @@ public class Interface{
 		stage.show();
 	}
 	
-	public void makeGraph(Map<Color, Integer> test){
-		graph = new PopGraph(test, WIDTH, 130);
+	/**
+	 * Initialize the population graph which shows the count of different types
+	 * of cells over time.
+	 * @param initialValues Map which pairs colors and counts of different colors
+	 */
+	public void makeGraph(Map<Color, Integer> initialValues){
+		graph = new PopGraph(initialValues, WIDTH, 130);
 		graph.setY(HEIGHT - 210);
 	}
 	
+	/**
+	 * Sets the information screen where user can choose which type of simulation
+	 * to run. This screen also contains basic information about the simulator.
+	 */
 	public void setInfo(){
 		VBox infoRoot = new VBox(50);
 		infoRoot = createInformativeText(infoRoot);
@@ -161,7 +178,11 @@ public class Interface{
 		}
 		return null;
 	}
-	
+	/**
+	 * This method setups a simulator. Important: There must be a proper XML
+	 * file in the xmlFile instance variable for this function to work properly.
+	 * There is error handling for improper XML files.
+	 */
 	public void setupSimulation(){
 		root = new Group();
 		
@@ -212,7 +233,7 @@ public class Interface{
 	
 	private Button createCustomSimButton(){
 		Button customSim = new Button(resources.getString("custom"));
-		customSim.setOnAction(e -> {new customSimChooser();});
+		customSim.setOnAction(e -> {new CustomSimChooser();});
 		return customSim;
 	}
 	
@@ -252,6 +273,10 @@ public class Interface{
 		}
 	}
 	
+	/**
+	 * Set the instance variable for the XML file
+	 * @param file file we want to be the XML file for this interface
+	 */
 	public void setXMLFile(File file){
 		xmlFile = file;
 	}
@@ -292,6 +317,10 @@ public class Interface{
 		simulation.setRate(factor);
 	}
 	
+	/**
+	 * Steps the simulation through. Important: Assumes there is a simulation
+	 * with a timeline that is currently running (Created when run setupSimulation()) 
+	 */
 	public void step(){
 		root.getChildren().clear();
 		root = graph.draw(root);
@@ -301,17 +330,18 @@ public class Interface{
 		root = myDrawer.draw(root, myManager, false);	
 	}
 	
-	public String getXMLFile(){
-		return xmlFile.toString();
-	}
-	public Manager getManager(){
-		return myManager;
-	}
-	
+	/**
+	 * Plays simulation. Important: Assumes that there is a simulation timeline
+	 * already created (Created when run setupSimulation())
+	 */
 	public void playSimulation(){
 		simulation.play();
 	}
 	
+	/**
+	 * Pauses simulation. Important: Assumes that there is a simulation timeline
+	 * already created (Created when run setupSimulation())
+	 */
 	public void pauseSimulation(){
 		simulation.pause();
 	}
