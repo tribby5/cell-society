@@ -24,12 +24,11 @@ public class BoardGenerator {
 				double yProv = y;
 				if(right && shifter){
 					yProv = y + yAdv/2;
-					System.out.println(yProv);
 				}
 				board.put(new Location(x, yProv, shape), null);
 				shape = shape.changeNext();
 			}
-			if(col%2==0)
+			if(row%2==0)
 				shape = shape.changeNext();
 			if(right)
 				shifter = !shifter;

@@ -52,8 +52,8 @@ public class Interface{
 	private Font smallFont = new Font("Times New Roman", 20);
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 680;
-	public static final int GRID_WIDTH = 500;
-	public static final int GRID_HEIGHT = 500;
+	public static final int GRID_WIDTH = 550;
+	public static final int GRID_HEIGHT = 550;
 	private File xmlFile = null;
 	public static final int FRAMES_PER_SEC = 1;
 	public static final double MILLI_DELAY = 1000.0/FRAMES_PER_SEC;
@@ -123,7 +123,7 @@ public class Interface{
 		
 		Button cont = new Button(resources.getString("continue"));
 		cont.setVisible(false);
-		cont.setOnAction(event -> setupSimulation());
+		cont.setOnAction(event -> extractManager());
 		
 		Text nonXML = new Text(resources.getString("nonXML"));
 		nonXML.setFont(smallFont);
@@ -185,31 +185,39 @@ public class Interface{
 	 * file in the xmlFile instance variable for this function to work properly.
 	 * There is error handling for improper XML files.
 	 */
-	public void setupSimulation(){
-		root = new Group();
-		
+	public void extractManager(){
+		if(xmlFile == null){
+			setInfo();
+		}
+		else{
 		try {
 			XMLReader read = new XMLReader(xmlFile);
 			myManager = read.extractManager();
-			myDrawer = new Drawer();
-			createButtonPanel();
-			root.getChildren().add(buttonPanel);
-			root = myDrawer.draw(root, myManager, true);
-			if(!(myManager instanceof SlimeMolds)){
-				makeGraph(myManager.getSociety().getPopulation());
-				root = graph.draw(root);
-			}
-			stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
-			stage.setTitle(TITLE.get(read.getTitleId()));
-			
-			startSimulation();
+			setupSimulation(TITLE.get(read.getTitleId()));
 		} catch (XMLException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle(resources.getString("badXMLTitle"));
 			alert.setContentText(resources.getString("badXML"));
 			alert.showAndWait().ifPresent(response ->{setInfo();});
 		}
+		}
 
+	}
+	
+	public void setupSimulation(String title){
+		root = new Group();
+		myDrawer = new Drawer();
+		createButtonPanel();
+		root.getChildren().add(buttonPanel);
+		root = myDrawer.draw(root, myManager, true);
+		if(!(myManager instanceof SlimeMolds)){
+			makeGraph(myManager.getSociety().getPopulation());
+			root = graph.draw(root);
+		}
+		stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
+		stage.setTitle(title);
+		
+		startSimulation();
 	}
 	
 	private void createButtonPanel(){
@@ -222,7 +230,7 @@ public class Interface{
 		Button stepThrough = new Button(resources.getString("step"));
 		stepThrough.setOnAction(event -> {simulation.pause(); step();});
 		Button reset = new Button(resources.getString("reset"));
-		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
+		reset.setOnAction(e -> {simulation.stop(); extractManager();});
 		Button newInterface = new Button(resources.getString("addSim"));
 		newInterface.setOnAction(e -> {addInterface();});
 		Slider speed = createSlider(0,1,5);
@@ -237,14 +245,14 @@ public class Interface{
 	
 	private Button createCustomSimButton(){
 		Button customSim = new Button(resources.getString("custom"));
-		customSim.setOnAction(e -> {new CustomSimChooser();});
+		customSim.setOnAction(e -> {new CustomSimChooser(this);});
 		return customSim;
 	}
 	
 	private HBox createParameterChanger(){
 		HBox parameterChanger = new HBox();
 		Map<String, List<Double>> params = myManager.getParametersBounds();
-
+	
 		if(params != null){
 			//from stack overflow: http://stackoverflow.com/questions/2319538/most-concise-way-to-convert-a-setstring-to-a-liststring
 			List<String> names = new ArrayList<String>(params.keySet());
@@ -277,16 +285,28 @@ public class Interface{
 		}
 	}
 	
-	private void addInterfact(Manager manager){
+	/**
+	 * Adds another interface by giving it a manager
+	 * @param manager
+	 */
+	public void addInterface(Manager manager){
 		myHandler.addInterface(manager);
 	}
 	
 	/**
-	 * Set the instance variable for the XML file
+	 * Sets the instance variable for the XML file
 	 * @param file file we want to be the XML file for this interface
 	 */
 	public void setXMLFile(File file){
 		xmlFile = file;
+	}
+	
+	/**
+	 * Sets the instance variable for the Manager
+	 * @param manager
+	 */
+	public void setManager(Manager manager){
+		myManager = manager;
 	}
 	
 	private Slider createSlider(double min, double start, double max){
@@ -309,7 +329,7 @@ public class Interface{
 				xmlFile = chooseFile();
 				if(xmlFile != null){
 					simulation.stop();
-					setupSimulation();
+					extractManager();
 				}}});
 		return newXML;
 	}

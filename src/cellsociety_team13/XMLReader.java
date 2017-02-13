@@ -155,7 +155,7 @@ public class XMLReader {
 			Document xmlDocument = DOCUMENT_BUILDER.parse(file);
 			return xmlDocument.getDocumentElement();
 		}
-		catch (SAXException | IOException e){
+		catch (Exception e){
 			throw new XMLException(e);
 		}
 	}

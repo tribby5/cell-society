@@ -27,7 +27,7 @@ public class CellGenerator {
 	
 	public Society getSociety(){
 		for(int i=1; i<probs.size(); i++)
-			probs.set(probs.get(i), probs.get(i)+probs.get(i-1));
+			probs.set(i, probs.get(i)+probs.get(i-1));
 		for(Location loc: board.keySet()){
 			int prob = new Random().nextInt(probs.get(probs.size()-1));
 			for(int i=0; i<probs.size(); i++)
