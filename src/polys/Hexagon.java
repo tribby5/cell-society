@@ -24,7 +24,7 @@ public class Hexagon extends Shape{
 	 */
 	@Override
 	public double getXAdvance() {
-		return (2*getRadius())+getSideLength();
+		return getApothem();
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class Hexagon extends Shape{
 	 */
 	@Override
 	public double getYAdvance() {
-		return 2*getApothem();
+		return 3*getSideLength();
 	}
 
 	/**

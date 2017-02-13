@@ -177,7 +177,6 @@ public class Location{
 	 * @param Furthest 2D point on the grid
 	 */
 	public void resetShape(Point2D point) {
-		shape = new Square();
 		shape.setSideLength(Interface.GRID_WIDTH/point.getX());
 		generatePolygon();
 	}

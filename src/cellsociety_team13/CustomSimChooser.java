@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 
 public class CustomSimChooser {
 	private ResourceBundle resources;
+	private Interface parent;
 	public static final String RESOURCE_PACKAGE = "English";
 	private String[] inputs = new String[2];
 	private int newSideLength = 0;
@@ -35,13 +36,14 @@ public class CustomSimChooser {
 			"Segregation",
 			"Slime Molds"
 	};
-	private List<String> shapeTypes = Arrays.asList(new String[]{
+	private String[] shapeTypes = new String[]{
 			"Rectangle",
 			"Triangle",
 			"Hexagon"
-	});
+	};
 	
-	public CustomSimChooser(){
+	public CustomSimChooser(Interface inter){
+		parent = inter;
 		resources = ResourceBundle.getBundle("resources/" + RESOURCE_PACKAGE);
 		Stage choiceStage = new Stage();
 		VBox root = createContent();
@@ -66,14 +68,14 @@ public class CustomSimChooser {
 		type.setPromptText(resources.getString("simType"));
 		type.valueProperty().addListener(createChangeListener(0));
 		
-		ComboBox<String> shapeType = new ComboBox<String>(listToObsList(shapeTypes));
+		ComboBox<String> shapeType = new ComboBox<String>(listToObsList(Arrays.asList(shapeTypes)));
 		shapeType.setPromptText(resources.getString("shapeType"));
 		shapeType.valueProperty().addListener(createChangeListener(1));
 
 		Text lengthText = new Text(resources.getString("length"));
 		Slider length = new Slider();
-		length.setMin(2);
-		length.setMax(100);
+		length.setMin(5);
+		length.setMax(30);
 		length.setShowTickMarks(true);
 		length.setShowTickLabels(true);
 		length.valueProperty().addListener(new ChangeListener<Number>(){
@@ -120,6 +122,12 @@ public class CustomSimChooser {
 		}
 		int shapeType = 0;
 		if(inputs[1] != null){
+			for(int i=0; i < shapeTypes.length; i++){
+				if(inputs[1].equals(shapeTypes[i])){
+					shapeType = i;
+					break;
+				}
+			}
 		}
 		if(newSideLength == 0){
 			newSideLength = 10;
@@ -141,7 +149,9 @@ public class CustomSimChooser {
 		
 		Society society = new CellGenerator(grid, newManager).getSociety();
 		newManager.setSociety(society);
+		newManager.createParametersBounds();
 		newManager.setDefaultParameters();
+		parent.addInterface(newManager);
 	}
 }
 

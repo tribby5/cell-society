@@ -35,15 +35,20 @@ public class InterfaceHandler {
 	public void addInterface(File xmlFile){
 		Interface next = new Interface(new Stage(), this);
 		next.setXMLFile(xmlFile);
-		next.setupSimulation();
-		
+		next.extractManager();
 		interfaces.add(next);
-		
 		if(interfaces.size() == 2){
 			createControlPanel();
 		}
 	}
 	
+	public void addInterface(Manager manager) {
+		Interface next = new Interface(new Stage(), this);
+		next.setManager(manager);
+		next.setupSimulation(resources.getString("custom"));
+		interfaces.add(next);
+	}	
+
 	private void createControlPanel(){
 		Button playAll = new Button(resources.getString("playAll"));
 		playAll.setOnAction(e -> {playAll();});
@@ -76,10 +81,5 @@ public class InterfaceHandler {
 			interfaces.get(i).step();
 		}
 	}
-
-	public void addInterface(Manager manager) {
-		
-	}
-	
 	
 }
