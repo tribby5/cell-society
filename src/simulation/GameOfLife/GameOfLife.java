@@ -50,7 +50,6 @@ public class GameOfLife extends Manager{
 	@Override
 	public void createParametersBounds() {
 		setParametersBounds(null);
-		
 	}
 
 	@Override

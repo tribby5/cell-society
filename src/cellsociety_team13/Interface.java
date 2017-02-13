@@ -1,12 +1,17 @@
 package cellsociety_team13;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -14,6 +19,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -120,7 +126,8 @@ public class Interface{
 			}
 		});
 		
-		infoRoot.getChildren().addAll(fileChoose, cont, nonXML);
+		
+		infoRoot.getChildren().addAll(fileChoose, createCustomSimButton(), cont, nonXML);
 		infoRoot.setAlignment(Pos.CENTER);
 		
 
@@ -157,19 +164,19 @@ public class Interface{
 	
 	public void setupSimulation(){
 		root = new Group();
-		createButtonPanel();
-		root.getChildren().add(buttonPanel);
 		
 		try {
 			XMLReader read = new XMLReader(xmlFile);
 			myManager = read.extractManager();
 			makeGraph(myManager.getSociety().getPopulation());
 			myDrawer = new Drawer();
-
+			createButtonPanel();
+			root.getChildren().add(buttonPanel);
 			root = myDrawer.draw(root, myManager, true);
 			root = graph.draw(root);
 			stage.setScene(new Scene(root, WIDTH, HEIGHT, Color.DARKGRAY));
 			stage.setTitle(TITLE.get(read.getTitleId()));
+			
 			startSimulation();
 		} catch (XMLException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -193,11 +200,47 @@ public class Interface{
 		reset.setOnAction(e -> {simulation.stop(); setupSimulation();});
 		Button newInterface = new Button("Add Simulation");
 		newInterface.setOnAction(e -> {addInterface();});
+		Slider speed = createSlider(0,1,5);
+		speed.valueProperty().addListener((observable, oldValue, newValue) -> {changeSimulationSpeed((double) newValue);});
 		
-		HBox rowOne = new HBox(play, pause, stepThrough, createSlider(), createNewXMLButton(), reset);
-		HBox rowTwo = new HBox(newInterface);
+		HBox rowOne = new HBox(play, pause, stepThrough, speed, createNewXMLButton(), reset);
+		HBox rowTwo = new HBox(newInterface, createParameterChanger());
 		buttonPanel.getChildren().addAll(rowOne, rowTwo);
 		buttonPanel.setLayoutY(HEIGHT - 70);
+	}
+	
+	private Button createCustomSimButton(){
+		Button customSim = new Button("Create Custom");
+		//customSim.setOnAction(e -> {new customSimChooser()});
+		return customSim;
+	}
+	
+	private HBox createParameterChanger(){
+		HBox parameterChanger = new HBox();
+		Map<String, List<Double>> params = myManager.getParametersBounds();
+		//from stack overflow: http://stackoverflow.com/questions/2319538/most-concise-way-to-convert-a-setstring-to-a-liststring
+		if(params != null){
+			List<String> names = new ArrayList<String>(params.keySet());
+			//from stack overflow: http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
+			ObservableList<String> obsNames = FXCollections.observableArrayList(names);
+			ComboBox<String> parameterList = new ComboBox<String>(obsNames);
+			parameterList.setMaxWidth(200);
+			parameterList.setPromptText(resources.getString("parameterChoose"));
+			parameterList.valueProperty().addListener(new ChangeListener<String>(){
+				@Override 
+				public void changed(ObservableValue ov, String oldParam, String newParam) {      
+					Slider slider = createSlider(params.get(newParam).get(0), params.get(newParam).get(1), params.get(newParam).get(2));
+					slider.valueProperty().addListener((observable, oldValue, newValue) -> {myManager.updateParameter(newParam, (double) newValue);});
+					if(parameterChanger.getChildren().size() == 2){
+						parameterChanger.getChildren().remove(1);
+					}
+					parameterChanger.getChildren().add(slider);
+				}    
+			});
+		
+			parameterChanger.getChildren().add(parameterList);
+		}
+			return parameterChanger;
 	}
 	
 	private void addInterface(){
@@ -205,24 +248,22 @@ public class Interface{
 		if(newFile != null){
 			myHandler.addInterface(newFile);
 		}
-		
 	}
 	
 	public void setXMLFile(File file){
 		xmlFile = file;
 	}
 	
-	private Slider createSlider(){
-		Slider speed = new Slider();
-		speed.setMin(0);
-		speed.setMax(5);
-		speed.setValue(1);
-		speed.setBlockIncrement(1);
-		speed.setMajorTickUnit(1);
-		speed.setShowTickLabels(true);
-		speed.setShowTickMarks(true);
-		speed.valueProperty().addListener((observable, oldValue, newValue) -> {changeSimulationSpeed((double) newValue);});
-		return speed;
+	private Slider createSlider(double min, double start, double max){
+		Slider slider = new Slider();
+		slider.setMin(min);
+		slider.setMax(max);
+		slider.setValue(start);
+		slider.setBlockIncrement((max-min)/5);
+		slider.setMajorTickUnit(2);
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		return slider;
 	}
 	
 	private Button createNewXMLButton(){
