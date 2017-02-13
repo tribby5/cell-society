@@ -75,6 +75,7 @@ public class Segregation extends Manager{
 	@Override
 	public void setParameters(Map<String, Double> data) {
 		satisfactionPercentage = data.get(SATISFACTION_PARAMETER_LABEL);
+		satisfactionPercentageBounds.set(1, satisfactionPercentage);
 		createParametersBounds();
 	}
 
