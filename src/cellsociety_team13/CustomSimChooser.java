@@ -1,9 +1,14 @@
 package cellsociety_team13;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import boards.HexagonBoard;
+import boards.SquareBoard;
+import boards.TriangleBoard;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,14 +26,15 @@ import javafx.stage.Stage;
 public class CustomSimChooser {
 	private ResourceBundle resources;
 	public static final String RESOURCE_PACKAGE = "English";
-	private String[] inputs = new String[3];
-	private List<String> types = Arrays.asList(new String[] {
+	private String[] inputs = new String[2];
+	private int newSideLength = 0;
+	String[] simulationNames = new String[]{
 			"Game of Life",
 			"Fire",
-			"Segregation",
 			"Predator and Prey",
+			"Segregation",
 			"Slime Molds"
-	});
+	};
 	private List<String> shapeTypes = Arrays.asList(new String[]{
 			"Rectangle",
 			"Triangle",
@@ -43,8 +49,20 @@ public class CustomSimChooser {
 		choiceStage.show();
 	}
 	
+	private Map<Location, Cell> getRectangleBoard() {
+		return new SquareBoard(newSideLength, newSideLength).getBoard();
+	}
+	
+	private Map<Location, Cell> getTriangleBoard() {
+		return new TriangleBoard(newSideLength, newSideLength).getBoard();
+	}
+	
+	private Map<Location, Cell> getHexagonBoard() {
+		return new HexagonBoard(newSideLength, newSideLength).getBoard();
+	}
+
 	private VBox createContent(){
-		ComboBox<String> type = new ComboBox<String>(listToObsList(types));
+		ComboBox<String> type = new ComboBox<String>(listToObsList(Arrays.asList(simulationNames)));
 		type.setPromptText(resources.getString("simType"));
 		type.valueProperty().addListener(createChangeListener(0));
 		
@@ -61,12 +79,12 @@ public class CustomSimChooser {
 		length.valueProperty().addListener(new ChangeListener<Number>(){
 			@Override 
 			public void changed(ObservableValue ov, Number oldParam, Number newParam) {
-				inputs[2] = Integer.toString((int) Math.round((double)newParam));
+				newSideLength = (int) Math.round((double)newParam);
 			}
 		});
 		
 		Button go = new Button(resources.getString("go"));
-		go.setOnAction(e -> {System.out.println(inputs[0] + " " + inputs[1] + " " + inputs[2]);});
+		go.setOnAction(e -> {modifyInput();});
 		
 		VBox root = new VBox(10);
 		root.getChildren().addAll(type, shapeType, lengthText, length, go);
@@ -88,6 +106,42 @@ public class CustomSimChooser {
 		//from stack overflow: http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
 		ObservableList<String> obsList = FXCollections.observableArrayList(input);
 		return obsList;
+	}
+	
+	private void modifyInput(){
+		int simType = 0;
+		if(inputs[0] != null){
+			for(int i=0; i < simulationNames.length; i++){
+				if(inputs[0].equals(simulationNames[i])){
+					simType = i;
+					break;
+				}
+			}
+		}
+		int shapeType = 0;
+		if(inputs[1] != null){
+		}
+		if(newSideLength == 0){
+			newSideLength = 10;
+		}
+		
+		createSimulation(simType, shapeType);
+	}
+	
+	private void createSimulation(int simType, int shape){
+		Manager newManager = XMLReader.MANAGERS.get(simType);
+		Map<Location, Cell> grid = new HashMap<>();
+		if(shape == 0)
+			grid = getRectangleBoard();
+		else if(shape ==1)	
+			grid = getTriangleBoard();
+		else{
+			grid = getHexagonBoard();
+		}
+		
+		//Society society = new CellGenerator(grid, newManager).getSociety();
+		//newManager.setSociety(society);
+		//newManager.setDefaultParameter();
 	}
 }
 

@@ -63,21 +63,16 @@ public class XMLReader {
 		getParameters();
 	}
 
-	private static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {
+	public static final List<Manager> MANAGERS = Arrays.asList(new Manager[] {
 			getGameOfLife(),
 			getFire(),
 			getPredatorPrey(),
 			getSegregation(),
-			getSlimeMolds(),
-			getForagingAnts()
+			getSlimeMolds()
 	});
 	
 	private static Manager getSlimeMolds() {
 		return new SlimeMolds();
-	}
-	
-	private static Manager getForagingAnts() {
-		return new ForagingAnts();
 	}
 	
 	
