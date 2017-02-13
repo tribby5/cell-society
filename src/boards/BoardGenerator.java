@@ -7,7 +7,6 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Shape;
 import polys.Triangle_Down;
-import polys.Triangle_Up;
 
 public class BoardGenerator {
 	private Map<Location, Cell> board;

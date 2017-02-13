@@ -7,7 +7,7 @@ import java.util.Queue;
 import javafx.util.Pair;
 
 /**
- * Abstract class which forms the basic of a Manager which is resopnsible for holding a Society
+ * Abstract class which forms the basic of a Manager which is responsible for holding a Society
  * instance and updating its components based on rules. The actual rules are implemented on
  * extensions of Manager, allowing for flexibility for multiple simulation types.
  * Uses: Extend Manager to create the Manager instance to allow for the implementation of
