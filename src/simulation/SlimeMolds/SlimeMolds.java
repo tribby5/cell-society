@@ -111,4 +111,10 @@ public class SlimeMolds extends Manager{
 			diffusionRate = newValue;
 		} 
 	}
+
+	@Override
+	public void setDefaultParameters() {
+		asdfafd
+		
+	}
 }
