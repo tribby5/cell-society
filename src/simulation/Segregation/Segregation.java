@@ -96,7 +96,7 @@ public class Segregation extends Manager{
 
 	@Override
 	public void setDefaultParameters() {
-		satisfactionPercentage = 50.0;
+		satisfactionPercentage = (satisfactionPercentageBounds.get(0) + satisfactionPercentageBounds.get(2))/2;
 	}
 
 	@Override

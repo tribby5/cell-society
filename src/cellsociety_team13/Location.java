@@ -7,7 +7,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import polys.Hexagon;
-import polys.Octagon;
 import polys.Square;
 import polys.Triangle_Down;
 import polys.Triangle_Up;
@@ -31,7 +30,6 @@ public class Location{
 	public static final List<Shape> POLYS = Arrays.asList(new Shape[] {
 			getSquare(),
 			getHexagon(),
-			getOctagon(),
 			getTriangle_Up(),
 			getTriangle_Down()
 	});
@@ -73,11 +71,7 @@ public class Location{
 	private static Shape getTriangle_Up() {
 		return new Triangle_Up();
 	}
-
-	private static Shape getOctagon() {
-		return new Octagon();
-	}
-
+	
 	private static Shape getHexagon() {
 		return new Hexagon();
 	}
@@ -196,7 +190,7 @@ public class Location{
 	 * @return double representing the difference in angles
 	 */
 	public double calculateAngleDifference(Location neighborLoc, double orientation) {
-		double distance = this.getPoint().distance(neighborLoc.getPoint());
+		//double distance = this.getPoint().distance(neighborLoc.getPoint());
 		double distanceX = neighborLoc.getX() - this.getX();
 		double distanceY = -1 * (neighborLoc.getY() - this.getY());
 		

@@ -91,7 +91,7 @@ public class Fire extends Manager{
 
 	@Override
 	public void setDefaultParameters() {
-		probCatch = 10;
+		probCatch = (probCatchBounds.get(0) + probCatchBounds.get(2))/2;
 	}
 
 	@Override
