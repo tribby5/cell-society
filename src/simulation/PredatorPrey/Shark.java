@@ -2,8 +2,6 @@ package simulation.PredatorPrey;
 
 import java.util.List;
 
-import org.omg.CORBA.SystemException;
-
 import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Society;

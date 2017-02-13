@@ -196,7 +196,7 @@ public class Location{
 	 * @return double representing the difference in angles
 	 */
 	public double calculateAngleDifference(Location neighborLoc, double orientation) {
-		double distance = this.getPoint().distance(neighborLoc.getPoint());
+		//double distance = this.getPoint().distance(neighborLoc.getPoint());
 		double distanceX = neighborLoc.getX() - this.getX();
 		double distanceY = -1 * (neighborLoc.getY() - this.getY());
 		
