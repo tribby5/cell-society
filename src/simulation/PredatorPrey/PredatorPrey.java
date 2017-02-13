@@ -11,6 +11,12 @@ import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
 import javafx.util.Pair;
 
+/**
+ * Manager for the PredatorPrey simulation
+ * 
+ * @author Miguel Anderson (mra21)
+ *
+ */
 public class PredatorPrey extends Manager {
 	public static final String FISH_TURNS_TO_REPRODUCE_PARAMETER_LABEL = "par1";
 	public static final String SHARK_TURNS_TO_REPRODUCE_PARAMETER_LABEL = "par2";

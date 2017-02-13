@@ -10,6 +10,12 @@ import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
 import javafx.util.Pair;
 
+/**
+ * Manager for the game of life simulation
+ * 
+ * @author Miguel Anderson (mra21)
+ *
+ */
 public class GameOfLife extends Manager {
 
 	private static final List<String> PARAMETERS = Arrays.asList(new String[] {});;

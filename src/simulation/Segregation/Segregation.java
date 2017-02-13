@@ -11,6 +11,12 @@ import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
 import javafx.util.Pair;
 
+/**
+ * Manager for the segregation simulation
+ * 
+ * @author Miguel Anderson (mra21)
+ *
+ */
 public class Segregation extends Manager {
 	public static final String SATISFACTION_PARAMETER_LABEL = "par1";
 	public static final String SATISFACTION_PARAMETER_LABEL_GUI = "Satisfaction Percentage";

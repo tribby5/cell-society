@@ -11,6 +11,12 @@ import cellsociety_team13.Manager;
 import cellsociety_team13.Society;
 import javafx.util.Pair;
 
+/**
+ * Manager for the slimemolds simulation
+ * 
+ * @author Miguel Anderson (mra21)
+ *
+ */
 public class SlimeMolds extends Manager {
 	public static final String SNIFF_ANGLE_PARAMETER_LABEL = "par1";
 	public static final String EVAPORATION_RATE_PARAMETER_LABEL = "par2";
