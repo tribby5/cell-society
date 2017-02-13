@@ -7,11 +7,25 @@ import cellsociety_team13.Cell;
 import cellsociety_team13.Location;
 import cellsociety_team13.Shape;
 import polys.Triangle_Down;
-import polys.Triangle_Up;
 
+/**
+ * Generates a partial board generator. Creates all location indicating null in their position.
+ * @author Andres Lebbos (afl13)
+ */
 public class BoardGenerator {
+	
+	/**
+	 * A board to store a partial generation of the board.
+	 */
 	private Map<Location, Cell> board;
 	
+	/**
+	 * Creates a grid with tricky inputs
+	 * @param row numbers of elements in a column
+	 * @param col number of elements in a row
+	 * @param shape the figure that is going to fill the grid
+	 * @param right if each second row is shifted right or not
+	 */
 	public BoardGenerator(int row, int col, Shape shape, boolean right) {
 		boolean shifter = false;
 		board = new HashMap<Location, Cell>();
@@ -35,10 +49,17 @@ public class BoardGenerator {
 		}
 	}
 
+	/**
+	 * Return the partial board
+	 * @return the board
+	 */
 	public Map<Location, Cell> getBoard(){
 		return board;
 	}
 	
+	/**
+	 * Moves all the Down triangles to their rightful position.
+	 */
 	public void moveTriangleDown(){
 		Map<Location, Cell> newBoard = new HashMap<Location, Cell>();
 		double yDown = new Triangle_Down().getApothem();
